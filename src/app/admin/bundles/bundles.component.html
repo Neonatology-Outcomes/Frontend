@@ -1,0 +1,81 @@
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+
+<p-table
+  [value]="bundles"
+  selectionMode="single"
+  [(selection)]="selectedBundle"
+  (onRowSelect)="showEditDialog($event)"
+  [paginator]="true"
+  [rows]="15"
+  [loading]="loading"
+>
+  <ng-template pTemplate="caption">
+    Bundles
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name/ID/Title</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td>{{ rowData.name }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+    <div style="text-align:left">
+      <button
+        type="button"
+        pButton
+        icon="fa fa-plus"
+        (click)="showCreateDialog()"
+        label="New bundle"
+      ></button>
+    </div>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [header]="dialogHeader"
+  [(visible)]="displayDialog"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  closeOnEscape="true"
+>
+  <form (ngSubmit)="save()">
+    <div class="ui-g ui-fluid" *ngIf="newBundle">
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="name">Name *</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="name" name="name" [(ngModel)]="newBundle.name" required />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="description">Description *</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="description" name="description" [(ngModel)]="newBundle.description" required />
+        </div>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <p-button
+            label="Save"
+            type="submit"
+            icon="pi pi-save"
+            iconPos="left"
+            [disabled]="!validForm"
+          >
+          </p-button>
+        </div>
+      </p-footer>
+    </div>
+  </form>
+</p-dialog>

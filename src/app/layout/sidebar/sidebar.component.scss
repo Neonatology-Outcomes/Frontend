@@ -1,0 +1,11 @@
+body .ui-panelmenu .ui-panelmenu-header > a{
+  background-color: #fff!important;
+  border: none;
+  border-bottom: 1px solid #c8c8c8;
+}
+body .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover {
+  background-color: #007ad9!important;
+}
+body .ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
+  background-color: #007ad9!important;
+}

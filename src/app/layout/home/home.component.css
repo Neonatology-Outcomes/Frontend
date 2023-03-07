@@ -1,0 +1,39 @@
+.panel {
+  transition: 400ms;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  padding: 1em;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  cursor: pointer;
+}
+.panel:hover {
+  color: #fff!important;
+}
+
+.panel1 {
+  color: #1976D2!important;
+}
+.panel1:hover {
+  background-color: #1976D2;
+}
+
+.panel2 {
+  color: #5cb85c!important;
+}
+.panel2:hover {
+  background-color: #5cb85c;
+}
+
+.panel3 {
+  color: #ffb617!important;
+}
+.panel3:hover {
+  background-color: #ffb617;
+}
+
+.panel4 {
+  color: #d9534f!important;
+}
+.panel4:hover {
+  background-color: #d9534f;
+}
