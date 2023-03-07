@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
   }
 
   public showSidebar() {
-    return this.elWidth > 640
+    // return this.elWidth > 640
   }
 
   // private resizeWorks(): void {
@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit {
           {
             label: 'Bundles',
             icon: 'pi-fw fa fa-paw',
-            routerLink: 'bundles',
+            routerLink: '',
           },
         ],
       },

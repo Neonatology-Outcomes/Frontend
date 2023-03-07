@@ -13,7 +13,7 @@ import { Bundle } from './model';
   providers: [MessageService],
 })
 export default class BundlesComponent implements OnInit, DoCheck {
-  public displayDialog: boolean;
+  public displayDialog: boolean = false;
   public submitted = false;
   public loading = false;
   public editing = false;
