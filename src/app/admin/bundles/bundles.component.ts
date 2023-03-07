@@ -15,7 +15,7 @@ import { Bundle } from './model';
 export default class BundlesComponent implements OnInit, DoCheck {
   public displayDialog: boolean;
   public submitted = false;
-  public loading = true;
+  public loading = false;
   public editing = false;
   public dialogHeader: string;
   public selectedBundle: Bundle;
