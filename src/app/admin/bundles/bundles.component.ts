@@ -45,7 +45,8 @@ export default class BundlesComponent implements OnInit, DoCheck {
   }
 
   private validateForm() {
-    this.validForm = !isNil(this.newBundle.name) && !isEmpty(this.newBundle.description);
+    this.validForm = !isNil(this.newBundle.name) && !isEmpty(this.newBundle.description)
+    &&  !isEmpty(this.newBundle.category);
   }
 
   public showCreateDialog() {

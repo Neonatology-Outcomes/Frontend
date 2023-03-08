@@ -14,14 +14,67 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
+      <th>Rule Name</th>
+      <th>Category</th>
+      <th>Data Field</th>
+      <th>Operator</th>
       <th>Name/ID/Title</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr [pSelectableRow]="rowData">
-      <td>{{ rowData.name }}</td>
+      <!-- <td>{{ rowData.name }}</td> -->
+      <td>Human mil consumption</td>
     </tr>
   </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Category</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td>{{ rowData.category }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Data Field</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <!-- <td>{{ rowData.dataField }}</td> -->
+      Day of Life
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Data Field</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <!-- <td>{{ rowData.operator }}</td> -->
+      Operator
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Value</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <!-- <td>{{ rowData.value }}</td> -->
+      Value
+    </tr>
+  </ng-template>
+
   <ng-template pTemplate="summary" let-rowData>
     <div style="text-align:left">
       <button
@@ -48,7 +101,7 @@
     <div class="ui-g ui-fluid" *ngIf="newBundle">
       <div class="ui-g-12">
         <div class="ui-g-4">
-          <label for="name">Name *</label>
+          <label for="name">Rule Name *</label>
         </div>
         <div class="ui-g-8">
           <input pInputText id="name" name="name" [(ngModel)]="newBundle.name" required />
@@ -56,12 +109,45 @@
       </div>
       <div class="ui-g-12">
         <div class="ui-g-4">
-          <label for="description">Description *</label>
+          <label for="description">Category *</label>
         </div>
         <div class="ui-g-8">
-          <input pInputText id="description" name="description" [(ngModel)]="newBundle.description" required />
+          <input pInputText id="category" name="category" [(ngModel)]="newBundle.category" required />
         </div>
       </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="description">Data Field *</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="dataField" name="dataField" [(ngModel)]="newBundle.dataField" required />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="description">Operator *</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="operator" name="operator" [(ngModel)]="newBundle.operator" required />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="description">Value *</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="value" name="value" [(ngModel)]="newBundle.value" required />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="units">Units *</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="units" name="units" [(ngModel)]="newBundle.units" required />
+        </div>
+      </div>
+
     </div>
     <div class="dialog-footer">
       <p-footer>
