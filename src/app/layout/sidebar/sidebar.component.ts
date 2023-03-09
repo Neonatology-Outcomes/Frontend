@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
         icon: 'pi pi-fw pi-lock',
         items: [
           {
-            label: 'Bundles',
+            label: 'Rules',
             icon: 'pi-fw fa fa-paw',
             routerLink: '',
           },

@@ -1,4 +1,4 @@
-export class Bundle {
+export class Rule {
     id: number;
     name: string;
     category: string;
@@ -7,9 +7,5 @@ export class Bundle {
     value: string;
     units: string;
     description: string;
-    editing: boolean;
-
-    constructor() {
-        this.editing = false;
-    }
+    // editing: boolean;
 }

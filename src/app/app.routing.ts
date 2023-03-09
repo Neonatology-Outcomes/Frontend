@@ -3,13 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotfoundComponent } from './layout/notfound/notfound.component';
 import { ModuleWithProviders } from '@angular/core';
 // import { AuthGuard } from './services/auth.guard';
-import BundlesComponent from './admin/bundles/bundles.component';
+import RulesComponent from './admin/rules/rules.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: BundlesComponent,
-    loadChildren: () => import('./admin/bundles/bundles.module').then(x => x.BundlesModule),
+    component: RulesComponent,
+    loadChildren: () => import('./admin/rules/rules.module').then(x => x.RulesModule),
     // canActivate: [AuthGuard],
   },
 ];
