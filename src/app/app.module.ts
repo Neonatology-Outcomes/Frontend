@@ -6,7 +6,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 // import { PanelMenuModule } from 'primeng/panelmenu';
 
 import { AppComponent } from './app.component';
-// import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { SidenavComponent } from './layout/sidenav/sidenav.component';
 // import { NotfoundComponent } from './layout/notfound/notfound.component';
 // import { HomeComponent } from './layout/home/home.component';
 import { routing } from './app.routing';
@@ -20,14 +20,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 // import JwtInterceptor from './services/jwt.interceptor';
 import { RulesModule } from './admin/rules/rules.module';
 // import { ToolbarModule } from './layout/toolbar/toolbar.module';
-import { ToolbarComponent } from './layout/toolbar/toolbar.component';
+import { ToolbarModule } from './layout/toolbar/toolbar.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     // ToolbarComponent
-    // SidebarComponent,
+    SidenavComponent,
     // HomeComponent,
     // NotfoundComponent,
   ],
@@ -38,6 +38,7 @@ import { ToolbarComponent } from './layout/toolbar/toolbar.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToolbarModule,
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
