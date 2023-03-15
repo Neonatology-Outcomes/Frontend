@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AppBar, Toolbar, IconButton, Typography, Drawer, Link, List, ListItem, ListItemText } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import Home from '../../../pages/Home';
 import { styles } from "./styles";
 
 function DrawerComponent() {
