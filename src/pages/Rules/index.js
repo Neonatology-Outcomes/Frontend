@@ -1,8 +1,9 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
+import RulesForm from '../../components/Rules/Form';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -38,6 +39,14 @@ const rows = [
 ];
 
 export default function Rules() {
+  const [open, setOpen] = useState(false);
+
+  const setOpenForm = (value) => () => {
+    console.log('*****', value)
+    setOpen(value);
+  }
+
+
   return (
     <section style={{ height: '70vh', width: '100%' }}>
       <DataGrid
@@ -48,15 +57,20 @@ export default function Rules() {
         checkboxSelection
       />
 
-    <Box component="div"  >
-        <Box component="div" xs={{
-             justifyContent: 'flex-end'
+        <Box component="div" sx={{
+            display: 'flex',
+             justifyContent: 'flex-end',
+             alignContent: 'space-around',
+             marginRight: '3rem',
+             marginTop: '2rem'
         }}>
-            <Fab color="primary" aria-label="add">
+            <Fab color="primary" aria-label="add" onClick={setOpenForm(true)}>
                 <AddIcon />
             </Fab>
         </Box>
-    </Box>
+        
+        <RulesForm open={open} setOpen={setOpen} />
+        
     
     
     </section>
