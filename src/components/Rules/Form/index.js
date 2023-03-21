@@ -19,16 +19,35 @@ export default function FormDialog({ open, setOpen }) {
   const [isOpen, setIsOpen] = useState(open);
   const theme = useTheme();
   const [ruleName, setRuleName] = useState('Human milk consumption');
-  const [dataField, setDataField] = useState('');
+  const [dataField, setDataField] = useState('1');
   // const [ruleName, setRuleName] = useState('');
   // const [ruleName, setRuleName] = useState('');
   const [category, setCategory] = useState('1');
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const currencies = [
+  const categories = [
     {
       value: '1',
       label: 'Birth Details',
+    },
+    {
+      value: '2',
+      label: 'Option B',
+    },
+    {
+      value: '3',
+      label: 'Option C',
+    },
+    {
+      value: '4',
+      label: 'Option D',
+    },
+  ];
+
+  const dataFields = [
+    {
+      value: '1',
+      label: 'Day of Life',
     },
     {
       value: '2',
@@ -79,7 +98,7 @@ export default function FormDialog({ open, setOpen }) {
                   // helperText="Please select your currency"
                   variant="standard"
                 >
-                  {currencies.map((option) => (
+                  {categories.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -97,7 +116,7 @@ export default function FormDialog({ open, setOpen }) {
                   // helperText="Please select your currency"
                   variant="standard"
                 >
-                  {currencies.map((option) => (
+                  {categories.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -109,10 +128,11 @@ export default function FormDialog({ open, setOpen }) {
                   select
                   label="Date Field"
                   defaultValue="1"
+                  value={dataField}
                   // helperText="Please select your currency"
                   variant="standard"
                 >
-                  {currencies.map((option) => (
+                  {dataFields.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
