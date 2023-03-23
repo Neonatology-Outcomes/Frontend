@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { PropTypes } from 'prop-types';
+import {findIndex, remove } from 'ramda';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -16,6 +18,7 @@ import { Box } from '@mui/system';
 import Condition from '../../Condition';
 import { AddCircleOutline } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
+import { conditionsList } from '../../../constants/data/rulesMocks';
 
 
 export default function FormDialog({ open, setOpen }) {
@@ -25,13 +28,23 @@ export default function FormDialog({ open, setOpen }) {
 	// const [ruleName, setRuleName] = useState('');
 	// const [ruleName, setRuleName] = useState('');
 	const [category, setCategory] = useState('1');
+	const [conditions, setConditions] = useState([]);
 	// const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-	const conditionsList = [
-		{
+	useEffect(() => {
+		setConditions(conditionsList);
+	}, []);
 
-		}
-	];
+	const handleRemoveCondition = (index) => {
+
+		console.log('index', index - 1)
+		// const index = findIndex()
+		const newConditions = remove(index - 1, conditions)
+		console.log(newConditions)
+		// setConditions()
+	};
+
+	
 
 	const categories = [
 		{
@@ -156,9 +169,11 @@ export default function FormDialog({ open, setOpen }) {
 
 					</Box>
 
-					<Box component="div" style={{ backgroundColor: '#d8e2f3', borderColor: '#4472c4', borderWidth: '1px' }}>
-						<Condition />
-					</Box>
+					{conditions.map((condition) => (
+						<Box component="div" style={{ backgroundColor: '#d8e2f3', borderColor: '#4472c4', borderWidth: '1px' }} key={condition.id}>
+							<Condition condition={condition} removeCondition={handleRemoveCondition} />
+						</Box>
+					))}
 
 				</DialogContent>
 
@@ -171,4 +186,10 @@ export default function FormDialog({ open, setOpen }) {
 			</DialogActions>
 		</Dialog>
 	);
+}
+
+
+FormDialog.propTypes = {
+	open: PropTypes.bool.isRequired,
+	setOpen: PropTypes.func.isRequired,
 }

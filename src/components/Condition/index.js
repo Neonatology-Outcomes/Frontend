@@ -6,11 +6,11 @@ import Box from '@mui/material/Box';
 import { IconButton } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-const Condition = () => {
-	const [dataField, setDataField] = useState('');
-	const [operator, setOperator] = useState('');
-	const [value, setValue] = useState('');
-	const [units, setUnits] = useState('');
+const Condition = ({ condition, removeCondition }) => {
+	const [dataField, setDataField] = useState(condition.dataFields.value);
+	const [operator, setOperator] = useState(condition.operators.value);
+	const [value, setValue] = useState(condition.value);
+	const [units, setUnits] = useState(condition.units.value);
 
 	const operators = [
 		{
@@ -64,6 +64,10 @@ const Condition = () => {
 			label: 'Weeks',
 		},
 	];
+
+	const handleRemove =  () => {
+		removeCondition(condition.id);
+	}
 
 
 
@@ -150,7 +154,7 @@ const Condition = () => {
 						))}
 					</TextField>
 
-					<IconButton aria-label="remove" >
+					<IconButton aria-label="remove" onClick={handleRemove}>
 						<HighlightOffIcon color="primary" fontSize="large" />
 					</IconButton>
 
