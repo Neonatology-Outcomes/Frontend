@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import {findIndex, remove } from 'ramda';
+import {findIndex, filter } from 'ramda';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -35,13 +35,15 @@ export default function FormDialog({ open, setOpen }) {
 		setConditions(conditionsList);
 	}, []);
 
-	const handleRemoveCondition = (index) => {
+	console.log(conditions)
 
-		console.log('index', index - 1)
+	const handleRemoveCondition = (id) => {
+
+		console.log('id', id)
 		// const index = findIndex()
-		const newConditions = remove(index - 1, conditions)
+		const newConditions = filter((c) => c.id !== id, conditions)
 		console.log(newConditions)
-		// setConditions()
+		setConditions(newConditions)
 	};
 
 	
