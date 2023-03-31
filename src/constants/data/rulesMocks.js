@@ -84,7 +84,7 @@ export const conditionsList = [
 			label: 'Minutes',
 		}
 	},
-	
+
 	// {
 	// 	dataFields: {
 	// 		value: '1',
@@ -100,4 +100,8 @@ export const conditionsList = [
 	// 		label: 'Minutes',
 	// 	}
 	// }
+];
+
+export const rulesListMock = [
+	{ id: 1, ruleName: 'Human Milk Consumption', category: 'Birth Details', dateField: 'Day of Life' },
 ];

@@ -6,15 +6,10 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-// import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-// import InputLabel from '@mui/material/InputLabel';
 import { Box } from '@mui/system';
-// import useMediaQuery from '@mui/material/useMediaQuery';
-// import { useTheme } from '@mui/material/styles';
 import Condition from '../../Condition';
 import { AddCircleOutline } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -25,11 +20,10 @@ export default function FormDialog({ open, setOpen }) {
 	const [isOpen, setIsOpen] = useState(open);
 	const [ruleName, setRuleName] = useState('Human Milk Consumption');
 	const [dataField, setDataField] = useState('1');
-	// const [ruleName, setRuleName] = useState('');
-	// const [ruleName, setRuleName] = useState('');
 	const [category, setCategory] = useState('1');
 	const [conditions, setConditions] = useState([]);
-	// const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+	const [tmpConditions, setTmpConditions] = useState([]);
 
 	useEffect(() => {
 		setConditions(conditionsList);
