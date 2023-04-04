@@ -1,155 +1,191 @@
 import React, { useEffect, useState } from 'react';
+import { PropTypes } from 'prop-types';
+import {findIndex, filter } from 'ramda';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import { Box } from '@mui/system';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import Condition from '../../Condition';
+import { AddCircleOutline } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { conditionsList } from '../../../constants/data/rulesMocks';
 
 
 export default function FormDialog({ open, setOpen }) {
-  const [isOpen, setIsOpen] = useState(open);
-  const theme = useTheme();
-  const [ruleName, setRuleName] = useState('Human milk consumption');
-  const [dataField, setDataField] = useState('1');
-  // const [ruleName, setRuleName] = useState('');
-  // const [ruleName, setRuleName] = useState('');
-  const [category, setCategory] = useState('1');
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+	const [isOpen, setIsOpen] = useState(open);
+	const [ruleName, setRuleName] = useState('Human Milk Consumption');
+	const [dataField, setDataField] = useState('1');
+	const [category, setCategory] = useState('1');
+	const [conditions, setConditions] = useState([]);
 
-  const categories = [
-    {
-      value: '1',
-      label: 'Birth Details',
-    },
-    {
-      value: '2',
-      label: 'Option B',
-    },
-    {
-      value: '3',
-      label: 'Option C',
-    },
-    {
-      value: '4',
-      label: 'Option D',
-    },
-  ];
+	const [tmpConditions, setTmpConditions] = useState([]);
 
-  const dataFields = [
-    {
-      value: '1',
-      label: 'Day of Life',
-    },
-    {
-      value: '2',
-      label: 'Option B',
-    },
-    {
-      value: '3',
-      label: 'Option C',
-    },
-    {
-      value: '4',
-      label: 'Option D',
-    },
-  ];
+	useEffect(() => {
+		setConditions(conditionsList);
+	}, []);
 
-  const handleSetOpen = (openStateParam) => () => {
-    setOpen(openStateParam)
-  }
+	console.log(conditions)
 
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-  };
+	const handleRemoveCondition = (id) => {
 
-  useEffect(() => {
-    setIsOpen(open)
-  }, [open]);
+		console.log('id', id)
+		// const index = findIndex()
+		const newConditions = filter((c) => c.id !== id, conditions)
+		console.log(newConditions)
+		setConditions(newConditions)
+	};
 
-  return (
-      <Dialog open={isOpen} onClose={handleSetOpen(false)} fullWidth>
-        <DialogTitle>Create Rule</DialogTitle>
-        
-        <FormControl  variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <DialogContent>
-            <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <div>
-                <TextField
-                  id="rule-name"
-                  label="Rule Name"
-                  defaultValue="1"
-                  value={ruleName}
-                  // helperText="Please select your currency"
-                  variant="standard"
-                >
-                  {categories.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
+	
 
-              <div>
-                <TextField
-                  id="category"
-                  select
-                  label="Category"
-                  value={category}
-                  defaultValue="1"
-                  // helperText="Please select your currency"
-                  variant="standard"
-                >
-                  {categories.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+	const categories = [
+		{
+			value: '1',
+			label: 'Birth Details',
+		},
+		{
+			value: '2',
+			label: 'Option B',
+		},
+		{
+			value: '3',
+			label: 'Option C',
+		},
+		{
+			value: '4',
+			label: 'Option D',
+		},
+	];
 
-                <TextField
-                  id="data-field"
-                  select
-                  label="Date Field"
-                  defaultValue="1"
-                  value={dataField}
-                  // helperText="Please select your currency"
-                  variant="standard"
-                >
-                  {dataFields.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
-            </Box>
-            
-          </DialogContent>
+	const dataFields = [
+		{
+			value: '1',
+			label: 'Day of Life',
+		},
+		{
+			value: '2',
+			label: 'Option B',
+		},
+		{
+			value: '3',
+			label: 'Option C',
+		},
+		{
+			value: '4',
+			label: 'Option D',
+		},
+	];
 
-        </FormControl>
+	const handleChangeRuleName = (event) => {
+		console.log(event)
+		setRuleName(event.target.value)
+	}
 
-        
-        <DialogActions>
-          <Button onClick={handleSetOpen(false)}>Cancel</Button>
-          <Button onClick={handleSetOpen(false)}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
-  );
+	const handleChangeOpen = (openParam) => () => {
+		setOpen(openParam)
+	}
+
+	const handleChangeCategory = (event) => {
+		setCategory(event.target.value);
+	};
+
+	const handleChangeDataField = (event) => {
+		setDataField(event.target.value);
+	};
+
+	useEffect(() => {
+		setIsOpen(open)
+	}, [open]);
+
+	return (
+		<Dialog open={isOpen} onClose={handleChangeOpen(false)} maxWidth="lg" fullWidth>
+			<DialogTitle>Create Rule</DialogTitle>
+
+			<FormControl variant="standard" sx={{ m: 1, minWidth: 320 }}>
+				<DialogContent>
+					<Box
+						component="form"
+						sx={{
+							'& .MuiTextField-root': { m: 1, width: '25ch' },
+						}}
+						noValidate
+						autoComplete="off"
+					>
+						<Box component="div">
+							<TextField
+								id="rule-name"
+								type="text"
+								label="Rule Name"
+								value={ruleName}
+								onChange={handleChangeRuleName}
+								variant="standard"
+							/>
+						</Box>
+
+						<Box component="div">
+							<TextField
+								id="category"
+								select
+								label="Category"
+								value={category}
+								onChange={handleChangeCategory}
+								variant="standard"
+							>
+								{categories.map((option) => (
+									<MenuItem key={option.value} value={option.value}>
+										{option.label}
+									</MenuItem>
+								))}
+							</TextField>
+
+							<TextField
+								id="data-field"
+								select
+								label="Date Field"
+								onChange={handleChangeDataField}
+								value={dataField}
+								variant="standard"
+							>
+								{dataFields.map((option) => (
+									<MenuItem key={option.value} value={option.value}>
+										{option.label}
+									</MenuItem>
+								))}
+							</TextField>
+
+							<IconButton color="primary" aria-label="add new condition" sx={{ mt: '0.5rem', ml: '1rem' }}>
+								<AddCircleOutline fontSize="large" />
+							</IconButton>
+						</Box>
+
+
+					</Box>
+
+					{conditions.map((condition) => (
+						<Box component="div" style={{ backgroundColor: '#d8e2f3', borderColor: '#4472c4', borderWidth: '1px' }} key={condition.id}>
+							<Condition condition={condition} removeCondition={handleRemoveCondition} />
+						</Box>
+					))}
+
+				</DialogContent>
+
+			</FormControl>
+
+
+			<DialogActions>
+				<Button onClick={handleChangeOpen(false)}>Cancel</Button>
+				<Button onClick={handleChangeOpen(false)}>Create</Button>
+			</DialogActions>
+		</Dialog>
+	);
+}
+
+
+FormDialog.propTypes = {
+	open: PropTypes.bool.isRequired,
+	setOpen: PropTypes.func.isRequired,
 }
