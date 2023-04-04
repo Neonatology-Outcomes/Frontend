@@ -8,8 +8,8 @@ import { rulesListMock } from '../../constants/data/rulesMocks';
 
 const columns = [
   { field: 'ruleName', headerName: 'Rule Name', width: 220 },
-  { field: 'category', headerName: 'Category', width: 150 },
-  { field: 'dateField', headerName: 'Data Field', width: 150 },
+  { field: 'condition', headerName: 'Condition', width: 400 },
+  { field: 'action', headerName: 'Action', width: 400 },
 ];
 
 export default function Rules() {
