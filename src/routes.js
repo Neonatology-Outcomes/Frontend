@@ -1,6 +1,5 @@
 import {
     HashRouter as Router,
-    Switch,
     Route,
  } from 'react-router-dom';
 
@@ -11,7 +10,6 @@ import Login from './pages/Login';
 
   const Routes = () => (
     <Router>
-      <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/rules" exact component={Rules} />
         <Route path="/login" exact component={Login} />
@@ -19,7 +17,6 @@ import Login from './pages/Login';
         <Route path="/tags" exact component={Tags} /> */}
         {/* <Route component={NotFound} /> */}
         {/* <Route path="another_route" exact component={AnotherComponent} /> */}
-      </Switch>
     </Router>
   );
   
