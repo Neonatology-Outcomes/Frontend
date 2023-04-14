@@ -11,6 +11,7 @@ const Condition = ({ condition, removeCondition }) => {
 	const [operator, setOperator] = useState(condition.operators.value);
 	const [value, setValue] = useState(condition.value);
 	const [units, setUnits] = useState(condition.units.value);
+	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator)
 
 	const operators = [
 		{
@@ -65,6 +66,17 @@ const Condition = ({ condition, removeCondition }) => {
 		},
 	];
 
+	const conditionOperatorList = [
+		{
+			value: 'AND',
+			label: 'AND',
+		},
+		{
+			value: 'OR',
+			label: 'OR',
+		},
+	];
+
 	const handleRemove =  () => {
 		removeCondition(condition.id);
 	}
@@ -85,6 +97,10 @@ const Condition = ({ condition, removeCondition }) => {
 
 	const handleChangeDataField = (event) => {
 		setDataField(event.target.value);
+	}
+
+	const handleChangeConditionOperator = (event) => {
+		setConditionOperator(event.target.value);
 	}
 
 	return (
@@ -140,6 +156,24 @@ const Condition = ({ condition, removeCondition }) => {
 					/>
 
 					<TextField
+						id="condition_operator"
+						select
+						value={conditionOperator}
+						onChange={handleChangeUnits}
+						variant="standard"
+					>
+						{conditionOperatorList.map((option) => (
+							<MenuItem key={option.value} value={option.value}>
+								{option.label}
+							</MenuItem>
+						))}
+					</TextField>
+
+					<IconButton aria-label="remove" onClick={handleRemove}>
+						<HighlightOffIcon color="primary" fontSize="large" />
+					</IconButton>
+
+					<TextField
 						id="units"
 						select
 						label="Units"
@@ -153,10 +187,6 @@ const Condition = ({ condition, removeCondition }) => {
 							</MenuItem>
 						))}
 					</TextField>
-
-					<IconButton aria-label="remove" onClick={handleRemove}>
-						<HighlightOffIcon color="primary" fontSize="large" />
-					</IconButton>
 
 					{/* <TextField
                         id="data-field"
