@@ -56,7 +56,7 @@ export default function FormDialog({ open, setOpen }) {
 				label,
 			},
 			operators: {
-				value: '1',
+				value: 1,
 				label: '<=',
 			},
 			value: '14',

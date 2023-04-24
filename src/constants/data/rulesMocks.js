@@ -45,6 +45,38 @@ export const rulesListMock = [
 	}
 ];
 
+export const operators = [
+	{
+		value: 1,
+		label: '<=',
+	},
+	{
+		value: 2,
+		label: '==',
+	},
+	{
+		value: 3,
+		label: '>=',
+	},
+	{
+		value: 4,
+		label: 'In Between'
+	},
+];
+
+
+
+export const conditionOperatorList = [
+	{
+		value: 'AND',
+		label: 'AND',
+	},
+	{
+		value: 'OR',
+		label: 'OR',
+	},
+];
+
 export const unitsList = [
 	{
 		value: '1',
@@ -77,7 +109,7 @@ export const conditionsList = [
 			label: 'Enteral Feeds',
 		},
 		operators: {
-			value: '2',
+			value: 2,
 			label: '<=',
 		},
 		value: false,
@@ -94,7 +126,7 @@ export const conditionsList = [
 			label: 'Peripheral Arterial Line',
 		},
 		operators: {
-			value: '2',
+			value: 2,
 			label: '>=',
 		},
 		value: false,
@@ -111,7 +143,7 @@ export const conditionsList = [
 			label: 'Whole Body Cooling',
 		},
 		operators: {
-			value: '1',
+			value: 1,
 			label: '<=',
 		},
 		value: true,
@@ -128,7 +160,7 @@ export const conditionsList = [
 			label: 'Lactation consultation',
 		},
 		operators: {
-			value: '4',
+			value: 4,
 			label: '<=',
 		},
 		value: false,
@@ -145,7 +177,7 @@ export const conditionsList = [
 			label: 'Skin to Skin Care',
 		},
 		operators: {
-			value: '2',
+			value: 2,
 			label: '<=',
 		},
 		value: true,

@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Grid, IconButton, Switch, Typography } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { unitsList } from '../../constants/data/rulesMocks';
+import { unitsList, operators, conditionOperatorList } from '../../constants/data/rulesMocks';
 
 const Condition = ({ condition, removeCondition }) => {
 	const [dataField, setDataField] = useState(condition.dataField);
@@ -14,45 +14,13 @@ const Condition = ({ condition, removeCondition }) => {
 	const [value, setValue] = useState(condition.value);
 	const [units, setUnits] = useState(condition.units.value);
 	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator);
-
-
-	const operators = [
-		{
-			value: 1,
-			label: '<=',
-		},
-		{
-			value: 2,
-			label: '==',
-		},
-		{
-			value: 3,
-			label: '>=',
-		},
-		{
-			value: 4,
-			label: 'In Between'
-		},
-	];
+	const [fromValue, setFromValue] = useState(condition.fromValue);
+	const [toValue, setToValue] = useState(condition.toValue);
 
 	
-	
-	const conditionOperatorList = [
-		{
-			value: 'AND',
-			label: 'AND',
-		},
-		{
-			value: 'OR',
-			label: 'OR',
-		},
-	];
-
-	const handleRemove =  () => {
+	const handleRemove = () => {
 		removeCondition(condition.id);
 	}
-
-
 
 	const handleChangeOperator = (event) => {
 		setOperator(event.target.value);
@@ -60,6 +28,14 @@ const Condition = ({ condition, removeCondition }) => {
 
 	const handleChangeValue = () => {
 		setValue(!value)
+	}
+
+	const handleChangeFromValue = (event) => {
+		setFromValue(event.target.value)
+	}
+
+	const handleChangeToValue = (event) => {
+		setToValue(event.target.value)
 	}
 
 	const handleChangeUnits = (event) => {
@@ -74,8 +50,75 @@ const Condition = ({ condition, removeCondition }) => {
 		setConditionOperator(event.target.value);
 	}
 
+
+	const getValueComponent = () => operator === 4 ? (
+		<Box  sx={{
+			'& .MuiTextField-root': { m: 1, width: '8ch' },
+			width: 150,
+			mt: '0.5rem'
+		}}>
+      <Grid container justifyContent="space-between" alignItems="center">
+        <Grid item xs={5}>
+          <TextField
+            fullWidth
+            size="small"
+            label="From"
+						value={fromValue}
+						onChange={handleChangeFromValue}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+						sx={{
+							'& .MuiTextField-root': { m: 1, width: '8ch' },
+						}}
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <TextField
+            fullWidth
+            size="small"
+            label="To"
+						value={toValue}
+						onChange={handleChangeToValue}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+						sx={{
+							'& .MuiTextField-root': { m: 1, width: '8ch' },
+						}}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+	) : (
+		<Grid alignItems="center" mt="0.5rem">
+			<Typography
+				variant="label"
+				component="div"
+				fontSize="0.75rem"
+				fontWeight="400"
+				color="rgba(0, 0, 0, 0.6);"
+				fontFamily="'Roboto','Helvetica','Arial',sans-serif"
+				textAlign="center"
+			>
+				Value
+			</Typography>
+			<Grid container alignItems="center">
+				<Typography variant="subtitle2" component="div" sx={{ mr: '1.5rem' }}>
+					NO
+				</Typography>
+				<FormControlLabel
+					control={<Switch checked={value} onChange={handleChangeValue} />}
+					label=""
+					labelPlacement="end"
+				/>
+				<Typography variant="subtitle2" component="div">
+					YES
+				</Typography>
+			</Grid>
+		</Grid>
+	)
+
 	return (
-		<FormControl variant="standard" sx={{ m: 1, minWidth: 200, width: '90%' }}>
+		<FormControl variant="standard" sx={{ m: 1, minWidth: 200, width: '100%' }}>
 			<Box
 				component="form"
 				sx={{
@@ -110,32 +153,9 @@ const Condition = ({ condition, removeCondition }) => {
 						))}
 					</TextField>
 
-					<Grid  alignItems="center" mt="0.5rem">
-						<Typography
-							variant="label"
-							component="div"
-							fontSize="0.75rem" 
-							fontWeight="400"
-							color="rgba(0, 0, 0, 0.6);"
-							fontFamily="'Roboto','Helvetica','Arial',sans-serif"
-							textAlign="center"
-						>
-							Value
-						</Typography>
-						<Grid container alignItems="center">
-							<Typography variant="subtitle2" component="div" sx={{ mr: '1.5rem' }}>
-								NO
-							</Typography>
-								<FormControlLabel
-									control={<Switch checked={value} onChange={handleChangeValue} />}
-									label=""
-									labelPlacement="end"
-								/>
-							<Typography variant="subtitle2" component="div">
-								YES
-							</Typography>
-						</Grid>
-					</Grid>
+					<Box component="div">
+						{getValueComponent()}
+					</Box>
 
 					<TextField
 						id="units"
