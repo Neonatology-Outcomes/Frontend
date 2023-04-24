@@ -5,67 +5,36 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import { IconButton } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { unitsList } from '../../constants/data/rulesMocks';
 
 const Condition = ({ condition, removeCondition }) => {
-	const [dataField, setDataField] = useState(condition.dataFields.value);
+	const [dataField, setDataField] = useState(condition.dataField);
 	const [operator, setOperator] = useState(condition.operators.value);
 	const [value, setValue] = useState(condition.value);
 	const [units, setUnits] = useState(condition.units.value);
-	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator)
+	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator);
 
 	const operators = [
 		{
-			value: '1',
+			value: 1,
 			label: '<=',
 		},
 		{
-			value: '2',
+			value: 2,
 			label: '==',
 		},
 		{
-			value: '3',
+			value: 3,
 			label: '>=',
 		},
-	];
-
-	const dataFields = [
 		{
-			value: '1',
-			label: 'Day of Life',
-		},
-		{
-			value: '2',
-			label: 'Option B',
-		},
-		{
-			value: '3',
-			label: 'Option C',
-		},
-		{
-			value: '4',
-			label: 'Option D',
+			value: 4,
+			label: 'In Between'
 		},
 	];
 
-	const unitsList = [
-		{
-			value: '1',
-			label: 'Minutes',
-		},
-		{
-			value: '2',
-			label: 'Hours',
-		},
-		{
-			value: '3',
-			label: 'Days',
-		},
-		{
-			value: '4',
-			label: 'Weeks',
-		},
-	];
-
+	
+	
 	const conditionOperatorList = [
 		{
 			value: 'AND',
@@ -118,17 +87,11 @@ const Condition = ({ condition, removeCondition }) => {
 					<TextField
 						id="data-field"
 						label="Data Field"
-						defaultValue="1"
+						disabled
 						onChange={handleChangeDataField}
-						value={dataField}
+						value={dataField.label}
 						variant="standard"
-					>
-						{dataFields.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))}
-					</TextField>
+					/>
 
 					<TextField
 						id="operator"
@@ -156,24 +119,6 @@ const Condition = ({ condition, removeCondition }) => {
 					/>
 
 					<TextField
-						id="condition_operator"
-						select
-						value={conditionOperator}
-						onChange={handleChangeUnits}
-						variant="standard"
-					>
-						{conditionOperatorList.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))}
-					</TextField>
-
-					<IconButton aria-label="remove" onClick={handleRemove}>
-						<HighlightOffIcon color="primary" fontSize="large" />
-					</IconButton>
-
-					<TextField
 						id="units"
 						select
 						label="Units"
@@ -182,6 +127,28 @@ const Condition = ({ condition, removeCondition }) => {
 						variant="standard"
 					>
 						{unitsList.map((option) => (
+							<MenuItem key={option.value} value={option.value}>
+								{option.label}
+							</MenuItem>
+						))}
+					</TextField>
+
+
+					<IconButton aria-label="remove" onClick={handleRemove} style={{ marginTop: '1rem' }}>
+						<HighlightOffIcon color="primary" fontSize="large" />
+					</IconButton>
+
+					
+
+					<TextField
+						id="condition_operator"
+						select
+						value={conditionOperator}
+						onChange={handleChangeUnits}
+						variant="standard"
+						style={{ width: '70px', marginTop: '1.5rem' }}
+					>
+						{conditionOperatorList.map((option) => (
 							<MenuItem key={option.value} value={option.value}>
 								{option.label}
 							</MenuItem>
