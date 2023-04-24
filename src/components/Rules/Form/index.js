@@ -14,7 +14,7 @@ import Condition from '../../Condition';
 import { AddCircleOutline } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { conditionsList, categories, dataFieldConditionMapping } from '../../../constants/data/rulesMocks';
-
+import { generateRandomInteger } from '../../../utils';
 
 export default function FormDialog({ open, setOpen }) {
 	const [isOpen, setIsOpen] = useState(open);
@@ -37,13 +37,44 @@ export default function FormDialog({ open, setOpen }) {
 			})),
 			
 		];
-		console.log(conditionsWithDataField);
+		// console.log(conditionsWithDataField);
 		setConditions(conditionsWithDataField);
 	}, []);
 
 	
 
-	console.log(dataFields);
+	const getConditionObject = () => {
+		const { label } = dataFields.find(((dF) => dF.value === dataField));
+		console.log('label', label)
+
+
+		return {
+			id: generateRandomInteger(200, 1000),
+			conditionOperator: 'AND',
+			dataField: {
+				value: dataField,
+				label,
+			},
+			operators: {
+				value: '1',
+				label: '<=',
+			},
+			value: '14',
+			units: {
+				value: '1',
+				label: 'Seconds',
+			}
+		}
+	};
+
+	const createCondition = () => {
+		getConditionObject()
+		const newCondition = conditions.concat(getConditionObject());
+		setConditions(newCondition);
+	}
+	
+
+	// console.log(dataFields);
 
 
 	const handleRemoveCondition = (id) => {
@@ -135,7 +166,12 @@ export default function FormDialog({ open, setOpen }) {
 								</TextField>
 							) : null}
 
-							<IconButton color="primary" aria-label="add new condition" sx={{ mt: '0.5rem', ml: '1rem' }}>
+							<IconButton
+								color="primary"
+								aria-label="add new condition"
+								sx={{ mt: '0.5rem', ml: '1rem' }}
+								onClick={createCondition}
+							>
 								<AddCircleOutline fontSize="large" />
 							</IconButton>
 						</Box>
@@ -156,7 +192,7 @@ export default function FormDialog({ open, setOpen }) {
 
 			<DialogActions>
 				<Button onClick={handleChangeOpen(false)}>Cancel</Button>
-				<Button onClick={handleChangeOpen(false)}>Create</Button>
+				<Button disabled onClick={handleChangeOpen(false)}>Create</Button>
 			</DialogActions>
 		</Dialog>
 	);
