@@ -3,8 +3,9 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
-import { IconButton } from '@mui/material';
+import { Grid, IconButton, Switch, Typography } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { unitsList } from '../../constants/data/rulesMocks';
 
 const Condition = ({ condition, removeCondition }) => {
@@ -13,6 +14,7 @@ const Condition = ({ condition, removeCondition }) => {
 	const [value, setValue] = useState(condition.value);
 	const [units, setUnits] = useState(condition.units.value);
 	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator);
+
 
 	const operators = [
 		{
@@ -56,8 +58,8 @@ const Condition = ({ condition, removeCondition }) => {
 		setOperator(event.target.value);
 	}
 
-	const handleChangeValue = (event) => {
-		setValue(event.target.value);
+	const handleChangeValue = () => {
+		setValue(!value)
 	}
 
 	const handleChangeUnits = (event) => {
@@ -108,15 +110,32 @@ const Condition = ({ condition, removeCondition }) => {
 						))}
 					</TextField>
 
-
-					<TextField
-						id="value"
-						type="text"
-						label="Value"
-						value={value}
-						onChange={handleChangeValue}
-						variant="standard"
-					/>
+					<Grid  alignItems="center" mt="0.5rem">
+						<Typography
+							variant="label"
+							component="div"
+							fontSize="0.75rem" 
+							fontWeight="400"
+							color="rgba(0, 0, 0, 0.6);"
+							fontFamily="'Roboto','Helvetica','Arial',sans-serif"
+							textAlign="center"
+						>
+							Value
+						</Typography>
+						<Grid container alignItems="center">
+							<Typography variant="subtitle2" component="div" sx={{ mr: '1.5rem' }}>
+								NO
+							</Typography>
+								<FormControlLabel
+									control={<Switch checked={value} onChange={handleChangeValue} />}
+									label=""
+									labelPlacement="end"
+								/>
+							<Typography variant="subtitle2" component="div">
+								YES
+							</Typography>
+						</Grid>
+					</Grid>
 
 					<TextField
 						id="units"
@@ -138,13 +157,11 @@ const Condition = ({ condition, removeCondition }) => {
 						<HighlightOffIcon color="primary" fontSize="large" />
 					</IconButton>
 
-					
-
 					<TextField
 						id="condition_operator"
 						select
 						value={conditionOperator}
-						onChange={handleChangeUnits}
+						onChange={handleChangeConditionOperator}
 						variant="standard"
 						style={{ width: '70px', marginTop: '1.5rem' }}
 					>
@@ -154,22 +171,6 @@ const Condition = ({ condition, removeCondition }) => {
 							</MenuItem>
 						))}
 					</TextField>
-
-					{/* <TextField
-                        id="data-field"
-                        select
-                        label="Date Field"
-                        onChange={handleChangeDataField}
-                        value={dataField}
-                        // helperText="Please select your currency"
-                        variant="standard"
-                    >
-                        {dataFields.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField> */}
 				</Box>
 			</Box>
 

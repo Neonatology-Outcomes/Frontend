@@ -80,7 +80,7 @@ export const conditionsList = [
 			value: '2',
 			label: '<=',
 		},
-		value: '14',
+		value: false,
 		units: {
 			value: '1',
 			label: 'Seconds',
@@ -97,7 +97,7 @@ export const conditionsList = [
 			value: '2',
 			label: '>=',
 		},
-		value: '1000',
+		value: false,
 		units: {
 			value: '2',
 			label: 'Minutes',
@@ -114,7 +114,7 @@ export const conditionsList = [
 			value: '1',
 			label: '<=',
 		},
-		value: '1500',
+		value: true,
 		units: {
 			value: '3',
 			label: 'Days',
@@ -131,7 +131,7 @@ export const conditionsList = [
 			value: '4',
 			label: '<=',
 		},
-		value: '1500',
+		value: false,
 		units: {
 			value: '4',
 			label: 'Weeks',
@@ -148,7 +148,7 @@ export const conditionsList = [
 			value: '2',
 			label: '<=',
 		},
-		value: '1500',
+		value: true,
 		units: {
 			value: '5',
 			label: 'Grams',
