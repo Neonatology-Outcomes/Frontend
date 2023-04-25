@@ -12,20 +12,22 @@ import FormControl from '@mui/material/FormControl';
 import { Box } from '@mui/system';
 import Condition from '../../Condition';
 import { AddCircleOutline } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { conditionsList, categories, dataFieldConditionMapping } from '../../../constants/data/rulesMocks';
 import { generateRandomInteger } from '../../../utils';
+import { styles } from './styles';
 
 export default function FormDialog({ open, setOpen }) {
 	const [isOpen, setIsOpen] = useState(open);
 	const [ruleName, setRuleName] = useState('Human Milk Consumption');
 	const [category, setCategory] = useState(1);
-	const dataFields = [ ...dataFieldConditionMapping(category) ];
+	const dataFields = [...dataFieldConditionMapping(category)];
 	// TODO
 	// console.log('*****', dataFields)
 	// console.log('----', dataFields.length > 0 ? dataFields[0].value : undefined)
 	const [dataField, setDataField] = useState(dataFields.length > 0 ? dataFields[0].value : undefined);
 	const [conditions, setConditions] = useState([]);
+	const [selectedBundle, setSelectedBundle] = useState('At Admission');
 
 	// const [tmpConditions, setTmpConditions] = useState([]);
 
@@ -35,13 +37,13 @@ export default function FormDialog({ open, setOpen }) {
 				...cL,
 				dataFields,
 			})),
-			
+
 		];
 		// console.log(conditionsWithDataField);
 		setConditions(conditionsWithDataField);
 	}, []);
 
-	
+
 
 	const getConditionObject = () => {
 		const { label } = dataFields.find(((dF) => dF.value === dataField));
@@ -72,9 +74,6 @@ export default function FormDialog({ open, setOpen }) {
 		const newCondition = conditions.concat(getConditionObject());
 		setConditions(newCondition);
 	}
-	
-
-	// console.log(dataFields);
 
 
 	const handleRemoveCondition = (id) => {
@@ -104,13 +103,74 @@ export default function FormDialog({ open, setOpen }) {
 		setDataField(event.target.value);
 	};
 
+	const handleSetSelectedBundle = (bundle) => () => {
+		setSelectedBundle(bundle);
+	}
+
 	useEffect(() => {
 		setIsOpen(open)
 	}, [open]);
 
+
+	const getVariant = (bundle) => bundle ? 'container' : 'outlined'
+
+	const getVariantStyle = (bundle) => bundle ?
+		{ backgroundColor: '#ED7D31', color: '#FFFFFF' } : { color: '#ED7D31', borderColor: '#ED7D31' }
+
+
 	return (
 		<Dialog open={isOpen} onClose={handleChangeOpen(false)} maxWidth="lg" fullWidth>
-			<DialogTitle>Create Rule</DialogTitle>
+			<DialogTitle>
+				Create Role
+			</DialogTitle>
+
+			<Box component="div" display="flex" flexDirection="row" justifyContent="space-between">
+				<Box component="div" flexDirection="column" xs={6} width="100%" />
+				<Box component="div" flexDirection="column" xs={6} width="100%">
+					<Box component="div" display="flex" flexDirection="row" justifyContent="space-between" xs={12}>
+						<Box component="div" flexDirection="column" xs={4}>
+							<Box component="div" flexDirection="row" justifyContent="center">
+								<Button 
+									variant={
+										getVariant(selectedBundle === 'At Admission')
+									}
+									style={getVariantStyle(selectedBundle === 'At Admission')}
+									onClick={handleSetSelectedBundle('At Admission')}
+								>
+										At Admission
+									</Button>
+							</Box>
+						</Box>
+						<Box component="div" flexDirection="column" xs={4}>
+							<Box component="div" flexDirection="row" justifyContent="center">
+							<Button 
+									variant={
+										getVariant(selectedBundle === 'At NICU')
+									}
+									style={getVariantStyle(selectedBundle === 'At NICU')}
+									onClick={handleSetSelectedBundle('At NICU')}
+								>
+									At NICU
+								</Button>
+							</Box>
+						</Box>
+						<Box component="div" flexDirection="column" xs={4}>
+							<Box component="div" flexDirection="row" justifyContent="center">
+							<Button 
+									variant={
+										getVariant(selectedBundle === 'Post Discharge')
+									}
+									style={getVariantStyle(selectedBundle === 'Post Discharge')}
+									onClick={handleSetSelectedBundle('Post Discharge')}
+								>
+									Post Discharge
+							</Button>
+							</Box>
+						</Box>
+						<Box component="div" flexDirection="column" xs={4} />
+					</Box>
+				</Box>
+			</Box>
 
 			<FormControl variant="standard" sx={{ m: 1, minWidth: 320 }}>
 				<DialogContent>
@@ -137,7 +197,7 @@ export default function FormDialog({ open, setOpen }) {
 							<TextField
 								id="category"
 								select
-								label="Category"
+								label="Category (label)"
 								value={category}
 								onChange={handleChangeCategory}
 								variant="standard"
@@ -178,12 +238,20 @@ export default function FormDialog({ open, setOpen }) {
 
 
 					</Box>
-
-					{conditions.map((condition) => (
-						<Box component="div" style={{ backgroundColor: '#d8e2f3', borderColor: '#4472c4', borderWidth: '1px' }} key={condition.id}>
-							<Condition condition={condition} removeCondition={handleRemoveCondition} />
+					<Box component="section" style={styles.conditionsSectionContainer}>
+						<Box style={{ padding: 10 }}>
+							<Typography variant="h5">
+								If
+							</Typography>
 						</Box>
-					))}
+						{conditions.map((condition) => (
+							<Box key={condition.id}>
+								<Condition condition={condition} removeCondition={handleRemoveCondition} />
+							</Box>
+						))}
+					</Box>
+
+					
 
 				</DialogContent>
 

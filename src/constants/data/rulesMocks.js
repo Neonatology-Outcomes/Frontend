@@ -62,6 +62,14 @@ export const operators = [
 		value: 4,
 		label: 'In Between'
 	},
+	{
+		value: 5,
+		label: 'Not Equals'
+	},
+	{
+		value: 6,
+		label: 'No'
+	}
 ];
 
 
