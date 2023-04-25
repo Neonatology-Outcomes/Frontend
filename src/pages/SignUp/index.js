@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { isEmpty } from 'ramda';
-import { Button, TextField, Typography, Link, Box, Container, Paper, Grid } from '@mui/material';
+import { Button, TextField, Typography, Link, Box, Container, Paper, Grid, MenuItem } from '@mui/material';
 import { styles } from './styles';
+import { validateEmail } from '../../utils';
+import { rolesList } from '../../constants/data/rulesMocks';
 
 const SignUp = () => {
 
@@ -12,52 +14,111 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [role, setRole] = useState('');
+  const [validationObject, setValidationObject] = useState({});
+  const [signUpClicked, setSignUpClicked] = useState(false);
+
+  const getValidationObject = () => (
+    {
+      firstname: isEmpty(firstname),
+      lastname: isEmpty(lastname),
+      password: isEmpty(password),
+      email: isEmpty(email),
+      username: isEmpty(username),
+      role: isEmpty(role),
+    }
+  );
+
+  useEffect(() => {
+    setValidationObject(getValidationObject);
+  }, [])
+
+
 
   const handleOnChangeFirstName = (event) => {
     setFirstName(event.target.value)
-  } 
+    const firstnameError = { ...validationObject, firstname: isEmpty(event.target.value) }
+    if (signUpClicked) {
+      setValidationObject(firstnameError)
+    }
+    // setValidationObject(signUpClicked && firstnameError)
+
+  }
 
   const handleOnChangeLastName = (event) => {
     setLastName(event.target.value)
-  }  
+    const lastnameError = { ...validationObject, lastname: isEmpty(event.target.value) }
+    if (signUpClicked) {
+      setValidationObject(lastnameError)
+    }
+  }
 
   const handleOnChangePassword = (event) => {
     setPassword(event.target.value)
-  }  
+    const passwordError = { ...validationObject, password: isEmpty(event.target.value) }
+    if (signUpClicked) {
+      setValidationObject(passwordError)
+    }
+  }
 
   const handleOnChangeConfirmPassword = (event) => {
     setConfirmPassword(event.target.value)
+    const confirmPasswordError = { ...validationObject, confirmpassword: isEmpty(event.target.value) }
+    if (signUpClicked) {
+      setValidationObject(confirmPasswordError)
+    }
   }
 
-  const handleOnChangeEmail = (event) => {
-    setEmail(event.target.value)
+  const handleOnChangeEmail = ({ target }) => {
+    const { value } = target;
+    setEmail(value)
+    // console.log('validate', validateEmail(value))
+    // console.log('fuuuuuuck', !(!isEmpty(value) && validateEmail(value)))
+    const emailError = {
+      ...validationObject,
+      // email: isEmpty(value) && (isEmpty(value) || validateEmail(value))
+      email: !(!isEmpty(value) && validateEmail(value))
+
+    }
+    if (signUpClicked) {
+      setValidationObject(emailError)
+    }
   }
 
   const handleOnChangeUsername = (event) => {
     setUsername(event.target.value)
+    const usernameError = { ...validationObject, username: isEmpty(event.target.value) }
+    if (signUpClicked) {
+      setValidationObject(usernameError)
+    }
   }
 
   const handleOnChangeRole = (event) => {
     setRole(event.target.value)
+    const roleError = { ...validationObject, role: isEmpty(event.target.value) }
+    if (signUpClicked) {
+      setValidationObject(roleError)
+    }
   }
 
   const validateForm = () => !isEmpty(firstname) && !isEmpty(lastname)
-  && !isEmpty(password) && !isEmpty(confirmpassword) && !isEmpty(email) ;
+    && !isEmpty(password) && !isEmpty(confirmpassword) && !isEmpty(email);
 
   const handleOnChangeSignUp = () => {
-    console.log(validateForm());
+    // console.log(validateForm());
+    setSignUpClicked(true)
+    // submit()
   }
 
-  const rolesList = [
-    {
-      value: 1,
-      label: 'Administrator',
-    },
-    {
-      value: 2,
-      label: 'Nurse',
-    }
-  ];
+  // const submit = () => {
+  //   const data = {
+  //     firstname,
+  //     lastname,
+  //     password,
+  //     email,
+  //     username,
+  //     role
+  //   }
+  // }
 
   return (
     <Container style={styles.container}>
@@ -72,18 +133,20 @@ const SignUp = () => {
             justifyContent="space-between"
             style={styles.textFieldContainer}
           >
-            <TextField  
+            <TextField
+              error={signUpClicked && validationObject['firstname']}
               style={styles.textField}
               fullWidth
               required
               value={firstname}
               onChange={handleOnChangeFirstName}
               id="firstname"
-              label="First Name"  
+              label="First Name"
               type="text"
-              autoComplete="firstname" 
+              autoComplete="firstname"
             />
             <TextField
+              error={signUpClicked && validationObject['lastname']}
               style={styles.textField}
               fullWidth
               required
@@ -92,7 +155,7 @@ const SignUp = () => {
               id="lastname"
               label="Last Name"
               type="lastname"
-              autoComplete="lastname" 
+              autoComplete="lastname"
             />
           </Box>
           <Box
@@ -102,6 +165,7 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
+              error={signUpClicked && validationObject['password']}
               style={styles.textField}
               fullWidth
               required
@@ -110,9 +174,10 @@ const SignUp = () => {
               id="password"
               label="Password"
               type="password"
-              autoComplete="current-password" 
+              autoComplete="current-password"
             />
             <TextField
+              error={signUpClicked && validationObject['confirmpassword']}
               style={styles.textField}
               fullWidth
               required
@@ -121,7 +186,8 @@ const SignUp = () => {
               id="confirmpassword"
               label="Confirm Password"
               type="password"
-              autoComplete="confirm-password"              
+              autoComplete="confirm-password"
+              helperText={confirmpassword === password ? "" : "Password don't match"}
             />
           </Box>
           <Box
@@ -130,63 +196,71 @@ const SignUp = () => {
             justifyContent="space-between"
             style={styles.textFieldContainer}
           >
-            <TextField  
+            <TextField
+              error={signUpClicked && validationObject['email']}
               style={styles.textField}
               fullWidth
               required
               value={email}
               onChange={handleOnChangeEmail}
               id="email"
-              label="Email"  
+              label="Email"
               type="email"
               autoComplete="email"
+            // TODO
+            // helperText={!handleOnChangeEmail.emailError ? "" :"Incorrect email format"} 
             />
-            <TextField  
+            <TextField
+              error={signUpClicked && validationObject['username']}
               style={styles.textField}
               fullWidth
               required
               value={username}
               onChange={handleOnChangeUsername}
               id="username"
-              label="Username"  
+              label="Username"
               type="text"
               autoComplete="Username"
             />
           </Box>
+
           <Box
             component="div"
             display="flex"
-            justifyContent="space-between"
+            flexDirection="row"
+            justifyContent="center"
+            // xs={12}
             style={styles.textFieldContainer}
           >
-            <TextField  
-                style={styles.textField}
-                fullWidth
-                required
-                value={role}
-                onChange={handleOnChangeRole}
-                id="role"
-                label="Role"  
-                type="text"
-                autoComplete="role"
+            <TextField
+              error={signUpClicked && validationObject['role']}
+              style={{ width: '100%', minWidth: '200px' }}
+              required
+              value={role}
+              onChange={handleOnChangeRole}
+              id="role"
+              label="Role"
+              select
+              autoComplete="role"
             >
-                {rolesList.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
+              {rolesList.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
             </TextField>
-                
-          </Box>          
+
+          </Box>
+
           <Grid container style={styles.buttons}>
-            <Grid item xs={12} md={5}>
-              <Button fullWidth variant="contained" color="primary">
+            <Grid item xs={12} md={5} style={styles.signUpContainer}>
+              <Button fullWidth variant="contained" color="primary" href="#login">
                 Sign In
               </Button>
             </Grid>
             <Grid item xs={12} md={5} style={styles.signUpContainer}>
               <Button
-                fullWidth 
+                fullWidth
                 variant="contained"
                 color="secondary"
                 onClick={handleOnChangeSignUp}
@@ -205,8 +279,5 @@ const SignUp = () => {
     </Container>
   )
 }
-  
-
-
 
 export default SignUp;
