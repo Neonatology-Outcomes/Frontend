@@ -42,7 +42,7 @@ function LoginPage() {
       setIncorrectCredentials(true);
     }
 
-    console.log('user created', userResponse)
+    console.log('user login object', userResponse)
   };
 
   const handleChangeUsername = (event) => {

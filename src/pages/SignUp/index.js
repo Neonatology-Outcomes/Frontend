@@ -129,7 +129,7 @@ const SignUp = () => {
       };
   
       const userResponse = await createUser(data);
-      console.log('user created', userResponse)
+      console.log('user created object', userResponse)
 
       if (userResponse.ok) {
         history.push('/login');
