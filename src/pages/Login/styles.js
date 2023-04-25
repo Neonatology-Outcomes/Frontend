@@ -5,14 +5,14 @@ export const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  paper: {
-    padding: '80px',
-  },
+  paper: (padding) => ({
+    padding,
+    minWidth: '300px',
+  }),
   form: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '20vw',
   },
   textField: {
     marginTop: '16px',
