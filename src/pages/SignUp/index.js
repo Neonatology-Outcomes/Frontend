@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { isEmpty } from 'ramda';
 import { Button, TextField, Typography, Link, Box, Container, Paper, Grid, MenuItem } from '@mui/material';
+import { filter, values } from 'ramda';
 import { styles } from './styles';
-import { validateEmail } from '../../utils';
+import { sleep, validateEmail } from '../../utils';
 import { rolesList } from '../../constants/data/rulesMocks';
+import { createUser } from '../../services/api';
+
 
 const SignUp = () => {
-
+  const history = useHistory();
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [password, setPassword] = useState('');
@@ -100,12 +104,37 @@ const SignUp = () => {
     }
   }
 
-  const validateForm = () => !isEmpty(firstname) && !isEmpty(lastname)
-    && !isEmpty(password) && !isEmpty(confirmpassword) && !isEmpty(email);
+  // const validateForm = () => !isEmpty(firstname) && !isEmpty(lastname)
+  //   && !isEmpty(password) && !isEmpty(confirmpassword) && !isEmpty(email);
 
-  const handleOnChangeSignUp = () => {
+  const validForm = () => filter((item) => item === true, values(validationObject)).length === 0
+
+  console.log(values(validationObject))
+  console.log(filter((item) => item === false, values(validationObject)))
+
+  const handleOnChangeSignUp = async () => {
     // console.log(validateForm());
     setSignUpClicked(true)
+
+    sleep(500);
+
+    if (validForm()) {
+      const data = {
+        username,
+        password,
+        email,
+        firstname,
+        lastname,
+        role,
+      };
+  
+      const userResponse = await createUser(data);
+      console.log('user created', userResponse)
+
+      if (userResponse.ok) {
+        history.push('/login');
+      }
+    }
     // submit()
   }
 
