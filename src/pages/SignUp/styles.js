@@ -21,9 +21,6 @@ export const styles = {
     marginBottom: 8,
     marginRight: 8,
     width: '48%', 
-    '& .MuiOutlinedInput-input': {
-      padding: '10px 14px',
-   },
   },
   textFieldContainer: {
     marginTop: '1rem',
@@ -35,7 +32,7 @@ export const styles = {
     justifyContent: 'space-between',
   },
   signUpContainer: {
-    marginTop: '1rem',
+    marginTop: '0.5rem',
   },
   forgotPassword: {
     textDecoration: 'none'

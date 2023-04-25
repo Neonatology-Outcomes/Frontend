@@ -212,6 +212,17 @@ export const conditionsList = [
 	// }
 ];
 
+export const rolesList = [
+    {
+      value: 1,
+      label: 'Administrator',
+    },
+    {
+      value: 2,
+      label: 'Nurse',
+    }
+  ];
+
 const baseDataFieldConditionMapping = [
 	{ value: 96,  label: 'Enteral Feeds', bundleCategoryId: 1 },
 	{ value: 97,  label: 'Peripheral Arterial Line', bundleCategoryId: 4 },
