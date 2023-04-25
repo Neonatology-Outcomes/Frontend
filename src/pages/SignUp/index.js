@@ -10,6 +10,8 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [role, setRole] = useState('');
 
   const handleOnChangeFirstName = (event) => {
     setFirstName(event.target.value)
@@ -31,12 +33,31 @@ const SignUp = () => {
     setEmail(event.target.value)
   }
 
+  const handleOnChangeUsername = (event) => {
+    setUsername(event.target.value)
+  }
+
+  const handleOnChangeRole = (event) => {
+    setRole(event.target.value)
+  }
+
   const validateForm = () => !isEmpty(firstname) && !isEmpty(lastname)
   && !isEmpty(password) && !isEmpty(confirmpassword) && !isEmpty(email) ;
 
   const handleOnChangeSignUp = () => {
     console.log(validateForm());
   }
+
+  const rolesList = [
+    {
+      value: 1,
+      label: 'Administrator',
+    },
+    {
+      value: 2,
+      label: 'Nurse',
+    }
+  ];
 
   return (
     <Container style={styles.container}>
@@ -55,23 +76,23 @@ const SignUp = () => {
               style={styles.textField}
               fullWidth
               required
+              value={firstname}
+              onChange={handleOnChangeFirstName}
               id="firstname"
               label="First Name"  
               type="text"
-              autoComplete="firstname"
-              value={firstname}
-              onChange={handleOnChangeFirstName}
+              autoComplete="firstname" 
             />
             <TextField
               style={styles.textField}
               fullWidth
               required
+              value={lastname}
+              onChange={handleOnChangeLastName}
               id="lastname"
               label="Last Name"
               type="lastname"
-              autoComplete="lastname"
-              value={lastname}
-              onChange={handleOnChangeLastName}
+              autoComplete="lastname" 
             />
           </Box>
           <Box
@@ -84,23 +105,23 @@ const SignUp = () => {
               style={styles.textField}
               fullWidth
               required
+              value={password}
+              onChange={handleOnChangePassword}
               id="password"
               label="Password"
               type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={handleOnChangePassword}
+              autoComplete="current-password" 
             />
             <TextField
               style={styles.textField}
               fullWidth
               required
+              value={confirmpassword}
+              onChange={handleOnChangeConfirmPassword}
               id="confirmpassword"
               label="Confirm Password"
               type="password"
-              autoComplete="confirm-password"
-              value={confirmpassword}
-              onChange={handleOnChangeConfirmPassword}
+              autoComplete="confirm-password"              
             />
           </Box>
           <Box
@@ -113,24 +134,50 @@ const SignUp = () => {
               style={styles.textField}
               fullWidth
               required
+              value={email}
+              onChange={handleOnChangeEmail}
               id="email"
               label="Email"  
               type="email"
               autoComplete="email"
-              value={email}
-              onChange={handleOnChangeEmail}
             />
             <TextField  
               style={styles.textField}
               fullWidth
               required
-              id="role"
-              label="Role"  
+              value={username}
+              onChange={handleOnChangeUsername}
+              id="username"
+              label="Username"  
               type="text"
-              autoComplete="role"
+              autoComplete="Username"
             />
           </Box>
-          
+          <Box
+            component="div"
+            display="flex"
+            justifyContent="space-between"
+            style={styles.textFieldContainer}
+          >
+            <TextField  
+                style={styles.textField}
+                fullWidth
+                required
+                value={role}
+                onChange={handleOnChangeRole}
+                id="role"
+                label="Role"  
+                type="text"
+                autoComplete="role"
+            >
+                {rolesList.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+            </TextField>
+                
+          </Box>          
           <Grid container style={styles.buttons}>
             <Grid item xs={12} md={5}>
               <Button fullWidth variant="contained" color="primary">
@@ -159,7 +206,7 @@ const SignUp = () => {
   )
 }
   
-    
+
 
 
 export default SignUp;
