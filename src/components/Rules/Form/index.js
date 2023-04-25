@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import {findIndex, filter } from 'ramda';
+import { filter } from 'ramda';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -13,23 +13,69 @@ import { Box } from '@mui/system';
 import Condition from '../../Condition';
 import { AddCircleOutline } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import { conditionsList } from '../../../constants/data/rulesMocks';
-
+import { conditionsList, categories, dataFieldConditionMapping } from '../../../constants/data/rulesMocks';
+import { generateRandomInteger } from '../../../utils';
 
 export default function FormDialog({ open, setOpen }) {
 	const [isOpen, setIsOpen] = useState(open);
 	const [ruleName, setRuleName] = useState('Human Milk Consumption');
-	const [dataField, setDataField] = useState('1');
-	const [category, setCategory] = useState('1');
+	const [category, setCategory] = useState(1);
+	const dataFields = [ ...dataFieldConditionMapping(category) ];
+	// TODO
+	// console.log('*****', dataFields)
+	// console.log('----', dataFields.length > 0 ? dataFields[0].value : undefined)
+	const [dataField, setDataField] = useState(dataFields.length > 0 ? dataFields[0].value : undefined);
 	const [conditions, setConditions] = useState([]);
 
-	const [tmpConditions, setTmpConditions] = useState([]);
+	// const [tmpConditions, setTmpConditions] = useState([]);
 
 	useEffect(() => {
-		setConditions(conditionsList);
+		const conditionsWithDataField = [
+			...conditionsList.map((cL) => ({
+				...cL,
+				dataFields,
+			})),
+			
+		];
+		// console.log(conditionsWithDataField);
+		setConditions(conditionsWithDataField);
 	}, []);
 
-	console.log(conditions)
+	
+
+	const getConditionObject = () => {
+		const { label } = dataFields.find(((dF) => dF.value === dataField));
+		console.log('label', label)
+
+
+		return {
+			id: generateRandomInteger(200, 1000),
+			conditionOperator: 'AND',
+			dataField: {
+				value: dataField,
+				label,
+			},
+			operators: {
+				value: 1,
+				label: '<=',
+			},
+			value: '14',
+			units: {
+				value: '1',
+				label: 'Seconds',
+			}
+		}
+	};
+
+	const createCondition = () => {
+		getConditionObject()
+		const newCondition = conditions.concat(getConditionObject());
+		setConditions(newCondition);
+	}
+	
+
+	// console.log(dataFields);
+
 
 	const handleRemoveCondition = (id) => {
 
@@ -40,45 +86,6 @@ export default function FormDialog({ open, setOpen }) {
 		setConditions(newConditions)
 	};
 
-	
-
-	const categories = [
-		{
-			value: '1',
-			label: 'Birth Details',
-		},
-		{
-			value: '2',
-			label: 'Option B',
-		},
-		{
-			value: '3',
-			label: 'Option C',
-		},
-		{
-			value: '4',
-			label: 'Option D',
-		},
-	];
-
-	const dataFields = [
-		{
-			value: '1',
-			label: 'Day of Life',
-		},
-		{
-			value: '2',
-			label: 'Option B',
-		},
-		{
-			value: '3',
-			label: 'Option C',
-		},
-		{
-			value: '4',
-			label: 'Option D',
-		},
-	];
 
 	const handleChangeRuleName = (event) => {
 		console.log(event)
@@ -142,22 +149,29 @@ export default function FormDialog({ open, setOpen }) {
 								))}
 							</TextField>
 
-							<TextField
-								id="data-field"
-								select
-								label="Date Field"
-								onChange={handleChangeDataField}
-								value={dataField}
-								variant="standard"
-							>
-								{dataFields.map((option) => (
-									<MenuItem key={option.value} value={option.value}>
-										{option.label}
-									</MenuItem>
-								))}
-							</TextField>
+							{dataFields.length > 0 ? (
+								<TextField
+									id="data-field"
+									select
+									label="Data Field"
+									onChange={handleChangeDataField}
+									value={dataField}
+									variant="standard"
+								>
+									{dataFields.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
+							) : null}
 
-							<IconButton color="primary" aria-label="add new condition" sx={{ mt: '0.5rem', ml: '1rem' }}>
+							<IconButton
+								color="primary"
+								aria-label="add new condition"
+								sx={{ mt: '0.5rem', ml: '1rem' }}
+								onClick={createCondition}
+							>
 								<AddCircleOutline fontSize="large" />
 							</IconButton>
 						</Box>
@@ -178,7 +192,7 @@ export default function FormDialog({ open, setOpen }) {
 
 			<DialogActions>
 				<Button onClick={handleChangeOpen(false)}>Cancel</Button>
-				<Button onClick={handleChangeOpen(false)}>Create</Button>
+				<Button disabled onClick={handleChangeOpen(false)}>Create</Button>
 			</DialogActions>
 		</Dialog>
 	);

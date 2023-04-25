@@ -3,92 +3,39 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
-import { IconButton } from '@mui/material';
+import { Grid, IconButton, Switch, Typography } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { unitsList, operators, conditionOperatorList } from '../../constants/data/rulesMocks';
 
 const Condition = ({ condition, removeCondition }) => {
-	const [dataField, setDataField] = useState(condition.dataFields.value);
+	const [dataField, setDataField] = useState(condition.dataField);
 	const [operator, setOperator] = useState(condition.operators.value);
 	const [value, setValue] = useState(condition.value);
 	const [units, setUnits] = useState(condition.units.value);
-	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator)
+	const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator);
+	const [fromValue, setFromValue] = useState(condition.fromValue);
+	const [toValue, setToValue] = useState(condition.toValue);
 
-	const operators = [
-		{
-			value: '1',
-			label: '<=',
-		},
-		{
-			value: '2',
-			label: '==',
-		},
-		{
-			value: '3',
-			label: '>=',
-		},
-	];
-
-	const dataFields = [
-		{
-			value: '1',
-			label: 'Day of Life',
-		},
-		{
-			value: '2',
-			label: 'Option B',
-		},
-		{
-			value: '3',
-			label: 'Option C',
-		},
-		{
-			value: '4',
-			label: 'Option D',
-		},
-	];
-
-	const unitsList = [
-		{
-			value: '1',
-			label: 'Minutes',
-		},
-		{
-			value: '2',
-			label: 'Hours',
-		},
-		{
-			value: '3',
-			label: 'Days',
-		},
-		{
-			value: '4',
-			label: 'Weeks',
-		},
-	];
-
-	const conditionOperatorList = [
-		{
-			value: 'AND',
-			label: 'AND',
-		},
-		{
-			value: 'OR',
-			label: 'OR',
-		},
-	];
-
-	const handleRemove =  () => {
+	
+	const handleRemove = () => {
 		removeCondition(condition.id);
 	}
-
-
 
 	const handleChangeOperator = (event) => {
 		setOperator(event.target.value);
 	}
 
-	const handleChangeValue = (event) => {
-		setValue(event.target.value);
+	const handleChangeValue = () => {
+		setValue(!value)
+	}
+
+	const handleChangeFromValue = (event) => {
+		setFromValue(event.target.value)
+	}
+
+	const handleChangeToValue = (event) => {
+		setToValue(event.target.value)
 	}
 
 	const handleChangeUnits = (event) => {
@@ -103,8 +50,75 @@ const Condition = ({ condition, removeCondition }) => {
 		setConditionOperator(event.target.value);
 	}
 
+
+	const getValueComponent = () => operator === 4 ? (
+		<Box  sx={{
+			'& .MuiTextField-root': { m: 1, width: '8ch' },
+			width: 150,
+			mt: '0.5rem'
+		}}>
+      <Grid container justifyContent="space-between" alignItems="center">
+        <Grid item xs={5}>
+          <TextField
+            fullWidth
+            size="small"
+            label="From"
+						value={fromValue}
+						onChange={handleChangeFromValue}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+						sx={{
+							'& .MuiTextField-root': { m: 1, width: '8ch' },
+						}}
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <TextField
+            fullWidth
+            size="small"
+            label="To"
+						value={toValue}
+						onChange={handleChangeToValue}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+						sx={{
+							'& .MuiTextField-root': { m: 1, width: '8ch' },
+						}}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+	) : (
+		<Grid alignItems="center" mt="0.5rem">
+			<Typography
+				variant="label"
+				component="div"
+				fontSize="0.75rem"
+				fontWeight="400"
+				color="rgba(0, 0, 0, 0.6);"
+				fontFamily="'Roboto','Helvetica','Arial',sans-serif"
+				textAlign="center"
+			>
+				Value
+			</Typography>
+			<Grid container alignItems="center">
+				<Typography variant="subtitle2" component="div" sx={{ mr: '1.5rem' }}>
+					NO
+				</Typography>
+				<FormControlLabel
+					control={<Switch checked={value} onChange={handleChangeValue} />}
+					label=""
+					labelPlacement="end"
+				/>
+				<Typography variant="subtitle2" component="div">
+					YES
+				</Typography>
+			</Grid>
+		</Grid>
+	)
+
 	return (
-		<FormControl variant="standard" sx={{ m: 1, minWidth: 200, width: '90%' }}>
+		<FormControl variant="standard" sx={{ m: 1, minWidth: 200, width: '100%' }}>
 			<Box
 				component="form"
 				sx={{
@@ -118,17 +132,11 @@ const Condition = ({ condition, removeCondition }) => {
 					<TextField
 						id="data-field"
 						label="Data Field"
-						defaultValue="1"
+						disabled
 						onChange={handleChangeDataField}
-						value={dataField}
+						value={dataField.label}
 						variant="standard"
-					>
-						{dataFields.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))}
-					</TextField>
+					/>
 
 					<TextField
 						id="operator"
@@ -145,33 +153,9 @@ const Condition = ({ condition, removeCondition }) => {
 						))}
 					</TextField>
 
-
-					<TextField
-						id="value"
-						type="text"
-						label="Value"
-						value={value}
-						onChange={handleChangeValue}
-						variant="standard"
-					/>
-
-					<TextField
-						id="condition_operator"
-						select
-						value={conditionOperator}
-						onChange={handleChangeUnits}
-						variant="standard"
-					>
-						{conditionOperatorList.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))}
-					</TextField>
-
-					<IconButton aria-label="remove" onClick={handleRemove}>
-						<HighlightOffIcon color="primary" fontSize="large" />
-					</IconButton>
+					<Box component="div">
+						{getValueComponent()}
+					</Box>
 
 					<TextField
 						id="units"
@@ -188,21 +172,25 @@ const Condition = ({ condition, removeCondition }) => {
 						))}
 					</TextField>
 
-					{/* <TextField
-                        id="data-field"
-                        select
-                        label="Date Field"
-                        onChange={handleChangeDataField}
-                        value={dataField}
-                        // helperText="Please select your currency"
-                        variant="standard"
-                    >
-                        {dataFields.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField> */}
+
+					<IconButton aria-label="remove" onClick={handleRemove} style={{ marginTop: '1rem' }}>
+						<HighlightOffIcon color="primary" fontSize="large" />
+					</IconButton>
+
+					<TextField
+						id="condition_operator"
+						select
+						value={conditionOperator}
+						onChange={handleChangeConditionOperator}
+						variant="standard"
+						style={{ width: '70px', marginTop: '1.5rem' }}
+					>
+						{conditionOperatorList.map((option) => (
+							<MenuItem key={option.value} value={option.value}>
+								{option.label}
+							</MenuItem>
+						))}
+					</TextField>
 				</Box>
 			</Box>
 

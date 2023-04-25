@@ -16,7 +16,7 @@ export default function Rules() {
   const [open, setOpen] = useState(false);
 
   const setOpenForm = (value) => () => {
-    console.log('*****', value)
+    // console.log('*****', value)
     setOpen(value);
   }
 
