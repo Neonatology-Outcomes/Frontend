@@ -1,63 +1,69 @@
 import React, { useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { Box, Container, Grid, MenuItem } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { toDos as filteredOptions } from '../../constants/data/toDoMocks';
+import { toDos as filteredOptions, sortByOptions } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
 
 const ToDo = () => {
 
 	// const filteredOptions = [];
 	const [inputValue, setInputValue] = useState('');
+	const [sortBy, setSortBy] = useState('');
+
+	const handleChangeSortBy = (event) => {
+		setSortBy(event.target.value);
+	};
 
 
 
 	return (
-		<div>
-			{/* {filters.map((filter) => (
-				<FormControlLabel
-					key={filter.id}
-					control={
-						<Checkbox
-							checked={filter.checked}
-							onChange={handleFilterChange}
-							name={filter.name}
-						/>
-					}
-					label={filter.label}
-				/>
-			))} */}
-			<Autocomplete
-				options={filteredOptions}
-				inputValue={inputValue}
-				onInputChange={(event, newInputValue) => {
-					setInputValue(newInputValue);
-				}}
-				renderOption={(props, option, { selected }) => (
-          <li
-            {...props}
-            style={
-							{
-								backgroundColor:
-									option.value % 2 === 0 ? '#26A69A' : '#B2DFDB',
-								color: option.value % 2 === 0 ? '#FFFFFF' : 'inherit',
-          	  }
-					}
-          >
-            <div>
-              <div style={styles.strong}>{option.title}</div>
-              <div>{option.secondLine}</div>
-              <div>{option.thirdLine}</div>
-              <div>Weight {option.weight} g</div>
-            </div>
-          </li>
-        )}
-				renderInput={(params) => (
-					<TextField {...params} label="To Do List" variant="outlined" />
-				)}
-			/>
-		</div>
+		<Container
+			component="section"
+			maxWidth="md"
+			sx={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				minHeight: 'calc(50vh - 64px)',
+
+			}}
+		>
+			<Grid container spacing={2} justifyContent="center">
+				<Grid item xs={12} sm={12} md={9}>
+
+					<Autocomplete
+						fullWidth
+						options={filteredOptions}
+						inputValue={inputValue}
+						onInputChange={(event, newInputValue) => {
+							setInputValue(newInputValue);
+						}}
+						renderOption={(props, option, { selected }) => (
+							<li
+								{...props}
+								style={styles.searchList(option.value)}
+							>
+								<div>
+									<div style={styles.strong}>{option.task}</div>
+									<div>{option.uhid}</div>
+									<div>{option.dateofbirth}</div>
+									<div>Weight {option.birth_weight} g</div>
+								</div>
+							</li>
+						)}
+						renderInput={(params) => (
+							<TextField {...params} label="To Do List" variant="outlined" />
+						)}
+					/>
+				</Grid>
+			</Grid>
+
+		</Container>
+
+
 	);
 };
 

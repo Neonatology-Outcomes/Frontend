@@ -4,20 +4,10 @@ import { Box } from '@mui/material';
 
 const ToDoPage = () => {
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '50vh',
-            }}
-        >
-            <Box sx={{ width: '50vw' }}>
-                <ToDo />
-            </Box>
-        </Box>
 
-    )
+        <ToDo />
+
+    );
 };
 
 export default ToDoPage;
