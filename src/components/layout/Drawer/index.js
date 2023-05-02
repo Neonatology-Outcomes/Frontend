@@ -31,13 +31,13 @@ function DrawerComponent() {
             
           </ListItem>
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="rules" component="a" underline="none" style={{...styles.link}}>
+            <Link href="#/rules" component="a" underline="none" style={{...styles.link}}>
               <ListItemText primary="Rules" />
             </Link>
             
           </ListItem>
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="todo" component="a" underline="none" style={{...styles.link}}>
+            <Link href="#/todo" component="a" underline="none" style={{...styles.link}}>
               <ListItemText primary="To DO" />
             </Link>
             
