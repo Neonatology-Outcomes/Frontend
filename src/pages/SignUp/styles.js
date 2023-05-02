@@ -31,9 +31,9 @@ export const styles = {
     display: 'flex',
     justifyContent: 'space-between',
   },
-  signUpContainer: {
-    marginTop: '0.5rem',
-  },
+  // signUpContainer: {
+  //   marginTop: '0.5rem',
+  // },
   forgotPassword: {
     textDecoration: 'none'
   },

@@ -97,7 +97,7 @@ function LoginPage() {
               </Button>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Button fullWidth variant="contained" color="secondary" href="#signup">
+              <Button fullWidth variant="contained" color="secondary" href="/signup">
                 Sign Up
               </Button>
             </Grid>
