@@ -219,7 +219,7 @@ const SignUp = () => {
 
           <Grid container style={styles.buttons}>
             <Grid item xs={12} md={5} style={styles.signInContainer}>
-              <Button fullWidth variant="contained" color="primary" href="#login">
+              <Button fullWidth variant="contained" color="primary" href="/login">
                 Sign In
               </Button>
             </Grid>
