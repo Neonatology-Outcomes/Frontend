@@ -1,6 +1,6 @@
 export const styles = {
 	container: {
-    height: '100vh',
+    height: '88vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -8,7 +8,8 @@ export const styles = {
   paper: (padding) => ({
     padding,
     minWidth: '300px',
-    width: '400px', 
+    width: '300px', 
+    height: '300px',
   }),
   form: {
     display: 'flex',
@@ -27,4 +28,5 @@ export const styles = {
   forgotPassword: {
     textDecoration: 'none'
   },
+
 };
