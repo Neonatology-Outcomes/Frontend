@@ -1,5 +1,5 @@
 import {
-    HashRouter as Router,
+    BrowserRouter as Router,
     Route,
  } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Rules from './pages/Rules';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import ToDoPage from './pages/ToDo';
 
 
   const Routes = () => (
@@ -15,6 +16,7 @@ import SignUp from './pages/SignUp';
         <Route path="/rules" exact component={Rules} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
+        <Route path="/todo" exact component={ToDoPage} />
         {/* <Route path="/posts" exact component={Posts} />
         <Route path="/tags" exact component={Tags} /> */}
         {/* <Route component={NotFound} /> */}
