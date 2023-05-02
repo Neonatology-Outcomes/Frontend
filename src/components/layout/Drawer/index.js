@@ -37,8 +37,8 @@ function DrawerComponent() {
             
           </ListItem>
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="other" component="a" underline="none" style={{...styles.link}}>
-              <ListItemText primary="Other modules" />
+            <Link href="#/todo" component="a" underline="none" style={{...styles.link}}>
+              <ListItemText primary="To DO" />
             </Link>
             
           </ListItem>
