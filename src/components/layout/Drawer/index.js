@@ -48,13 +48,13 @@ function DrawerComponent() {
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="#/rules" component="a" underline="none" style={{ ...styles.link }}>
+            <Link href="rules" component="a" underline="none" style={{ ...styles.link }}>
               <ListItemText primary="Rules" />
             </Link>
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="#/todo" component="a" underline="none" style={{ ...styles.link }}>
+            <Link href="todo" component="a" underline="none" style={{ ...styles.link }}>
               <ListItemText primary="To Do" />
             </Link>
           </ListItem>
