@@ -59,6 +59,18 @@ function DrawerComponent() {
             </Link>
           </ListItem>
           <Divider />
+          <ListItem onClick={toggleDrawer(false)}>
+            <Link href="login" component="a" underline="none" style={{ ...styles.link }}>
+              <ListItemText primary="Login" />
+            </Link>
+          </ListItem>
+          <Divider />
+          <ListItem onClick={toggleDrawer(false)}>
+            <Link href="signup" component="a" underline="none" style={{ ...styles.link }}>
+              <ListItemText primary="Sign Up" />
+            </Link>
+          </ListItem>
+          <Divider />
           {/* Add more ListItem components for additional menu items */}
         </List>
       </Drawer>

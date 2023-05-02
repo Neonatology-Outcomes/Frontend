@@ -74,8 +74,4 @@ export const sortByOptions = [
       value: 3,
       label: 'Time frame',
    },
-   // {
-   //    value: 1,
-   //    label: 'Alphabetic',
-   // }
 ]
