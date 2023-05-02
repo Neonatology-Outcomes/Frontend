@@ -1,154 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { isEmpty } from 'ramda';
-import { Button, TextField, Typography, Link, Box, Container, Paper, Grid, MenuItem } from '@mui/material';
-import { filter, values } from 'ramda';
-import { styles } from './styles';
-import { sleep, validateEmail } from '../../utils';
-import { rolesList } from '../../constants/data/rulesMocks';
-import { createUser } from '../../services/api';
-
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { isEmpty } from "ramda";
+import {
+  Button,
+  TextField,
+  Typography,
+  Link,
+  Box,
+  Container,
+  Paper,
+  Grid,
+  MenuItem,
+} from "@mui/material";
+import { filter, values } from "ramda";
+import { styles } from "./styles";
+import { sleep, validateEmail } from "../../utils";
+import { rolesList } from "../../constants/data/rulesMocks";
+import { createUser } from "../../services/api";
 
 const SignUp = () => {
   const history = useHistory();
-  const [firstname, setFirstName] = useState('');
-  const [lastname, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmpassword, setConfirmPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [role, setRole] = useState('');
+  const [formValues, setFormValues] = useState({
+    firstname: "",
+    lastname: "",
+    password: "",
+    confirmpassword: "",
+    email: "",
+    username: "",
+    role: "",
+  });
   const [validationObject, setValidationObject] = useState({});
   const [signUpClicked, setSignUpClicked] = useState(false);
 
-  const getValidationObject = () => (
-    {
-      firstname: isEmpty(firstname),
-      lastname: isEmpty(lastname),
-      password: isEmpty(password),
-      email: isEmpty(email),
-      username: isEmpty(username),
-      role: isEmpty(role),
-    }
-  );
-
   useEffect(() => {
-    setValidationObject(getValidationObject);
-  }, [])
+    setValidationObject(getValidationObject());
+  }, []);
 
-
-
-  const handleOnChangeFirstName = (event) => {
-    setFirstName(event.target.value)
-    const firstnameError = { ...validationObject, firstname: isEmpty(event.target.value) }
+  const handleChange = (field, value) => {
+    setFormValues({ ...formValues, [field]: value });
     if (signUpClicked) {
-      setValidationObject(firstnameError)
+      setValidationObject({ ...validationObject, [field]: validateField(field, value) });
     }
-    // setValidationObject(signUpClicked && firstnameError)
+  };
 
-  }
-
-  const handleOnChangeLastName = (event) => {
-    setLastName(event.target.value)
-    const lastnameError = { ...validationObject, lastname: isEmpty(event.target.value) }
-    if (signUpClicked) {
-      setValidationObject(lastnameError)
+  const validateField = (field, value) => {
+    if (field === "email") {
+      return !(validateEmail(value) && !isEmpty(value));
     }
-  }
-
-  const handleOnChangePassword = (event) => {
-    setPassword(event.target.value)
-    const passwordError = { ...validationObject, password: isEmpty(event.target.value) }
-    if (signUpClicked) {
-      setValidationObject(passwordError)
+    if (field === "confirmpassword") {
+      return value !== formValues.password;
     }
-  }
+    return isEmpty(value);
+  };
 
-  const handleOnChangeConfirmPassword = (event) => {
-    setConfirmPassword(event.target.value)
-    const confirmPasswordError = { ...validationObject, confirmpassword: isEmpty(event.target.value) }
-    if (signUpClicked) {
-      setValidationObject(confirmPasswordError)
-    }
-  }
+  const getValidationObject = () => {
+    const fields = Object.keys(formValues);
+    const errors = {};
+    fields.forEach((field) => {
+      errors[field] = validateField(field, formValues[field]);
+    });
+    return errors;
+  };
 
-  const handleOnChangeEmail = ({ target }) => {
-    const { value } = target;
-    setEmail(value)
-    // console.log('validate', validateEmail(value))
-    // console.log('fuuuuuuck', !(!isEmpty(value) && validateEmail(value)))
-    const emailError = {
-      ...validationObject,
-      // email: isEmpty(value) && (isEmpty(value) || validateEmail(value))
-      email: !(!isEmpty(value) && validateEmail(value))
+  const validForm = () => filter((item) => item === true, values(validationObject)).length === 0;
 
-    }
-    if (signUpClicked) {
-      setValidationObject(emailError)
-    }
-  }
-
-  const handleOnChangeUsername = (event) => {
-    setUsername(event.target.value)
-    const usernameError = { ...validationObject, username: isEmpty(event.target.value) }
-    if (signUpClicked) {
-      setValidationObject(usernameError)
-    }
-  }
-
-  const handleOnChangeRole = (event) => {
-    setRole(event.target.value)
-    const roleError = { ...validationObject, role: isEmpty(event.target.value) }
-    if (signUpClicked) {
-      setValidationObject(roleError)
-    }
-  }
-
-  // const validateForm = () => !isEmpty(firstname) && !isEmpty(lastname)
-  //   && !isEmpty(password) && !isEmpty(confirmpassword) && !isEmpty(email);
-
-  const validForm = () => filter((item) => item === true, values(validationObject)).length === 0
-
-  console.log(values(validationObject))
-  console.log(filter((item) => item === false, values(validationObject)))
-
-  const handleOnChangeSignUp = async () => {
-    // console.log(validateForm());
-    setSignUpClicked(true)
-
-    sleep(500);
-
+  const handleSubmit = async () => {
+    setSignUpClicked(true);
+  
     if (validForm()) {
       const data = {
-        username,
-        password,
-        email,
-        firstname,
-        lastname,
-        role,
+        username: formValues.username,
+        password: formValues.password,
+        email: formValues.email,
+        firstname: formValues.firstname,
+        lastname: formValues.lastname,
+        role: formValues.role,
       };
   
       const userResponse = await createUser(data);
-      console.log('user created object', userResponse)
-
+      console.log("user created object", userResponse);
+  
       if (userResponse.ok) {
-        history.push('/login');
+        history.push("/login");
       }
     }
-    // submit()
-  }
-
-  // const submit = () => {
-  //   const data = {
-  //     firstname,
-  //     lastname,
-  //     password,
-  //     email,
-  //     username,
-  //     role
-  //   }
-  // }
-
+  };
+  
+  
   return (
     <Container style={styles.container}>
       <Paper style={styles.paper} elevation={3}>
@@ -163,30 +101,31 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject['firstname']}
+              error={signUpClicked && validationObject["firstname"]}
               style={styles.textField}
               fullWidth
               required
-              value={firstname}
-              onChange={handleOnChangeFirstName}
+              value={formValues.firstname}
+              onChange={(e) => handleChange("firstname", e.target.value)}
               id="firstname"
               label="First Name"
               type="text"
               autoComplete="firstname"
             />
             <TextField
-              error={signUpClicked && validationObject['lastname']}
+              error={signUpClicked && validationObject["lastname"]}
               style={styles.textField}
               fullWidth
               required
-              value={lastname}
-              onChange={handleOnChangeLastName}
+              value={formValues.lastname}
+              onChange={(e) => handleChange("lastname", e.target.value)}
               id="lastname"
               label="Last Name"
-              type="lastname"
+              type="text"
               autoComplete="lastname"
             />
           </Box>
+
           <Box
             component="div"
             display="flex"
@@ -194,31 +133,32 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject['password']}
+              error={signUpClicked && validationObject["password"]}
               style={styles.textField}
               fullWidth
               required
-              value={password}
-              onChange={handleOnChangePassword}
+              value={formValues.password}
+              onChange={(e) => handleChange("password", e.target.value)}
               id="password"
               label="Password"
               type="password"
               autoComplete="current-password"
             />
             <TextField
-              error={signUpClicked && validationObject['confirmpassword']}
+              error={signUpClicked && validationObject["confirmpassword"]}
               style={styles.textField}
               fullWidth
               required
-              value={confirmpassword}
-              onChange={handleOnChangeConfirmPassword}
+              value={formValues.confirmpassword}
+              onChange={(e) => handleChange("confirmpassword", e.target.value)}
               id="confirmpassword"
               label="Confirm Password"
               type="password"
               autoComplete="confirm-password"
-              helperText={confirmpassword === password ? "" : "Password don't match"}
+              helperText={formValues.confirmpassword === formValues.password ? "" : "Passwords don't match"}
             />
           </Box>
+
           <Box
             component="div"
             display="flex"
@@ -226,30 +166,28 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject['email']}
+              error={signUpClicked && validationObject["email"]}
               style={styles.textField}
               fullWidth
               required
-              value={email}
-              onChange={handleOnChangeEmail}
+              value={formValues.email}
+              onChange={(e) => handleChange("email", e.target.value)}
               id="email"
               label="Email"
               type="email"
               autoComplete="email"
-            // TODO
-            // helperText={!handleOnChangeEmail.emailError ? "" :"Incorrect email format"} 
             />
             <TextField
-              error={signUpClicked && validationObject['username']}
+              error={signUpClicked && validationObject["username"]}
               style={styles.textField}
               fullWidth
               required
-              value={username}
-              onChange={handleOnChangeUsername}
+              value={formValues.username}
+              onChange={(e) => handleChange("username", e.target.value)}
               id="username"
               label="Username"
               type="text"
-              autoComplete="Username"
+              autoComplete="username"
             />
           </Box>
 
@@ -258,15 +196,14 @@ const SignUp = () => {
             display="flex"
             flexDirection="row"
             justifyContent="center"
-            // xs={12}
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject['role']}
-              style={{ width: '100%', minWidth: '200px' }}
+              error={signUpClicked && validationObject["role"]}
+              style={{ width: "100%", minWidth: "200px" }}
               required
-              value={role}
-              onChange={handleOnChangeRole}
+              value={formValues.role}
+              onChange={(e) => handleChange("role", e.target.value)}
               id="role"
               label="Role"
               select
@@ -278,11 +215,10 @@ const SignUp = () => {
                 </MenuItem>
               ))}
             </TextField>
-
           </Box>
 
           <Grid container style={styles.buttons}>
-            <Grid item xs={12} md={5} style={styles.signUpContainer}>
+            <Grid item xs={12} md={5} style={styles.signInContainer}>
               <Button fullWidth variant="contained" color="primary" href="#login">
                 Sign In
               </Button>
@@ -292,7 +228,7 @@ const SignUp = () => {
                 fullWidth
                 variant="contained"
                 color="secondary"
-                onClick={handleOnChangeSignUp}
+                onClick={handleSubmit}
               >
                 Sign Up
               </Button>
@@ -306,7 +242,7 @@ const SignUp = () => {
         </form>
       </Paper>
     </Container>
-  )
-}
+  );
+};
 
 export default SignUp;
