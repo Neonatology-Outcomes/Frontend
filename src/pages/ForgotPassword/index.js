@@ -115,7 +115,7 @@ const handleContinueClick = () => {
             </Grid> 
           </Grid>
           <Box mt={2}>
-            <Link href="#login" variant="body2" style={styles.forgotPassword}>
+            <Link href="/login" variant="body2" style={styles.forgotPassword}>
               Return to sign in
             </Link>
           </Box>
