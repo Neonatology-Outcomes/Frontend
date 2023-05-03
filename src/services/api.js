@@ -36,3 +36,14 @@ export const createUser = async(body) => {
 
     return user;
 };
+
+export const getToDos = async() => {
+    const toDos = await api.get(
+        endpoints.todo,
+        // headers and auth header for endpoints with authorization
+        // { ...headers, ...getAuthorizationHeader() }
+        headers,
+    )
+
+    return toDos;
+};

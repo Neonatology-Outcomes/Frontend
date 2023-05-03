@@ -1,6 +1,7 @@
-export const apiUrl = 'https://6572-140-146-255-129.ngrok.io';
+export const apiUrl = 'http://localhost:8080';
 
 export const endpoints = {
-    login: '/auth/login',
-    signup: '/signup'
+    login: '/login',
+    signup: '/signup',
+    todo: '/todo',
 };

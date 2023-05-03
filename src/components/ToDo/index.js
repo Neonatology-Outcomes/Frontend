@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isEmpty, isNil } from 'ramda';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -6,9 +6,27 @@ import { Box, Button, Card, CardContent, CardActions, Container, Grid, MenuItem,
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { toDos as filteredOptions, sortByOptions } from '../../constants/data/toDoMocks';
+import { getToDos } from '../../services/api';
 import { styles } from './styles';
 
 const ToDo = () => {
+
+	const [toDoList, setToDoList] = useState([]);
+
+	useEffect(() => {
+		const fetchToDos = async () => {
+			const toDos = await getToDos();
+			if (toDos.ok) {
+				setToDoList(toDos);
+			} else {
+				console.error(toDos.error);
+			}
+		}
+
+		fetchToDos();
+	}, []);
+
+	console.log('**** toDos from backend: ', toDoList);
 
 	// const filteredOptions = [];
 	const [inputValue, setInputValue] = useState('');
