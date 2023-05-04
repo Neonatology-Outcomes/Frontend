@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { isEmpty } from "ramda";
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { isEmpty, filter, values } from 'ramda';
 import {
   Button,
   TextField,
@@ -11,43 +11,31 @@ import {
   Paper,
   Grid,
   MenuItem,
-} from "@mui/material";
-import { filter, values } from "ramda";
-import { styles } from "./styles";
-import { sleep, validateEmail } from "../../utils";
-import { rolesList } from "../../constants/data/rulesMocks";
-import { createUser } from "../../services/api";
+} from '@mui/material';
+import { styles } from './styles';
+import { validateEmail } from '../../utils';
+import { rolesList } from '../../constants/data/rulesMocks';
+import { createUser } from '../../services/api';
 
-const SignUp = () => {
+function SignUp() {
   const history = useHistory();
   const [formValues, setFormValues] = useState({
-    firstname: "",
-    lastname: "",
-    password: "",
-    confirmpassword: "",
-    email: "",
-    username: "",
-    role: "",
+    firstname: '',
+    lastname: '',
+    password: '',
+    confirmpassword: '',
+    email: '',
+    username: '',
+    role: '',
   });
   const [validationObject, setValidationObject] = useState({});
   const [signUpClicked, setSignUpClicked] = useState(false);
 
-  useEffect(() => {
-    setValidationObject(getValidationObject());
-  }, []);
-
-  const handleChange = (field, value) => {
-    setFormValues({ ...formValues, [field]: value });
-    if (signUpClicked) {
-      setValidationObject({ ...validationObject, [field]: validateField(field, value) });
-    }
-  };
-
   const validateField = (field, value) => {
-    if (field === "email") {
+    if (field === 'email') {
       return !(validateEmail(value) && !isEmpty(value));
     }
-    if (field === "confirmpassword") {
+    if (field === 'confirmpassword') {
       return value !== formValues.password;
     }
     return isEmpty(value);
@@ -62,11 +50,21 @@ const SignUp = () => {
     return errors;
   };
 
+  useEffect(() => {
+    if (signUpClicked) {
+      setValidationObject(getValidationObject());
+    }
+  }, [formValues, signUpClicked]);
+
+  const handleChange = (field, value) => {
+    setFormValues({ ...formValues, [field]: value });
+  };
+
   const validForm = () => filter((item) => item === true, values(validationObject)).length === 0;
 
   const handleSubmit = async () => {
     setSignUpClicked(true);
-  
+
     if (validForm()) {
       const data = {
         username: formValues.username,
@@ -76,17 +74,16 @@ const SignUp = () => {
         lastname: formValues.lastname,
         role: formValues.role,
       };
-  
+
       const userResponse = await createUser(data);
-      console.log("user created object", userResponse);
-  
+      console.log('user created object', userResponse);
+
       if (userResponse.ok) {
-        history.push("/login");
+        history.push('/login');
       }
     }
   };
-  
-  
+
   return (
     <Container style={styles.container}>
       <Paper style={styles.paper} elevation={3}>
@@ -101,24 +98,24 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject["firstname"]}
+              error={signUpClicked && validationObject.firstname === true}
               style={styles.textField}
               fullWidth
               required
               value={formValues.firstname}
-              onChange={(e) => handleChange("firstname", e.target.value)}
+              onChange={(e) => handleChange('firstname', e.target.value)}
               id="firstname"
               label="First Name"
               type="text"
               autoComplete="firstname"
             />
             <TextField
-              error={signUpClicked && validationObject["lastname"]}
+              error={signUpClicked && validationObject.lastname === true}
               style={styles.textField}
               fullWidth
               required
               value={formValues.lastname}
-              onChange={(e) => handleChange("lastname", e.target.value)}
+              onChange={(e) => handleChange('lastname', e.target.value)}
               id="lastname"
               label="Last Name"
               type="text"
@@ -133,29 +130,31 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject["password"]}
+              error={signUpClicked && validationObject.password === true}
               style={styles.textField}
               fullWidth
               required
               value={formValues.password}
-              onChange={(e) => handleChange("password", e.target.value)}
+              onChange={(e) => handleChange('password', e.target.value)}
               id="password"
               label="Password"
               type="password"
               autoComplete="current-password"
             />
             <TextField
-              error={signUpClicked && validationObject["confirmpassword"]}
+              error={signUpClicked && validationObject.confirmpassword === true}
               style={styles.textField}
               fullWidth
               required
               value={formValues.confirmpassword}
-              onChange={(e) => handleChange("confirmpassword", e.target.value)}
+              onChange={(e) => handleChange('confirmpassword', e.target.value)}
               id="confirmpassword"
               label="Confirm Password"
               type="password"
               autoComplete="confirm-password"
-              helperText={formValues.confirmpassword === formValues.password ? "" : "Passwords don't match"}
+              helperText={
+                formValues.confirmpassword === formValues.password ? '' : "Passwords don't match"
+              }
             />
           </Box>
 
@@ -166,24 +165,24 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject["email"]}
+              error={signUpClicked && validationObject.email === true}
               style={styles.textField}
               fullWidth
               required
               value={formValues.email}
-              onChange={(e) => handleChange("email", e.target.value)}
+              onChange={(e) => handleChange('email', e.target.value)}
               id="email"
               label="Email"
               type="email"
               autoComplete="email"
             />
             <TextField
-              error={signUpClicked && validationObject["username"]}
+              error={signUpClicked && validationObject.username === true}
               style={styles.textField}
               fullWidth
               required
               value={formValues.username}
-              onChange={(e) => handleChange("username", e.target.value)}
+              onChange={(e) => handleChange('username', e.target.value)}
               id="username"
               label="Username"
               type="text"
@@ -199,11 +198,11 @@ const SignUp = () => {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject["role"]}
-              style={{ width: "100%", minWidth: "200px" }}
+              error={signUpClicked && validationObject.role === true}
+              style={{ width: '100%', minWidth: '200px' }}
               required
               value={formValues.role}
-              onChange={(e) => handleChange("role", e.target.value)}
+              onChange={(e) => handleChange('role', e.target.value)}
               id="role"
               label="Role"
               select
@@ -224,18 +223,13 @@ const SignUp = () => {
               </Button>
             </Grid>
             <Grid item xs={12} md={5} style={styles.signUpContainer}>
-              <Button
-                fullWidth
-                variant="contained"
-                color="secondary"
-                onClick={handleSubmit}
-              >
+              <Button fullWidth variant="contained" color="secondary" onClick={handleSubmit}>
                 Sign Up
               </Button>
             </Grid>
           </Grid>
           <Box mt={2}>
-            <Link href="#" variant="body2" style={styles.forgotPassword}>
+            <Link href="/forgotpassword" variant="body2" style={styles.forgotPassword}>
               Forgot password?
             </Link>
           </Box>
@@ -243,6 +237,6 @@ const SignUp = () => {
       </Paper>
     </Container>
   );
-};
+}
 
 export default SignUp;

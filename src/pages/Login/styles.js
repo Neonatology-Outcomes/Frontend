@@ -1,5 +1,5 @@
 export const styles = {
-	container: {
+  container: {
     height: '100vh',
     display: 'flex',
     alignItems: 'center',
@@ -23,6 +23,6 @@ export const styles = {
     justifyContent: 'space-between',
   },
   forgotPassword: {
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
 };

@@ -20,11 +20,11 @@ export const styles = {
     flexGrow: 1,
     marginBottom: 8,
     marginRight: 8,
-    width: '48%', 
+    width: '48%',
   },
   textFieldContainer: {
     marginTop: '1rem',
-    display: 'flex'
+    display: 'flex',
   },
   buttons: {
     marginTop: '24px',
@@ -35,6 +35,6 @@ export const styles = {
   //   marginTop: '0.5rem',
   // },
   forgotPassword: {
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
 };
