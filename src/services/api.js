@@ -47,7 +47,6 @@ export const getToDos = async() => {
     const toDos = await api.get(
         endpoints.todos,
         // headers and auth header for endpoints with authorization
-        // { ...headers, ...getAuthorizationHeader(authToken) }
     )
 
     return toDos;

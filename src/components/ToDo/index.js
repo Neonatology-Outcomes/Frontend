@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { isEmpty, isNil } from 'ramda';
+import { isNil } from 'ramda';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material';
@@ -10,7 +10,7 @@ const ToDo = () => {
 
 	const [toDoList, setToDoList] = useState([]);
 	const [selectedOption, setSelectedOption] = useState(null);
-	const [sortBy, setSortBy] = useState('');
+	// const [sortBy, setSortBy] = useState('');
 
 	useEffect(() => {
 		const fetchToDos = async () => {
