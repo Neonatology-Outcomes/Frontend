@@ -5,11 +5,7 @@ import { login } from '../../services/api';
 import { styles } from './styles';
 
 function LoginPage() {
-
-  const [windowSize, setWindowSize] = useState([
-    window.innerWidth,
-    window.innerHeight,
-  ]);
+  const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
 
   const history = useHistory();
   const [username, setUsername] = useState('');
@@ -32,7 +28,7 @@ function LoginPage() {
     const data = {
       username,
       password,
-    }
+    };
 
     const userResponse = await login(data);
 
@@ -42,19 +38,18 @@ function LoginPage() {
       setIncorrectCredentials(true);
     }
 
-    console.log('user login object', userResponse)
+    console.log('user login object', userResponse);
   };
 
   const handleChangeUsername = (event) => {
     setUsername(event.target.value);
-  }
+  };
 
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
-  const getWindowStyleSize = () =>
-    windowSize[0] >= 680 ? '80px' : '10px';
+  const getWindowStyleSize = () => (windowSize[0] >= 680 ? '80px' : '10px');
 
   // console.log(windowSize[0])
 

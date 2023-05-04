@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -11,10 +11,10 @@ import {
   ListItemText,
   Divider,
   Box,
-} from "@mui/material";
-import { Menu as MenuIcon } from "@mui/icons-material";
-import { styles } from "./styles";
-import logo from '../../../assets/img/logo.png'
+} from '@mui/material';
+import { Menu as MenuIcon } from '@mui/icons-material';
+import { styles } from './styles';
+import logo from '../../../assets/img/logo.png';
 
 function DrawerComponent() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,8 +36,8 @@ function DrawerComponent() {
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
-        <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-          <img src={logo} alt="Logo" style={{width: '100px'}} />
+        <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+          <img src={logo} alt="Logo" style={{ width: '100px' }} />
         </Box>
         <Divider />
         <List>
