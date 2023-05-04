@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { isNil } from 'ramda';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material';
+import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
 import { getToDos } from '../../services/api';
 import { styles } from './styles';
 
@@ -61,7 +61,7 @@ function ToDo() {
             options={toDoList}
             getOptionLabel={(option) => getTaskTitle(option.tasks)}
             isOptionEqualToValue={(option, value) => option.uhid === value.uhid}
-            renderOption={(props, option, { selected }) => (
+            renderOption={(props, option) => (
               <li {...props} key={option.uhid} style={styles.searchList(option.value)}>
                 <div>
                   <div style={styles.strong}>{getTaskTitle(option.tasks)}</div>

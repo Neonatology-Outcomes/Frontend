@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -193,5 +194,10 @@ function Condition({ condition, removeCondition }) {
     </FormControl>
   );
 }
+
+Condition.propTypes = {
+  condition: PropTypes.array.isRequired,
+  removeCondition: PropTypes.func.isRequired,
+};
 
 export default Condition;

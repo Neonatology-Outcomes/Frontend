@@ -9,6 +9,7 @@
     "jest": true
   },
   "rules": {
+    "react/jsx-props-no-spreading": "off",
     "no-console": "off",
     "react/jsx-filename-extension": [
       1,

@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { styles } from './styles';
-import { sleep, validateEmail } from '../../utils';
+import { validateEmail } from '../../utils';
 import { rolesList } from '../../constants/data/rulesMocks';
 import { createUser } from '../../services/api';
 
@@ -30,17 +30,6 @@ function SignUp() {
   });
   const [validationObject, setValidationObject] = useState({});
   const [signUpClicked, setSignUpClicked] = useState(false);
-
-  useEffect(() => {
-    setValidationObject(getValidationObject());
-  }, []);
-
-  const handleChange = (field, value) => {
-    setFormValues({ ...formValues, [field]: value });
-    if (signUpClicked) {
-      setValidationObject({ ...validationObject, [field]: validateField(field, value) });
-    }
-  };
 
   const validateField = (field, value) => {
     if (field === 'email') {
@@ -59,6 +48,16 @@ function SignUp() {
       errors[field] = validateField(field, formValues[field]);
     });
     return errors;
+  };
+
+  useEffect(() => {
+    if (signUpClicked) {
+      setValidationObject(getValidationObject());
+    }
+  }, [formValues, signUpClicked]);
+
+  const handleChange = (field, value) => {
+    setFormValues({ ...formValues, [field]: value });
   };
 
   const validForm = () => filter((item) => item === true, values(validationObject)).length === 0;
@@ -99,7 +98,7 @@ function SignUp() {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject.firstname}
+              error={signUpClicked && validationObject.firstname === true}
               style={styles.textField}
               fullWidth
               required
@@ -111,7 +110,7 @@ function SignUp() {
               autoComplete="firstname"
             />
             <TextField
-              error={signUpClicked && validationObject.lastname}
+              error={signUpClicked && validationObject.lastname === true}
               style={styles.textField}
               fullWidth
               required
@@ -131,7 +130,7 @@ function SignUp() {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject.password}
+              error={signUpClicked && validationObject.password === true}
               style={styles.textField}
               fullWidth
               required
@@ -143,7 +142,7 @@ function SignUp() {
               autoComplete="current-password"
             />
             <TextField
-              error={signUpClicked && validationObject.confirmpassword}
+              error={signUpClicked && validationObject.confirmpassword === true}
               style={styles.textField}
               fullWidth
               required
@@ -166,7 +165,7 @@ function SignUp() {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject.email}
+              error={signUpClicked && validationObject.email === true}
               style={styles.textField}
               fullWidth
               required
@@ -178,7 +177,7 @@ function SignUp() {
               autoComplete="email"
             />
             <TextField
-              error={signUpClicked && validationObject.username}
+              error={signUpClicked && validationObject.username === true}
               style={styles.textField}
               fullWidth
               required
@@ -199,7 +198,7 @@ function SignUp() {
             style={styles.textFieldContainer}
           >
             <TextField
-              error={signUpClicked && validationObject.role}
+              error={signUpClicked && validationObject.role === true}
               style={{ width: '100%', minWidth: '200px' }}
               required
               value={formValues.role}
@@ -230,7 +229,7 @@ function SignUp() {
             </Grid>
           </Grid>
           <Box mt={2}>
-            <Link href="#" variant="body2" style={styles.forgotPassword}>
+            <Link href="/forgotpassword" variant="body2" style={styles.forgotPassword}>
               Forgot password?
             </Link>
           </Box>
