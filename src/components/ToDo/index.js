@@ -2,22 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { isEmpty, isNil } from 'ramda';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { Box, Button, Card, CardContent, CardActions, Container, Grid, MenuItem, Typography } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { toDos as filteredOptions, sortByOptions } from '../../constants/data/toDoMocks';
+import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material';
 import { getToDos } from '../../services/api';
 import { styles } from './styles';
 
 const ToDo = () => {
 
 	const [toDoList, setToDoList] = useState([]);
+	const [selectedOption, setSelectedOption] = useState(null);
+	const [sortBy, setSortBy] = useState('');
 
 	useEffect(() => {
 		const fetchToDos = async () => {
 			const toDos = await getToDos();
 			if (toDos.ok) {
-				setToDoList(toDos);
+				setToDoList(toDos.data);
 			} else {
 				console.error(toDos.error);
 			}
@@ -27,19 +26,17 @@ const ToDo = () => {
 	}, []);
 
 	console.log('**** toDos from backend: ', toDoList);
+	
 
-	// const filteredOptions = [];
-	const [inputValue, setInputValue] = useState('');
-	const [selectedOption, setSelectedOption] = useState(null);
-	const [sortBy, setSortBy] = useState('');
-
-	const handleChangeSortBy = (event) => {
-		setSortBy(event.target.value);
-	};
+	// const handleChangeSortBy = (event) => {
+	// 	setSortBy(event.target.value);
+	// };
 
 	const handleOptionChange = (event, newOption) => {
 		setSelectedOption(newOption);
 	};
+
+	console.log('selectedOption', selectedOption)
 
 	const getTaskTitle = (tasks) => `${tasks[0]} ${tasks[1] || ''} ${tasks[2] || ''}`
 
@@ -62,18 +59,16 @@ const ToDo = () => {
 
 					<Autocomplete
 						style={{ marginBottom: '5rem' }}
+						value={selectedOption}
 						fullWidth
 						onChange={handleOptionChange}
-						options={filteredOptions}
+						options={toDoList}
 						getOptionLabel={(option) => getTaskTitle(option.tasks)}
-						inputValue={inputValue}
-						onInputChange={(event, newInputValue) => {
-							console.log('input value', newInputValue)
-							setInputValue(newInputValue);
-						}}
+						isOptionEqualToValue={(option, value) => option.uhid === value.uhid}
 						renderOption={(props, option, { selected }) => (
 							<li
 								{...props}
+								key={option.uhid}
 								style={styles.searchList(option.value)}
 							>
 								<div>
@@ -89,16 +84,12 @@ const ToDo = () => {
 						)}
 					/>
 
-					{!isEmpty(inputValue) && !isNil(selectedOption) ? (
+					{!isNil(selectedOption) ? (
 						<Card sx={{ minWidth: 275 }}>
 							<CardContent>
-								{/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-									Word of the Day
-								</Typography> */}
-
 								<>
 									<Typography variant="body1" component="header" style={styles.strong}>
-										{inputValue}
+										{getTaskTitle(selectedOption.tasks)}
 									</Typography>
 									<Typography color="text.secondary">
 										{selectedOption.uhid}
@@ -110,12 +101,7 @@ const ToDo = () => {
 										{selectedOption.birth_weight}
 									</Typography>
 								</>
-
-
 							</CardContent>
-							{/* <CardActions>
-								<Button size="small">Learn More</Button>
-							</CardActions> */}
 						</Card>
 					) : null}
 				</Grid>

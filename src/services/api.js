@@ -1,9 +1,10 @@
 import { create } from 'apisauce';
 import { endpoints, apiUrl } from '../constants/api';
+import { getAuthToken } from './storage';
 
 const headers = { 
     Accept: 'application/json',
-    'Content-Type': 'application/json; charset=utf-8',
+    "Content-Type": "application/json",
     "ngrok-skip-browser-warning":"any"
 };
 
@@ -12,8 +13,8 @@ const api = create({
     
 });
 
-const getAuthorizationHeader = (token) => ({
-    Authorization: `Bearer ${token}`
+const getAuthorizationHeader = (authToken) => ({
+    Authorization: `Bearer ${authToken}`
 })
 
 // this doesn't need the auth header
@@ -39,11 +40,14 @@ export const createUser = async(body) => {
 };
 
 export const getToDos = async() => {
+    const authToken = await getAuthToken();
+    api.setHeaders({
+        ...getAuthorizationHeader(authToken)
+    })
     const toDos = await api.get(
-        endpoints.todo,
+        endpoints.todos,
         // headers and auth header for endpoints with authorization
-        // { ...headers, ...getAuthorizationHeader() }
-        headers,
+        // { ...headers, ...getAuthorizationHeader(authToken) }
     )
 
     return toDos;
