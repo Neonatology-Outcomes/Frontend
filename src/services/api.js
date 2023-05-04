@@ -4,6 +4,7 @@ import { endpoints, apiUrl } from '../constants/api';
 const headers = { 
     Accept: 'application/json',
     'Content-Type': 'application/json; charset=utf-8',
+    "ngrok-skip-browser-warning":"any"
 };
 
 const api = create({
