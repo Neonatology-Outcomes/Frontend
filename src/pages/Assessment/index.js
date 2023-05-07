@@ -24,6 +24,7 @@ function Assessment() {
   const [assessmentDateTime, setAssessmentDateTime] = useState(new Date());
   const [dayOfLife, setDayOfLife] = useState(1);
   const [actionDate, setActionDate] = useState(new Date().toISOString().slice(0, -8));
+  const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
   const [actionRadio, setActionRadio] = useState('');
   const [checkboxes, setCheckboxes] = useState({
     firstSkinToSkin: false,
@@ -48,7 +49,7 @@ function Assessment() {
     const currentDate = new Date();
     const timeDifference = currentDate - assessmentDate;
     const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    setDayOfLife(dayDifference + 1); // Add 1 to the difference because the day of life starts from 1
+    setDayOfLife(dayDifference); // Add 1 to the difference because the day of life starts from 1
   };
 
   // const handleChangeRadio = (event) => {
@@ -58,6 +59,10 @@ function Assessment() {
   useEffect(() => {
     updateDayOfLife();
   }, [assessmentDate]);
+
+  // useEffect(() => {
+  //   updateDayOfLife();
+  // }, [assessmentDateTime]);
 
   return (
     <Container style={styles.container}>
@@ -125,13 +130,13 @@ function Assessment() {
           {/* Add this line for spacing */}
           <TextField
             style={styles.textField}
-            label="Date and Time of Action"
+            label="Date and Time of Assessment"
             type="datetime-local"
             InputLabelProps={{
               shrink: true,
             }}
             value={actionDate}
-            onChange={(e) => setAssessmentDate(new Date(e.target.value))}
+            onChange={(e) => setActionDate(new Date(e.target.value))}
           />
           <TextField
             style={styles.textField}
@@ -161,8 +166,8 @@ function Assessment() {
           InputLabelProps={{
             shrink: true,
           }}
-          value={actionDate}
-          onChange={(e) => setActionDate(e.target.value)}
+          value={actionDateTime}
+          onChange={(e) => setActionDateTime(e.target.value)}
         />
         <FormControl component="fieldset">
           {/* <FormLabel component="legend">Actions</FormLabel> */}

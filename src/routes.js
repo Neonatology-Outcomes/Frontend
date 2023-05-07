@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ToDoPage from './pages/ToDo';
 import ForgotPassword from './pages/ForgotPassword';
+import Assessment from './pages/Assessment';
 
 function Routes() {
   return (
@@ -16,6 +17,7 @@ function Routes() {
       <Route path="/signup" exact component={SignUp} />
       <Route path="/todo" exact component={ToDoPage} />
       <Route path="/forgotpassword" exact component={ForgotPassword} />
+      <Route path="/assessment" exact component={Assessment} />
       {/* <Route path="/posts" exact component={Posts} />
         <Route path="/tags" exact component={Tags} /> */}
       {/* <Route component={NotFound} /> */}
