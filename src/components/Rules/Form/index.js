@@ -20,6 +20,7 @@ import {
 } from '../../../constants/data/rulesMocks';
 import { generateRandomInteger } from '../../../utils';
 import { styles } from './styles';
+import BundleSelector from '../../BundleSelector';
 
 export default function FormDialog({ open, setOpen }) {
   const [isOpen, setIsOpen] = useState(open);
@@ -121,53 +122,12 @@ export default function FormDialog({ open, setOpen }) {
     <Dialog open={isOpen} onClose={handleChangeOpen(false)} maxWidth="lg" fullWidth>
       <DialogTitle>Create Role</DialogTitle>
 
-      <Box component="div" display="flex" flexDirection="row" justifyContent="space-between">
-        <Box component="div" flexDirection="column" xs={6} width="100%" />
-        <Box component="div" flexDirection="column" xs={6} width="100%">
-          <Box
-            component="div"
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            xs={12}
-          >
-            <Box component="div" flexDirection="column" xs={4}>
-              <Box component="div" flexDirection="row" justifyContent="center">
-                <Button
-                  variant={getVariant(selectedBundle === 'At Admission')}
-                  style={getVariantStyle(selectedBundle === 'At Admission')}
-                  onClick={handleSetSelectedBundle('At Admission')}
-                >
-                  At Admission
-                </Button>
-              </Box>
-            </Box>
-            <Box component="div" flexDirection="column" xs={4}>
-              <Box component="div" flexDirection="row" justifyContent="center">
-                <Button
-                  variant={getVariant(selectedBundle === 'At NICU')}
-                  style={getVariantStyle(selectedBundle === 'At NICU')}
-                  onClick={handleSetSelectedBundle('At NICU')}
-                >
-                  At NICU
-                </Button>
-              </Box>
-            </Box>
-            <Box component="div" flexDirection="column" xs={4}>
-              <Box component="div" flexDirection="row" justifyContent="center">
-                <Button
-                  variant={getVariant(selectedBundle === 'Post Discharge')}
-                  style={getVariantStyle(selectedBundle === 'Post Discharge')}
-                  onClick={handleSetSelectedBundle('Post Discharge')}
-                >
-                  Post Discharge
-                </Button>
-              </Box>
-            </Box>
-            <Box component="div" flexDirection="column" xs={4} />
-          </Box>
-        </Box>
-      </Box>
+      <BundleSelector
+        getVariant={getVariant}
+        getVariantStyle={getVariantStyle}
+        handleSetSelectedBundle={handleSetSelectedBundle}
+        selectedBundle={selectedBundle}
+      />
 
       <FormControl variant="standard" sx={{ m: 1, minWidth: 320 }}>
         <DialogContent>
