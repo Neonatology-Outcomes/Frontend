@@ -47,30 +47,30 @@ export const rulesListMock = [
 ];
 
 export const operators = [
-	{
-		value: 1,
-		label: '<=',
-	},
-	{
-		value: 2,
-		label: '==',
-	},
-	{
-		value: 3,
-		label: '>=',
-	},
-	{
-		value: 4,
-		label: 'In Between'
-	},
-	{
-		value: 5,
-		label: 'Not Equals'
-	},
-	{
-		value: 6,
-		label: 'No'
-	}
+  {
+    value: 1,
+    label: '<=',
+  },
+  {
+    value: 2,
+    label: '==',
+  },
+  {
+    value: 3,
+    label: '>=',
+  },
+  {
+    value: 4,
+    label: 'In Between',
+  },
+  {
+    value: 5,
+    label: 'Not Equals',
+  },
+  {
+    value: 6,
+    label: 'No',
+  },
 ];
 
 export const conditionOperatorList = [

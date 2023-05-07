@@ -1,18 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { isEmpty, filter, values } from 'ramda';
+import React, { useEffect, useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+// import { isEmpty, filter, values } from 'ramda';
+import { isEmpty } from 'ramda';
 import { Button, TextField, Typography, Link, Box, Container, Paper, Grid } from '@mui/material';
 import { styles } from './styles';
-import { sleep, validateEmail } from '../../utils';
+// import { sleep, validateEmail } from '../../utils';
+import { validateEmail } from '../../utils';
 
 function ForgotPassword() {
   const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
 
-  const history = useHistory();
+  // const history = useHistory();
   const [email, setEmail] = useState('');
   const [validationObject, setValidationObject] = useState({});
   const [continueClicked, setContinueClicked] = useState(false);
-  const [signUpClicked, setSignUpClicked] = useState(false);
+  // const [signUpClicked, setSignUpClicked] = useState(false);
 
   const getValidationObject = () => ({
     email: isEmpty(email),
@@ -47,14 +49,14 @@ function ForgotPassword() {
     setEmail(value);
     // console.log('validate', validateEmail(value))
     // console.log('fuuuuuuck', !(!isEmpty(value) && validateEmail(value)))
-    const emailError = {
-      ...validationObject,
-      // email: isEmpty(value) && (isEmpty(value) || validateEmail(value))
-      email: !(!isEmpty(value) && validateEmail(value)),
-    };
-    if (signUpClicked) {
-      setValidationObject(emailError);
-    }
+    // const emailError = {
+    //   ...validationObject,
+    //   // email: isEmpty(value) && (isEmpty(value) || validateEmail(value))
+    //   email: !(!isEmpty(value) && validateEmail(value)),
+    // };
+    // if (signUpClicked) {
+    //   setValidationObject(emailError);
+    // }
   };
 
   const handleContinueClick = () => {
@@ -74,7 +76,7 @@ function ForgotPassword() {
           Reset your password
         </Typography>
         <Typography variant="body1" component="p" style={{ marginBottom: 24 }}>
-          Enter the email address associated with your account, and we'll send you a link to reset
+          Enter the email address associated with your account, and we will send you a link to reset
           your password.
         </Typography>
         <form style={styles.form}>
