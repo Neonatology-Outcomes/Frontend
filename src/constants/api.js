@@ -1,6 +1,7 @@
-export const apiUrl = 'http://127.0.0.1:8080/api';
+export const apiUrl = 'http://localhost:8080';
 
 export const endpoints = {
-    login: '/auth/login',
-    signup: '/auth/signup'
+  login: '/login',
+  signup: '/signup',
+  todos: '/getNurseDailyTasks/',
 };

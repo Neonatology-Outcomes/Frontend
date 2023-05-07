@@ -1,8 +1,8 @@
 export const styles = {
   main: {
-    padding: "16px"
+    padding: '16px',
   },
   link: {
-    textDecoration: 'none'
-  }
+    textDecoration: 'none',
+  },
 };

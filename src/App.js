@@ -1,5 +1,5 @@
-import Routes from "./routes";
-import Drawer from "./components/layout/Drawer";
+import Routes from './routes';
+import Drawer from './components/layout/Drawer';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <Drawer />
       <Routes />
     </>
-  )
+  );
 }
 
 export default App;

@@ -1,5 +1,5 @@
 export const styles = {
-	container: {
+  container: {
     height: '88vh',
     display: 'flex',
     alignItems: 'center',
@@ -8,7 +8,7 @@ export const styles = {
   paper: (padding) => ({
     padding,
     minWidth: '300px',
-    width: '300px', 
+    width: '300px',
     height: '300px',
   }),
   form: {
@@ -26,7 +26,6 @@ export const styles = {
     width: '100%',
   },
   forgotPassword: {
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
-
 };

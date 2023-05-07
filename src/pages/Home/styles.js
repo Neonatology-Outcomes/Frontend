@@ -1,3 +1,3 @@
 export const styles = {
-    textDecoration: 'none'
+  textDecoration: 'none',
 };

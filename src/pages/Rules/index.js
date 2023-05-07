@@ -18,8 +18,7 @@ export default function Rules() {
   const setOpenForm = (value) => () => {
     // console.log('*****', value)
     setOpen(value);
-  }
-
+  };
 
   return (
     <section style={{ height: '70vh', width: '100%' }}>
@@ -31,22 +30,22 @@ export default function Rules() {
         checkboxSelection
       />
 
-        <Box component="div" sx={{
-            display: 'flex',
-             justifyContent: 'flex-end',
-             alignContent: 'space-around',
-             marginRight: '3rem',
-             marginTop: '2rem'
-        }}>
-            <Fab color="primary" aria-label="add" onClick={setOpenForm(true)}>
-                <AddIcon />
-            </Fab>
-        </Box>
-        
-        <RulesForm open={open} setOpen={setOpen} />
-        
-    
-    
+      <Box
+        component="div"
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignContent: 'space-around',
+          marginRight: '3rem',
+          marginTop: '2rem',
+        }}
+      >
+        <Fab color="primary" aria-label="add" onClick={setOpenForm(true)}>
+          <AddIcon />
+        </Fab>
+      </Box>
+
+      <RulesForm open={open} setOpen={setOpen} />
     </section>
   );
 }
