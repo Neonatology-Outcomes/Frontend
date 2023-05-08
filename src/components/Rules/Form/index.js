@@ -203,6 +203,79 @@ export default function FormDialog({ open, setOpen }) {
               </Box>
             ))}
           </Box>
+
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <Box component="div">
+              <TextField
+                id="rule-name"
+                type="text"
+                label="Rule Name"
+                value={ruleName}
+                onChange={handleChangeRuleName}
+                variant="standard"
+              />
+            </Box>
+
+            <Box component="div">
+              <TextField
+                id="category"
+                select
+                label="Category (label)"
+                value={category}
+                onChange={handleChangeCategory}
+                variant="standard"
+              >
+                {categories.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              {dataFields.length > 0 ? (
+                <TextField
+                  id="data-field"
+                  select
+                  label="Data Field"
+                  onChange={handleChangeDataField}
+                  value={dataField}
+                  variant="standard"
+                >
+                  {dataFields.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : null}
+
+              <IconButton
+                color="primary"
+                aria-label="add new condition"
+                sx={{ mt: '0.5rem', ml: '1rem' }}
+                onClick={createCondition}
+              >
+                <AddCircleOutline fontSize="large" />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box component="section" style={styles.conditionsSectionContainer}>
+            <Box style={{ padding: 10 }}>
+              <Typography variant="h5">If</Typography>
+            </Box>
+            {conditions.map((condition) => (
+              <Box key={condition.id}>
+                <Condition condition={condition} removeCondition={handleRemoveCondition} />
+              </Box>
+            ))}
+          </Box>
         </DialogContent>
       </FormControl>
 
