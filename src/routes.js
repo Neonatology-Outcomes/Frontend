@@ -8,6 +8,7 @@ import ToDoPage from './pages/ToDo';
 import ForgotPassword from './pages/ForgotPassword';
 import NurseDashboard from './pages/NurseDashboard';
 import Assessment from './pages/Assessment';
+import ComplianceDashboard from './pages/ComplianceDashboard';
 
 function Routes() {
   return (
@@ -20,10 +21,7 @@ function Routes() {
       <Route path="/forgot-password" exact component={ForgotPassword} />
       <Route path="/nurse-dashboard" exact component={NurseDashboard} />
       <Route path="/assessment/:id" exact component={Assessment} />
-      {/* <Route path="/posts" exact component={Posts} />
-        <Route path="/tags" exact component={Tags} /> */}
-      {/* <Route component={NotFound} /> */}
-      {/* <Route path="another_route" exact component={AnotherComponent} /> */}
+      <Route path="/compliance-dashboard" exact component={ComplianceDashboard} />
     </Router>
   );
 }
