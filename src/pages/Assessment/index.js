@@ -7,22 +7,21 @@ import {
   TextField,
   FormControl,
   FormControlLabel,
-  // FormLabel,
-  // Radio,
-  // RadioGroup,
-  // Grid,
   Checkbox,
   FormGroup,
 } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import { differenceInDays } from 'date-fns';
 import { styles } from './styles';
 // import BundleSelector from '../../components/BundleSelector';
 import { getVariant, getVariantStyle } from '../../utils';
 
 function Assessment() {
   // const [dateTime, setDateTime] = useState(new Date().toLocaleString());
-  const [assessmentDate] = useState(new Date());
-  // const [assessmentDateTime, setAssessmentDateTime] = useState(new Date());
+  // const [assessmentDate] = useState(new Date());
+  const [assessmentDateTime, setAssessmentDateTime] = useState(
+    new Date().toISOString().slice(0, -8),
+  );
   const [dayOfLife, setDayOfLife] = useState(1);
   const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
   // const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
@@ -48,7 +47,7 @@ function Assessment() {
 
   const handleSetAssessmentDateTime = (event) => {
     console.log(event.target.value);
-    setActionDateTime(event.target.value);
+    setAssessmentDateTime(event.target.value);
   };
 
   const handleSetActionDateTime = (event) => {
@@ -58,14 +57,14 @@ function Assessment() {
 
   const updateDayOfLife = () => {
     const currentDate = new Date();
-    const timeDifference = currentDate - assessmentDate;
-    const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    setDayOfLife(dayDifference); // Add 1 to the difference because the day of life starts from 1
+    const parsedAssessmentDate = new Date(assessmentDateTime);
+    const dayDifference = differenceInDays(currentDate, parsedAssessmentDate);
+    setDayOfLife(dayDifference + 1); // Add 1 to the difference because the day of life starts from 1
   };
 
   useEffect(() => {
     updateDayOfLife();
-  }, [assessmentDate]);
+  }, [assessmentDateTime]);
 
   return (
     <Container style={styles.container}>
@@ -74,10 +73,11 @@ function Assessment() {
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
+        flexWrap="wrap"
         sx={{ width: '90%', marginTop: '3rem', marginBottom: '3rem' }}
         xs={12}
       >
-        <Box component="div" flexDirection="column" xs={4}>
+        <Box component="div" flexDirection="column" xs={12} md={4}>
           <Button
             variant={getVariant(selectedBundle === 'At Admission')}
             style={{ ...getVariantStyle(selectedBundle === 'At Admission'), fontSize: '1.2rem' }}
@@ -86,7 +86,7 @@ function Assessment() {
             At Admission
           </Button>
         </Box>
-        <Box component="div" flexDirection="column" xs={4}>
+        <Box component="div" flexDirection="column" xs={12} md={4}>
           <Button
             variant={getVariant(selectedBundle === 'In NICU')}
             style={{ ...getVariantStyle(selectedBundle === 'In NICU'), fontSize: '1.2rem' }}
@@ -95,7 +95,7 @@ function Assessment() {
             In NICU
           </Button>
         </Box>
-        <Box component="div" flexDirection="column" xs={4}>
+        <Box component="div" flexDirection="column" xs={12} md={4}>
           <Button
             variant={getVariant(selectedBundle === 'Post Discharge')}
             style={{ ...getVariantStyle(selectedBundle === 'Post Discharge'), fontSize: '1.2rem' }}
@@ -129,10 +129,11 @@ function Assessment() {
             InputLabelProps={{
               shrink: true,
             }}
-            value={actionDateTime}
+            value={assessmentDateTime}
             onChange={handleSetAssessmentDateTime}
           />
           <TextField
+            disabled
             style={styles.textField}
             label="Day of Life"
             type="number"

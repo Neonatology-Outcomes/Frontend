@@ -1,8 +1,9 @@
 export const styles = {
   container: {
-    height: '100vh',
+    minHeight: 'calc(100vh - 68px)',
+    overflow: 'hidden',
     display: 'flex',
-    flexDirection: 'column', // Add this line for a vertical layout
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
