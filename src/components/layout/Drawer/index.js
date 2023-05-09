@@ -71,6 +71,12 @@ function DrawerComponent() {
             </Link>
           </ListItem>
           <Divider />
+          <ListItem onClick={toggleDrawer(false)}>
+            <Link href="assessment" component="a" underline="none" style={{ ...styles.link }}>
+              <ListItemText primary="Assessment" />
+            </Link>
+          </ListItem>
+          <Divider />
           {/* Add more ListItem components for additional menu items */}
         </List>
       </Drawer>
