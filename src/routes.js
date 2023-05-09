@@ -19,7 +19,7 @@ function Routes() {
       <Route path="/todo" exact component={ToDoPage} />
       <Route path="/forgotpassword" exact component={ForgotPassword} />
       <Route path="/nursedashboard" exact component={NurseDashboard} />
-      <Route path="/assessment" exact component={Assessment} />
+      <Route path="/assessment/:id" exact component={Assessment} />
       {/* <Route path="/posts" exact component={Posts} />
         <Route path="/tags" exact component={Tags} /> */}
       {/* <Route component={NotFound} /> */}

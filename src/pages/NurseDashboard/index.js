@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react';
 import { Container, Paper, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -17,7 +18,7 @@ import { styles } from './styles';
 function NurseDashboard() {
   const [toDoList, setToDoList] = useState([]);
   const [open, setOpen] = useState(false);
-  const [notificationIndex, setNotificationIndex] = useState(null);
+  // const [notificationIndex, setNotificationIndex] = useState(null);
   const [selectedNotifications, setSelectedNotifications] = useState([]);
 
   const history = useHistory();
@@ -35,9 +36,9 @@ function NurseDashboard() {
     setToDoList(toDos);
   }, []);
 
-  <IconButton style={styles.notificationButton} onClick={() => handleClickOpen(index)}>
-    <NotificationsIcon />
-  </IconButton>;
+  // <IconButton style={styles.notificationButton} onClick={() => handleClickOpen(index)}>
+  //   <NotificationsIcon />
+  // </IconButton>;
 
   //   <Dialog
   //     open={open}
@@ -79,7 +80,7 @@ function NurseDashboard() {
         Nursing Dashboard
       </Typography>
       <div style={styles.flexContainer}>
-        {toDos.map((item, index) => (
+        {toDoList.map((item, index) => (
           <Paper
             key={index}
             style={styles.square}
