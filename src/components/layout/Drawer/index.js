@@ -77,7 +77,17 @@ function DrawerComponent() {
             </Link>
           </ListItem>
           <Divider />
-          {/* Add more ListItem components for additional menu items */}
+          <ListItem onClick={toggleDrawer(false)}>
+            <Link
+              href="/compliance-dashboard"
+              component="a"
+              underline="none"
+              style={{ ...styles.link }}
+            >
+              <ListItemText primary="Compliance Dashboard" />
+            </Link>
+          </ListItem>
+          <Divider />
         </List>
       </Drawer>
     </>

@@ -28,16 +28,11 @@ export default function FormDialog({ open, setOpen }) {
   const [ruleName, setRuleName] = useState('Human Milk Consumption');
   const [category, setCategory] = useState(1);
   const dataFields = [...dataFieldConditionMapping(category)];
-  // TODO
-  // console.log('*****', dataFields)
-  // console.log('----', dataFields.length > 0 ? dataFields[0].value : undefined)
   const [dataField, setDataField] = useState(
     dataFields.length > 0 ? dataFields[0].value : undefined,
   );
   const [conditions, setConditions] = useState([]);
   const [selectedBundle, setSelectedBundle] = useState('At Admission');
-
-  // const [tmpConditions, setTmpConditions] = useState([]);
 
   useEffect(() => {
     const conditionsWithDataField = [
@@ -46,7 +41,6 @@ export default function FormDialog({ open, setOpen }) {
         dataFields,
       })),
     ];
-    // console.log(conditionsWithDataField);
     setConditions(conditionsWithDataField);
   }, []);
 
@@ -81,7 +75,6 @@ export default function FormDialog({ open, setOpen }) {
 
   const handleRemoveCondition = (id) => {
     console.log('id', id);
-    // const index = findIndex()
     const newConditions = filter((c) => c.id !== id, conditions);
     console.log(newConditions);
     setConditions(newConditions);
@@ -187,16 +180,18 @@ export default function FormDialog({ open, setOpen }) {
               </IconButton>
             </Box>
           </Box>
-          <Box component="section" style={styles.conditionsSectionContainer}>
-            <Box style={{ padding: 10 }}>
-              <Typography variant="h6">If</Typography>
-            </Box>
-            {conditions.map((condition) => (
-              <Box key={condition.id}>
-                <Condition condition={condition} removeCondition={handleRemoveCondition} />
+          {conditions.length > 0 ? (
+            <Box component="section" style={styles.conditionsSectionContainer}>
+              <Box style={{ padding: 10 }}>
+                <Typography variant="h6">If</Typography>
               </Box>
-            ))}
-          </Box>
+              {conditions.map((condition) => (
+                <Box key={condition.id}>
+                  <Condition condition={condition} removeCondition={handleRemoveCondition} />
+                </Box>
+              ))}
+            </Box>
+          ) : null}
 
           <Typography variant="h5" mt="2rem">
             Actions

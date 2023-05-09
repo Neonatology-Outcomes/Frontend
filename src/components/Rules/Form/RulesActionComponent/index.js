@@ -138,20 +138,22 @@ function RulesActionComponent({ bundle }) {
                 </IconButton>
               </Box>
             </Box>
-            <Box component="section" style={styles.conditionsSectionContainer}>
-              <Box style={{ padding: 10 }}>
-                <Typography variant="h6">Then</Typography>
-              </Box>
-              {conditions.map((condition) => (
-                <Box key={condition.id}>
-                  <Condition
-                    condition={condition}
-                    removeCondition={handleRemoveCondition}
-                    bundle={bundle}
-                  />
+            {conditions.length > 0 ? (
+              <Box component="section" style={styles.conditionsSectionContainer}>
+                <Box style={{ padding: 10 }}>
+                  <Typography variant="h6">Then</Typography>
                 </Box>
-              ))}
-            </Box>
+                {conditions.map((condition) => (
+                  <Box key={condition.id}>
+                    <Condition
+                      condition={condition}
+                      removeCondition={handleRemoveCondition}
+                      bundle={bundle}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            ) : null}
           </>
         );
       case bundles[1]:
@@ -209,16 +211,18 @@ function RulesActionComponent({ bundle }) {
                 </IconButton>
               </Box>
             </Box>
-            <Box component="section" style={styles.conditionsSectionContainer}>
-              <Box style={{ padding: 10 }}>
-                <Typography variant="h5">Then</Typography>
-              </Box>
-              {conditions.map((condition) => (
-                <Box key={condition.id}>
-                  <Condition condition={condition} removeCondition={handleRemoveCondition} />
+            {conditions.length > 0 ? (
+              <Box component="section" style={styles.conditionsSectionContainer}>
+                <Box style={{ padding: 10 }}>
+                  <Typography variant="h5">Then</Typography>
                 </Box>
-              ))}
-            </Box>
+                {conditions.map((condition) => (
+                  <Box key={condition.id}>
+                    <Condition condition={condition} removeCondition={handleRemoveCondition} />
+                  </Box>
+                ))}
+              </Box>
+            ) : null}
           </>
         );
       // …
@@ -277,20 +281,22 @@ function RulesActionComponent({ bundle }) {
                 </IconButton>
               </Box>
             </Box>
-            <Box component="section" style={styles.conditionsSectionContainer}>
-              <Box style={{ padding: 10 }}>
-                <Typography variant="h5">Then</Typography>
-              </Box>
-              {conditions.map((condition) => (
-                <Box key={condition.id}>
-                  <Condition
-                    condition={condition}
-                    removeCondition={handleRemoveCondition}
-                    bundle={bundle}
-                  />
+            {conditions.length > 0 ? (
+              <Box component="section" style={styles.conditionsSectionContainer}>
+                <Box style={{ padding: 10 }}>
+                  <Typography variant="h5">Then</Typography>
                 </Box>
-              ))}
-            </Box>
+                {conditions.map((condition) => (
+                  <Box key={condition.id}>
+                    <Condition
+                      condition={condition}
+                      removeCondition={handleRemoveCondition}
+                      bundle={bundle}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            ) : null}
           </>
         );
       default:
