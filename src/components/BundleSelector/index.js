@@ -28,9 +28,9 @@ function BundleSelector({ getVariant, getVariantStyle, handleSetSelectedBundle, 
           <Box component="div" flexDirection="column" xs={4}>
             <Box component="div" flexDirection="row" justifyContent="center">
               <Button
-                variant={getVariant(selectedBundle === 'At NICU')}
-                style={getVariantStyle(selectedBundle === 'At NICU')}
-                onClick={handleSetSelectedBundle('At NICU')}
+                variant={getVariant(selectedBundle === 'In NICU')}
+                style={getVariantStyle(selectedBundle === 'In NICU')}
+                onClick={handleSetSelectedBundle('In NICU')}
               >
                 At NICU
               </Button>
