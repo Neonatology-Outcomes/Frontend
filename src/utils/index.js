@@ -1,3 +1,5 @@
+import { isNil } from 'ramda';
+
 export function generateRandomInteger(min, max) {
   return Math.floor(min + Math.random() * (max - min + 1));
 }
@@ -18,3 +20,9 @@ export const getVariantStyle = (bundle) =>
     : { color: '#ED7D31', borderColor: '#ED7D31' };
 
 export const getDateTimeFormat = (date) => `${date}T00:00`;
+
+export const fixNullTask = (todos) =>
+  todos.map((todo) => ({
+    ...todo,
+    tasks: !isNil(todo.tasks) ? [...todo.tasks] : [],
+  }));

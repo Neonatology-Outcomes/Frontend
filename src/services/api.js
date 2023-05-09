@@ -1,6 +1,7 @@
 import { create } from 'apisauce';
 import { endpoints, apiUrl } from '../constants/api';
 import { getAuthToken } from './storage';
+import { fixNullTask } from '../utils';
 
 const headers = {
   Accept: 'application/json',
@@ -46,7 +47,12 @@ export const getToDos = async () => {
     // headers and auth header for endpoints with authorization
   );
 
-  return toDos;
+  const mappedTodos = fixNullTask(toDos.data);
+
+  return {
+    ...toDos,
+    data: [...mappedTodos],
+  };
 };
 
 export const getDashboard = async () => {
@@ -54,10 +60,15 @@ export const getDashboard = async () => {
   api.setHeaders({
     ...getAuthorizationHeader(authToken),
   });
-  const toDos = await api.get(
+  const dashboard = await api.get(
     endpoints.dashboard,
     // headers and auth header for endpoints with authorization
   );
 
-  return toDos;
+  const mappedDashboard = fixNullTask(dashboard.data);
+
+  return {
+    ...dashboard,
+    data: [...mappedDashboard],
+  };
 };
