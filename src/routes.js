@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
-import Home from './pages/Home';
 import Rules from './pages/Rules';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -13,7 +12,7 @@ import ComplianceDashboard from './pages/ComplianceDashboard';
 function Routes() {
   return (
     <Router>
-      <Route path="/" exact component={Home} />
+      <Route exact path="/" render={() => <Redirect to="/login" />} />
       <Route path="/rules" exact component={Rules} />
       <Route path="/login" exact component={Login} />
       <Route path="/signup" exact component={SignUp} />
