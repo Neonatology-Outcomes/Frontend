@@ -39,4 +39,9 @@ export const styles = {
     top: 0, // Add this line to align the text container to the top of the square
     left: 0,
   },
+  notificationButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+  },
 };
