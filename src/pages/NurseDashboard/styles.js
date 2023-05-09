@@ -12,18 +12,19 @@ export const styles = {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '80%', // Adjust this value for responsiveness
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%', // Adding 100% height to the flexContainer
-    overflow: 'auto', // Adding overflow property to handle content that exceeds the container size
+    overflow: 'auto',
+    padding: '0 8px', // Add padding
   },
   square: {
-    backgroundColor: '#B6D7A8', // Change this to your desired color
-    width: 'calc(33.33% - 16px)', // Calculate the width of the square (subtract the desired spacing)
-    paddingTop: 'calc(33.33% - 16px)', // Calculate the height of the square (subtract the desired spacing)
-    position: 'relative', // Adding position relative for the square
-    margin: '8px', // Adding margin equal to half the spacing
+    backgroundColor: '#B6D7A8',
+    flexBasis: 'calc(25% - 16px)', // Change the width and height to use flex-basis and max-width
+    maxWidth: 'calc(25% - 16px)',
+    paddingTop: 'calc(25% - 16px)',
+    position: 'relative',
+    margin: '8px',
     overflow: 'hidden',
   },
   textContainer: {
@@ -34,7 +35,7 @@ export const styles = {
     height: '100%',
     width: '100%',
     position: 'absolute',
-    top: 0, // Add this line to align the text container to the top of the square
+    top: 0,
     left: 0,
   },
   notificationButton: {
@@ -43,7 +44,8 @@ export const styles = {
     right: 8,
   },
   pageContainer: {
-    paddingTop: '30px', // Adjust the padding to your preferences
+    paddingTop: '30px',
+    paddingBottom: '30px', // Add paddingBottom to prevent scrollbar
   },
   squareText: {
     textAlign: 'center',
