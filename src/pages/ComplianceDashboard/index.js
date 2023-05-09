@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   Button,
@@ -23,8 +23,9 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 import { styles } from './styles';
+import { getVariant, getVariantStyle } from '../../utils';
+import { dataA, dataB } from '../../constants/data/complianceMocks';
 
 function ComplianceDashboard() {
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -42,48 +43,10 @@ function ComplianceDashboard() {
     },
   };
 
-  const labels = ['2020-01', '2020-03', '2020-05', '2020-07', '2020-09', '2020-11'];
+  const [selectedBundle, setSelectedBundle] = useState('At Admission');
 
-  const dataA = {
-    labels,
-    datasets: [
-      {
-        label: 'Human Milk comsumption compliance',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  };
-
-  const dataB = {
-    labels,
-    datasets: [
-      {
-        label: 'Room temp',
-        data: labels.map(() => faker.datatype.number({ min: 25, max: 100 })),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-      {
-        label: 'Warmer Manual',
-        data: labels.map(() => faker.datatype.number({ min: 25, max: 1000 })),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Heating Output',
-        data: labels.map(() => faker.datatype.number({ min: 25, max: 1000 })),
-        borderColor: 'rgb(255, 255, 0)',
-        backgroundColor: 'rgba(255, 255, 0, 0.5)',
-      },
-      {
-        label: 'Warmer Mattress',
-        data: labels.map(() => faker.datatype.number({ min: 25, max: 1000 })),
-        borderColor: 'rgb(0, 128, 0)',
-        backgroundColor: 'rgba(0, 128, 0, 0.5)',
-      },
-    ],
+  const handleSetBundle = (bundle) => () => {
+    setSelectedBundle(bundle);
   };
 
   const tableData = [
@@ -96,12 +59,24 @@ function ComplianceDashboard() {
   return (
     <Grid container className={styles.root} mt="2rem" p="1rem">
       <Grid item xs={6}>
-        <Button className={styles.button}>At Admission</Button>
+        <Button
+          onClick={handleSetBundle('At Admission')}
+          variant={getVariant(selectedBundle === 'At Admission')}
+          style={{ ...getVariantStyle(selectedBundle === 'At Admission'), fontSize: '1.2rem' }}
+        >
+          At Admission
+        </Button>
       </Grid>
       <Grid item xs={6}>
-        <Button className={styles.button}>At NICU</Button>
+        <Button
+          onClick={handleSetBundle('In NICU')}
+          variant={getVariant(selectedBundle === 'In NICU')}
+          style={{ ...getVariantStyle(selectedBundle === 'In NICU'), fontSize: '1.2rem' }}
+        >
+          At NICU
+        </Button>
       </Grid>
-      <Grid item xs={3} className={styles.column}>
+      {/* <Grid item xs={3} className={styles.column}>
         <Typography>Column 1</Typography>
       </Grid>
       <Grid item xs={3} className={styles.column}>
@@ -112,7 +87,7 @@ function ComplianceDashboard() {
       </Grid>
       <Grid item xs={3} className={styles.column}>
         <Typography>Column 4</Typography>
-      </Grid>
+      </Grid> */}
       <Grid item xs={6} mt="2rem">
         <Line options={options} data={dataA} />
       </Grid>
@@ -150,8 +125,6 @@ function ComplianceDashboard() {
       </Grid>
     </Grid>
   );
-
-  //   return <Line options={options} data={data} />;
 }
 
 export default ComplianceDashboard;

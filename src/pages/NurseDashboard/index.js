@@ -4,14 +4,17 @@ import { Container, Paper, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useHistory } from 'react-router-dom';
-import { toDos } from '../../constants/data/toDoMocks';
+import { getToDos } from '../../services/api';
+// import { toDos } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
 
 function NurseDashboard() {
@@ -30,11 +33,24 @@ function NurseDashboard() {
     setOpen(false);
   };
 
+  // useEffect(() => {
+  //   setToDoList(toDos);
+  // }, []);
+
   useEffect(() => {
-    setToDoList(toDos);
+    const fetchToDos = async () => {
+      const toDos = await getToDos();
+      if (toDos.ok) {
+        setToDoList(toDos.data);
+      } else {
+        console.error(toDos.error);
+      }
+    };
+
+    fetchToDos();
   }, []);
 
-  return (
+  return toDoList.length > 0 ? (
     <Container
       maxWidth={false}
       disableGutters
@@ -61,16 +77,16 @@ function NurseDashboard() {
                 Weight {item.birth_weight}
               </Typography>
             </div>
-            {item.notifications.length > 0 ? (
+            {item.tasks.length > 0 ? (
               <IconButton
                 style={styles.notificationButton}
                 onClick={(event) => {
                   event.stopPropagation();
-                  handleClickOpen(item.notifications);
+                  handleClickOpen(item.tasks);
                 }}
                 size="1rem"
               >
-                <Badge badgeContent={item.notifications.length} color="error" />
+                <Badge badgeContent={item.tasks.length} color="error" />
                 <NotificationsIcon />
               </IconButton>
             ) : null}
@@ -98,6 +114,19 @@ function NurseDashboard() {
         </DialogActions>
       </Dialog>
     </Container>
+  ) : (
+    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh - 68px)',
+        }}
+      >
+        <CircularProgress size="8rem" />
+      </Box>
+    </Box>
   );
 }
 export default NurseDashboard;

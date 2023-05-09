@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { find } from 'ramda';
+import { find, isNil } from 'ramda';
 import {
   Box,
   Button,
   Container,
+  Divider,
   Typography,
   TextField,
   FormControl,
@@ -13,13 +14,11 @@ import {
   Checkbox,
   FormGroup,
 } from '@mui/material';
-import Divider from '@mui/material/Divider';
+import NumbersIcon from '@mui/icons-material/Numbers';
 import { differenceInDays } from 'date-fns';
 import { styles } from './styles';
-// import BundleSelector from '../../components/BundleSelector';
 import { getVariant, getVariantStyle } from '../../utils';
 import { toDos } from '../../constants/data/toDoMocks';
-
 function Assessment({ match }) {
   const { params } = match;
 
@@ -27,7 +26,6 @@ function Assessment({ match }) {
   const [assessmentDateTime, setAssessmentDateTime] = useState('');
   const [dayOfLife, setDayOfLife] = useState(1);
   const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
-  // const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
   const [selectedBundle, setSelectedBundle] = useState('At Admission');
   const [checkboxes, setCheckboxes] = useState({
     firstSkinToSkin: false,
@@ -48,7 +46,7 @@ function Assessment({ match }) {
     }
   }, []);
 
-  console.log(checkboxes);
+  // console.log(checkboxes);
 
   const handleCheckboxChange = (event) => {
     setCheckboxes({
@@ -76,14 +74,14 @@ function Assessment({ match }) {
     const currentDate = new Date();
     const parsedAssessmentDate = new Date(assessmentDateTime);
     const dayDifference = differenceInDays(currentDate, parsedAssessmentDate);
-    setDayOfLife(dayDifference + 1); // Add 1 to the difference because the day of life starts from 1
+    setDayOfLife(dayDifference + 1);
   };
 
   useEffect(() => {
     updateDayOfLife();
   }, [assessmentDateTime]);
 
-  return (
+  return !isNil(selectedTask) ? (
     <Container style={styles.container}>
       <Box
         component="div"
@@ -127,6 +125,7 @@ function Assessment({ match }) {
         component="div"
         display="flex"
         flexDirection="column"
+        justifyContent="center"
         alignItems="left"
         style={styles.midSection}
       >
@@ -158,6 +157,23 @@ function Assessment({ match }) {
             value={dayOfLife || ''}
             readOnly
           />
+          <Box
+            component="div"
+            display="flex"
+            flexDirection="row"
+            width="100%"
+            justifyContent="center"
+            xs={6}
+            md={4}
+          >
+            <Typography
+              sx={{ display: 'flex', alignItems: 'center', fontSize: '1.5rem' }}
+              color="text.primary"
+            >
+              <NumbersIcon sx={{ mr: 0.5 }} />
+              {selectedTask.uhid}
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <Divider style={styles.divider} />
@@ -225,7 +241,7 @@ function Assessment({ match }) {
         </Box>
       </Box>
     </Container>
-  );
+  ) : null;
 }
 
 Assessment.propTypes = {

@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { isNil } from 'ramda';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
-// import { getToDos } from '../../services/api';
-import { toDos } from '../../constants/data/toDoMocks';
+import {
+  Box,
+  Card,
+  CardContent,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
+import { getToDos } from '../../services/api';
+// import { toDos } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
 import { generateRandomInteger } from '../../utils';
 
@@ -13,28 +21,24 @@ function ToDo() {
   const [selectedOption, setSelectedOption] = useState(null);
   // const [sortBy, setSortBy] = useState('');
 
-  useEffect(() => {
-    setToDoList(toDos);
-  }, []);
-
   // useEffect(() => {
-  //   const fetchToDos = async () => {
-  //     const toDos = await getToDos();
-  //     if (toDos.ok) {
-  //       setToDoList(toDos.data);
-  //     } else {
-  //       console.error(toDos.error);
-  //     }
-  //   };
-
-  //   fetchToDos();
+  //   setToDoList(toDos);
   // }, []);
 
-  console.log('**** toDos from backend: ', toDoList);
+  useEffect(() => {
+    const fetchToDos = async () => {
+      const toDos = await getToDos();
+      if (toDos.ok) {
+        setToDoList(toDos.data);
+      } else {
+        console.error(toDos.error);
+      }
+    };
 
-  // const handleChangeSortBy = (event) => {
-  // 	setSortBy(event.target.value);
-  // };
+    fetchToDos();
+  }, []);
+
+  console.log('**** toDos from backend: ', toDoList);
 
   const handleOptionChange = (event, newOption) => {
     setSelectedOption(newOption);
@@ -46,7 +50,7 @@ function ToDo() {
 
   console.log(selectedOption);
 
-  return (
+  return toDoList.length > 0 ? (
     <Container
       component="section"
       maxWidth="md"
@@ -103,6 +107,19 @@ function ToDo() {
         </Grid>
       </Grid>
     </Container>
+  ) : (
+    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh - 68px)',
+        }}
+      >
+        <CircularProgress size="8rem" />
+      </Box>
+    </Box>
   );
 }
 
