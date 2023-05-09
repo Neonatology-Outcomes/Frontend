@@ -5,6 +5,7 @@ export const toDos = [
     uhid: 'P19997645',
     dateofbirth: 'DoB 2.3.23',
     birth_weight: 2689,
+    notifications: ['Skin to skin care < 14 days'],
   },
   {
     value: 2,
@@ -12,6 +13,7 @@ export const toDos = [
     uhid: 'P19997642',
     dateofbirth: 'DoB 28.2.23',
     birth_weight: 2675,
+    notifications: [],
   },
   {
     value: 3,
@@ -23,6 +25,7 @@ export const toDos = [
     uhid: 'P19997645',
     dateofbirth: 'DoB 2.3.23',
     birth_weight: 2675,
+    notifications: ['Skin to skin care < 7 days', 'Third task element'],
   },
   {
     value: 4,
@@ -30,6 +33,7 @@ export const toDos = [
     uhid: 'P19997645',
     dateofbirth: 'DoB 2.3.23',
     birth_weight: 2689,
+    notifications: [],
   },
   {
     value: 5,
@@ -37,6 +41,7 @@ export const toDos = [
     uhid: 'P19997645',
     dateofbirth: 'DoB 2.3.23',
     birth_weight: 2689,
+    notifications: ['Skin to skin care < 7 days'],
   },
   {
     value: 6,
@@ -44,6 +49,7 @@ export const toDos = [
     uhid: 'P19997642',
     dateofbirth: 'DoB 28.2.23',
     birth_weight: 2675,
+    notifications: [],
   },
   {
     value: 7,
@@ -55,6 +61,7 @@ export const toDos = [
     uhid: 'P19997645',
     dateofbirth: 'DoB 2.3.23',
     birth_weight: 2675,
+    notifications: ['Skin to skin care < 5 days', 'Third task element'],
   },
   {
     value: 8,
@@ -62,6 +69,7 @@ export const toDos = [
     uhid: 'P19997645',
     dateofbirth: 'DoB 2.3.23',
     birth_weight: 2689,
+    notifications: [],
   },
 ];
 
