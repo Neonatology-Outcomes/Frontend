@@ -224,7 +224,7 @@ function Assessment({ match }) {
         <Divider style={styles.divider} />
 
         <Box component="div" display="flex" justifyContent="center" paddingBottom="2rem">
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" disabled>
             SUBMIT
           </Button>
         </Box>
