@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, TextField, Typography, Link, Box, Container, Paper, Grid } from '@mui/material';
+import { Button, TextField, Typography, Container, Paper, Grid } from '@mui/material';
 import { login } from '../../services/api';
 import { styles } from './styles';
 
@@ -95,11 +95,11 @@ function LoginPage() {
               </Button>
             </Grid>
           </Grid>
-          <Box mt={2}>
+          {/* <Box mt={2}>
             <Link href="/forgot-password" variant="body2" style={styles.forgotPassword}>
               Forgot password?
             </Link>
-          </Box>
+          </Box> */}
         </form>
       </Paper>
     </Container>

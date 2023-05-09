@@ -228,11 +228,11 @@ function SignUp() {
               </Button>
             </Grid>
           </Grid>
-          <Box mt={2}>
+          {/* <Box mt={2}>
             <Link href="/forgotpassword" variant="body2" style={styles.forgotPassword}>
               Forgot password?
             </Link>
-          </Box>
+          </Box> */}
         </form>
       </Paper>
     </Container>
