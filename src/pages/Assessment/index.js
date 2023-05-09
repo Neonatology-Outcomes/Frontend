@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box,
+  Button,
   Container,
   Typography,
   TextField,
@@ -15,7 +16,7 @@ import {
 } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { styles } from './styles';
-import BundleSelector from '../../components/BundleSelector';
+// import BundleSelector from '../../components/BundleSelector';
 import { getVariant, getVariantStyle } from '../../utils';
 
 function Assessment() {
@@ -75,12 +76,42 @@ function Assessment() {
         Assessment
       </Typography> */}
 
-      <BundleSelector
-        getVariant={getVariant}
-        getVariantStyle={getVariantStyle}
-        handleSetSelectedBundle={handleSetSelectedBundle}
-        selectedBundle={selectedBundle}
-      />
+      <Box
+        component="div"
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        sx={{ width: '90%', marginTop: '3rem', marginBottom: '3rem' }}
+        xs={12}
+      >
+        <Box component="div" flexDirection="column" xs={4}>
+          <Button
+            variant={getVariant(selectedBundle === 'At Admission')}
+            style={{ ...getVariantStyle(selectedBundle === 'At Admission'), fontSize: '1.2rem' }}
+            onClick={handleSetSelectedBundle('At Admission')}
+          >
+            At Admission
+          </Button>
+        </Box>
+        <Box component="div" flexDirection="column" xs={4}>
+          <Button
+            variant={getVariant(selectedBundle === 'In NICU')}
+            style={{ ...getVariantStyle(selectedBundle === 'In NICU'), fontSize: '1.2rem' }}
+            onClick={handleSetSelectedBundle('In NICU')}
+          >
+            In NICU
+          </Button>
+        </Box>
+        <Box component="div" flexDirection="column" xs={4}>
+          <Button
+            variant={getVariant(selectedBundle === 'Post Discharge')}
+            style={{ ...getVariantStyle(selectedBundle === 'Post Discharge'), fontSize: '1.2rem' }}
+            onClick={handleSetSelectedBundle('Post Discharge')}
+          >
+            Post Discharge
+          </Button>
+        </Box>
+      </Box>
       {/* 
       <Box component="div" display="flex" justifyContent="center" style={styles.midSection}>
         <Typography variant="h5" component="h2">
@@ -115,8 +146,8 @@ function Assessment() {
         <Box
           component="div"
           display="flex"
-          justifyContent="center"
-          style={{ marginBottom: '30px' }}
+          justifyContent="flex-start"
+          style={{ marginBottom: '30px', width: '100%' }}
         >
           {' '}
           {/* Add this line for spacing */}

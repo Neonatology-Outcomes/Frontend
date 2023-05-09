@@ -5,6 +5,7 @@ export const styles = {
     flexDirection: 'column', // Add this line for a vertical layout
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
   paper: {
     padding: 20,
@@ -12,7 +13,7 @@ export const styles = {
     margin: 'auto',
   },
   textField: {
-    flexGrow: 1,
+    // flexGrow: 1,
     marginBottom: 8,
     marginRight: 8,
     width: '25%',
@@ -52,14 +53,14 @@ export const styles = {
     // marginBottom: '40px',
   },
   midSection: {
-    flexGrow: 1,
+    // flexGrow: 1,
     display: 'flex',
     // flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'left',
     width: '100%',
     paddingLeft: '20px',
-    marginBottom: '40px',
+    // marginBottom: '40px',
     // marginTop: '40px',
   },
   bottomSection: {

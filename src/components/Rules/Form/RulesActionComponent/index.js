@@ -159,6 +159,7 @@ function RulesActionComponent({ bundle }) {
           <>
             <Box
               component="form"
+              mt="2rem"
               sx={{
                 '& .MuiTextField-root': { m: 1, width: '25ch' },
               }}
@@ -226,6 +227,7 @@ function RulesActionComponent({ bundle }) {
           <>
             <Box
               component="form"
+              mt="2rem"
               sx={{
                 '& .MuiTextField-root': { m: 1, width: '25ch' },
               }}
