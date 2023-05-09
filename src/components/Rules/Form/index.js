@@ -21,6 +21,7 @@ import {
 import { generateRandomInteger } from '../../../utils';
 import { styles } from './styles';
 import BundleSelector from '../../BundleSelector';
+import RulesActionComponent from './RulesActionComponent';
 
 export default function FormDialog({ open, setOpen }) {
   const [isOpen, setIsOpen] = useState(open);
@@ -195,7 +196,7 @@ export default function FormDialog({ open, setOpen }) {
           </Box>
           <Box component="section" style={styles.conditionsSectionContainer}>
             <Box style={{ padding: 10 }}>
-              <Typography variant="h5">If</Typography>
+              <Typography variant="h6">If</Typography>
             </Box>
             {conditions.map((condition) => (
               <Box key={condition.id}>
@@ -203,6 +204,12 @@ export default function FormDialog({ open, setOpen }) {
               </Box>
             ))}
           </Box>
+
+          <Typography variant="h5" mt="2rem">
+            Actions
+          </Typography>
+
+          <RulesActionComponent bundle={selectedBundle} />
         </DialogContent>
       </FormControl>
 

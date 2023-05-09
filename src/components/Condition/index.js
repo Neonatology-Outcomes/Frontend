@@ -9,7 +9,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { unitsList, operators, conditionOperatorList } from '../../constants/data/rulesMocks';
 
-function Condition({ condition, removeCondition }) {
+function Condition({ condition, removeCondition, bundle }) {
   const [dataField, setDataField] = useState(condition.dataField);
   const [operator, setOperator] = useState(condition.operators.value);
   const [value, setValue] = useState(condition.value);
@@ -17,6 +17,7 @@ function Condition({ condition, removeCondition }) {
   const [conditionOperator, setConditionOperator] = useState(condition.conditionOperator);
   const [fromValue, setFromValue] = useState(condition.fromValue);
   const [toValue, setToValue] = useState(condition.toValue);
+  const [every, setEvery] = useState(condition.every);
 
   const handleRemove = () => {
     removeCondition(condition.id);
@@ -38,6 +39,10 @@ function Condition({ condition, removeCondition }) {
     setToValue(event.target.value);
   };
 
+  const handleChangeEvery = (event) => {
+    setEvery(event.target.value);
+  };
+
   const handleChangeUnits = (event) => {
     setUnits(event.target.value);
   };
@@ -50,8 +55,42 @@ function Condition({ condition, removeCondition }) {
     setConditionOperator(event.target.value);
   };
 
+  const renderValue = () => {
+    if (bundle !== 'Post Discharge') {
+      return (
+        <Grid alignItems="center" mt="0.5rem">
+          <Typography
+            variant="label"
+            component="div"
+            fontSize="0.75rem"
+            fontWeight="400"
+            color="rgba(0, 0, 0, 0.6);"
+            fontFamily="'Roboto','Helvetica','Arial',sans-serif"
+            textAlign="center"
+          >
+            Value
+          </Typography>
+          <Grid container alignItems="center">
+            <Typography variant="subtitle2" component="div" sx={{ mr: '1.5rem' }}>
+              NO
+            </Typography>
+            <FormControlLabel
+              control={<Switch checked={value} onChange={handleChangeValue} />}
+              label=""
+              labelPlacement="end"
+            />
+            <Typography variant="subtitle2" component="div">
+              YES
+            </Typography>
+          </Grid>
+        </Grid>
+      );
+    }
+    return null;
+  };
+
   const getValueComponent = () =>
-    operator === 4 ? (
+    operator === 4 && bundle !== 'Post Discharge' ? (
       <Box
         sx={{
           '& .MuiTextField-root': { m: 1, width: '8ch' },
@@ -91,32 +130,7 @@ function Condition({ condition, removeCondition }) {
         </Grid>
       </Box>
     ) : (
-      <Grid alignItems="center" mt="0.5rem">
-        <Typography
-          variant="label"
-          component="div"
-          fontSize="0.75rem"
-          fontWeight="400"
-          color="rgba(0, 0, 0, 0.6);"
-          fontFamily="'Roboto','Helvetica','Arial',sans-serif"
-          textAlign="center"
-        >
-          Value
-        </Typography>
-        <Grid container alignItems="center">
-          <Typography variant="subtitle2" component="div" sx={{ mr: '1.5rem' }}>
-            NO
-          </Typography>
-          <FormControlLabel
-            control={<Switch checked={value} onChange={handleChangeValue} />}
-            label=""
-            labelPlacement="end"
-          />
-          <Typography variant="subtitle2" component="div">
-            YES
-          </Typography>
-        </Grid>
-      </Grid>
+      renderValue()
     );
 
   return (
@@ -139,20 +153,39 @@ function Condition({ condition, removeCondition }) {
             variant="standard"
           />
 
-          <TextField
-            id="operator"
-            select
-            label="Operator"
-            value={operator}
-            onChange={handleChangeOperator}
-            variant="standard"
-          >
-            {operators.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          {bundle === 'Post Discharge' ? (
+            <TextField
+              type="number"
+              fullWidth
+              size="small"
+              label="Every"
+              value={every}
+              onChange={handleChangeEvery}
+              variant="outlined"
+              InputLabelProps={{ shrink: true }}
+              style={{ marginTop: 2 }}
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '4ch' },
+              }}
+            />
+          ) : null}
+
+          {bundle !== 'Post Discharge' ? (
+            <TextField
+              id="operator"
+              select
+              label="Operator"
+              value={operator}
+              onChange={handleChangeOperator}
+              variant="standard"
+            >
+              {operators.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          ) : null}
 
           <Box component="div">{getValueComponent()}</Box>
 
@@ -196,6 +229,7 @@ function Condition({ condition, removeCondition }) {
 }
 
 Condition.propTypes = {
+  bundle: PropTypes.string.isRequired,
   condition: PropTypes.array.isRequired,
   removeCondition: PropTypes.func.isRequired,
 };
