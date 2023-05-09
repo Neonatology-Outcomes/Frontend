@@ -16,3 +16,5 @@ export const getVariantStyle = (bundle) =>
   bundle
     ? { backgroundColor: '#ED7D31', color: '#FFFFFF' }
     : { color: '#ED7D31', borderColor: '#ED7D31' };
+
+export const getDateTimeFormat = (date) => `${date}T00:00`;

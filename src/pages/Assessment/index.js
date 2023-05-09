@@ -18,7 +18,7 @@ import {
 import NumbersIcon from '@mui/icons-material/Numbers';
 import { differenceInDays } from 'date-fns';
 import { styles } from './styles';
-import { getVariant, getVariantStyle } from '../../utils';
+import { getDateTimeFormat, getVariant, getVariantStyle } from '../../utils';
 import { getDashboard } from '../../services/api';
 // import { toDos } from '../../constants/data/toDoMocks';
 function Assessment({ match }) {
@@ -29,20 +29,22 @@ function Assessment({ match }) {
   const [dayOfLife, setDayOfLife] = useState(1);
   const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
   const [selectedBundle, setSelectedBundle] = useState('At Admission');
-  const [checkboxes, setCheckboxes] = useState({
-    firstSkinToSkin: false,
-    scheduleLactationConsultant: false,
-    firstOralFeeding: false,
-  });
+  // const [checkboxes, setCheckboxes] = useState({
+  //   firstSkinToSkin: false,
+  //   scheduleLactationConsultant: false,
+  //   firstOralFeeding: false,
+  // });
 
   useEffect(() => {
     const { uhid } = params;
     const fetchToDos = async () => {
       const toDos = await getDashboard();
       if (toDos.ok) {
-        // setToDoList(toDos.data);
         const task = find((t) => t.uhid === uhid, toDos.data);
         setSelectedTask(task);
+        const dateTimeFormat = getDateTimeFormat(task.dateofbirth);
+        console.log('dateTimeFormat', dateTimeFormat);
+        setAssessmentDateTime(dateTimeFormat);
       } else {
         console.error(toDos.error);
       }
@@ -51,14 +53,14 @@ function Assessment({ match }) {
     fetchToDos();
   }, []);
 
-  // console.log(checkboxes);
+  console.log(selectedTask);
 
-  const handleCheckboxChange = (event) => {
-    setCheckboxes({
-      ...checkboxes,
-      [event.target.name]: event.target.checked,
-    });
-  };
+  // const handleCheckboxChange = (event) => {
+  //   setCheckboxes({
+  //     ...checkboxes,
+  //     [event.target.name]: event.target.checked,
+  //   });
+  // };
 
   const handleSetSelectedBundle = (bundle) => () => {
     setSelectedBundle(bundle);
@@ -205,36 +207,18 @@ function Assessment({ match }) {
         />
         <FormControl component="fieldset">
           <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkboxes.firstSkinToSkin}
-                  onChange={handleCheckboxChange}
-                  name="firstSkinToSkin"
-                />
-              }
-              label="Provide first skin-to-skin care within 14 hours of birth"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkboxes.scheduleLactationConsultant}
-                  onChange={handleCheckboxChange}
-                  name="scheduleLactationConsultant"
-                />
-              }
-              label="Schedule a lactation consultant"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checkboxes.firstOralFeeding}
-                  onChange={handleCheckboxChange}
-                  name="firstOralFeeding"
-                />
-              }
-              label="First oral feeding attempt"
-            />
+            {selectedTask.tasks.map((t) => (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                  // checked={checkboxes.firstOralFeeding}
+                  // onChange={handleCheckboxChange}
+                  // name="firstOralFeeding"
+                  />
+                }
+                label={t}
+              />
+            ))}
           </FormGroup>
         </FormControl>
         <Divider style={styles.divider} />
