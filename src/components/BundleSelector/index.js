@@ -32,7 +32,7 @@ function BundleSelector({ getVariant, getVariantStyle, handleSetSelectedBundle, 
                 style={getVariantStyle(selectedBundle === 'In NICU')}
                 onClick={handleSetSelectedBundle('In NICU')}
               >
-                At NICU
+                In NICU
               </Button>
             </Box>
           </Box>

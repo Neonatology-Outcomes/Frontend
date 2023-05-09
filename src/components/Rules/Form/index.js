@@ -18,7 +18,7 @@ import {
   categories,
   dataFieldConditionMapping,
 } from '../../../constants/data/rulesMocks';
-import { generateRandomInteger } from '../../../utils';
+import { generateRandomInteger, getVariant, getVariantStyle } from '../../../utils';
 import { styles } from './styles';
 import BundleSelector from '../../BundleSelector';
 import RulesActionComponent from './RulesActionComponent';
@@ -111,13 +111,6 @@ export default function FormDialog({ open, setOpen }) {
   useEffect(() => {
     setIsOpen(open);
   }, [open]);
-
-  const getVariant = (bundle) => (bundle ? 'container' : 'outlined');
-
-  const getVariantStyle = (bundle) =>
-    bundle
-      ? { backgroundColor: '#ED7D31', color: '#FFFFFF' }
-      : { color: '#ED7D31', borderColor: '#ED7D31' };
 
   return (
     <Dialog open={isOpen} onClose={handleChangeOpen(false)} maxWidth="lg" fullWidth>
