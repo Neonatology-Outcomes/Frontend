@@ -13,19 +13,29 @@ export const styles = {
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     overflow: 'auto',
-    padding: '0 8px', // Add padding
+    padding: '0 8px',
   },
   square: {
     backgroundColor: '#B6D7A8',
-    flexBasis: 'calc(25% - 16px)', // Change the width and height to use flex-basis and max-width
-    maxWidth: 'calc(25% - 16px)',
-    paddingTop: 'calc(25% - 16px)',
+    flexBasis: 'calc(33.33% - 16px)',
+    maxWidth: 'calc(33.33% - 16px)',
+    paddingTop: 'calc(33.33% - 16px)',
     position: 'relative',
     margin: '8px',
     overflow: 'hidden',
+    '@media (min-width: 600px) and (max-width: 959px)': {
+      flexBasis: 'calc(50% - 16px)',
+      maxWidth: 'calc(50% - 16px)',
+      paddingTop: 'calc(50% - 16px)',
+    },
+    '@media (min-width: 960px)': {
+      flexBasis: 'calc(25% - 16px)',
+      maxWidth: 'calc(25% - 16px)',
+      paddingTop: 'calc(25% - 16px)',
+    },
   },
   textContainer: {
     display: 'flex',
@@ -45,12 +55,15 @@ export const styles = {
   },
   pageContainer: {
     paddingTop: '30px',
-    paddingBottom: '30px', // Add paddingBottom to prevent scrollbar
+    paddingBottom: '30px',
   },
   squareText: {
     textAlign: 'center',
     marginBottom: '20px',
     fontSize: '24px',
     fontWeight: 'bold',
+  },
+  title: {
+    marginBottom: '1.5rem',
   },
 };
