@@ -198,6 +198,13 @@ function Assessment() {
             />
           </FormGroup>
         </FormControl>
+        <Divider style={styles.divider} flexGrow={1} />
+
+        <Box component="div" display="flex" justifyContent="center" paddingBottom="2rem">
+          <Button variant="contained" color="primary">
+            SUBMIT
+          </Button>
+        </Box>
       </Box>
     </Container>
   );
