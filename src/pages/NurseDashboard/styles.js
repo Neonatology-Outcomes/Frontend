@@ -44,4 +44,13 @@ export const styles = {
     top: 8,
     right: 8,
   },
+  pageContainer: {
+    paddingTop: '30px', // Adjust the padding to your preferences
+  },
+  squareText: {
+    textAlign: 'center',
+    marginBottom: '20px',
+    fontSize: '24px',
+    fontWeight: 'bold',
+  },
 };
