@@ -46,7 +46,6 @@ export default function FormDialog({ open, setOpen }) {
 
   const getConditionObject = () => {
     const { label } = dataFields.find((dF) => dF.value === dataField);
-    console.log('label', label);
 
     return {
       id: generateRandomInteger(200, 1000),
@@ -74,14 +73,11 @@ export default function FormDialog({ open, setOpen }) {
   };
 
   const handleRemoveCondition = (id) => {
-    console.log('id', id);
     const newConditions = filter((c) => c.id !== id, conditions);
-    console.log(newConditions);
     setConditions(newConditions);
   };
 
   const handleChangeRuleName = (event) => {
-    console.log(event);
     setRuleName(event.target.value);
   };
 

@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import { isEmpty, filter, values } from 'ramda';
 import { isEmpty } from 'ramda';
 import { Button, TextField, Typography, Link, Box, Container, Paper, Grid } from '@mui/material';
 import { styles } from './styles';
-// import { sleep, validateEmail } from '../../utils';
 import { validateEmail } from '../../utils';
+import { forgotPassword } from '../../services/api';
 
 function ForgotPassword() {
   const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
 
-  // const history = useHistory();
   const [email, setEmail] = useState('');
   const [validationObject, setValidationObject] = useState({});
   const [continueClicked, setContinueClicked] = useState(false);
-  // const [signUpClicked, setSignUpClicked] = useState(false);
-
-  const getValidationObject = () => ({
-    email: isEmpty(email),
-  });
 
   useEffect(() => {
-    setValidationObject(getValidationObject);
+    // setValidationObject(getValidationObject);
     const handleWindowResize = () => {
       setWindowSize([window.innerWidth, window.innerHeight]);
     };
@@ -33,41 +25,27 @@ function ForgotPassword() {
     };
   }, []);
 
-  // const userResponse = await login(data);
-
-  // if (userResponse.ok) {
-  //   history.push('/rules');
-  // } else {
-  //   setIncorrectCredentials(true);
-  // }
-
-  //     console.log('user login object', userResponse)
-  //   };
-
   const handleOnChangeEmail = ({ target }) => {
     const { value } = target;
     setEmail(value);
-    // console.log('validate', validateEmail(value))
-    // console.log('fuuuuuuck', !(!isEmpty(value) && validateEmail(value)))
-    // const emailError = {
-    //   ...validationObject,
-    //   // email: isEmpty(value) && (isEmpty(value) || validateEmail(value))
-    //   email: !(!isEmpty(value) && validateEmail(value)),
-    // };
-    // if (signUpClicked) {
-    //   setValidationObject(emailError);
-    // }
   };
 
-  const handleContinueClick = () => {
-    setContinueClicked(true);
+  const handleContinueClick = async () => {
     const emailError = !validateEmail(email);
-    setValidationObject({ ...validationObject, email: emailError });
+    if (!isEmpty(email) && !emailError) {
+      console.log('POST!');
+      forgotPassword(email);
+    } else {
+      setValidationObject({ ...validationObject, email: emailError });
+      setContinueClicked(true);
+      // await sleep(500);
+    }
   };
+
+  console.log(validationObject);
+  console.log(email);
 
   const getWindowStyleSize = () => (windowSize[0] >= 680 ? '80px' : '10px');
-
-  // console.log(windowSize[0])
 
   return (
     <Container style={styles.container}>

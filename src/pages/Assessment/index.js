@@ -34,14 +34,11 @@ function Assessment({ match }) {
   });
 
   useEffect(() => {
-    const { id } = params;
-    if (id) {
-      console.log('id', id);
-      const task = find((t) => t.value === Number(id), toDos);
-      console.log('task', task);
+    const { uhid } = params;
+    if (uhid) {
+      const task = find((t) => t.uhid === uhid, toDos);
       setSelectedTask(task);
       const dateTime = `${task.dateofbirth}T00:00`;
-      console.log('datetime', dateTime);
       setAssessmentDateTime(dateTime);
     }
   }, []);

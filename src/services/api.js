@@ -30,6 +30,12 @@ export const createUser = async (body) => {
   return user;
 };
 
+export const forgotPassword = async (body) => {
+  const password = await api.post(endpoints.forgotPassword, { ...body }, headers);
+
+  return password;
+};
+
 export const getToDos = async () => {
   const authToken = await getAuthToken();
   api.setHeaders({

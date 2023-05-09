@@ -26,12 +26,12 @@ export const styles = {
     position: 'relative',
     margin: '8px',
     overflow: 'hidden',
-    '@media (min-width: 600px) and (max-width: 959px)': {
+    '@media (minWidth: 600px) and (maxWidth: 959px)': {
       flexBasis: 'calc(50% - 16px)',
       maxWidth: 'calc(50% - 16px)',
       paddingTop: 'calc(50% - 16px)',
     },
-    '@media (min-width: 960px)': {
+    '@media (minWidth: 960px)': {
       flexBasis: 'calc(25% - 16px)',
       maxWidth: 'calc(25% - 16px)',
       paddingTop: 'calc(25% - 16px)',

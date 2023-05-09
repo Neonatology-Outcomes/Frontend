@@ -26,7 +26,6 @@ function RulesActionComponent({ bundle }) {
 
   const getConditionObject = () => {
     const { label } = dataFields.find((dF) => dF.value === dataField);
-    console.log('label', label);
 
     return {
       id: generateRandomInteger(200, 1000),
@@ -54,10 +53,7 @@ function RulesActionComponent({ bundle }) {
   };
 
   const handleRemoveCondition = (id) => {
-    console.log('id', id);
-    // const index = findIndex()
     const newConditions = filter((c) => c.id !== id, conditions);
-    console.log(newConditions);
     setConditions(newConditions);
   };
 
@@ -80,8 +76,6 @@ function RulesActionComponent({ bundle }) {
   }, []);
 
   const getActionUI = () => {
-    console.log(bundle);
-    console.log(bundles[0]);
     switch (bundle) {
       case bundles[0]:
         return (

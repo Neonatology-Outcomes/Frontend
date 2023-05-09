@@ -64,7 +64,7 @@ function NurseDashboard() {
           <Paper
             key={index}
             style={styles.square}
-            onClick={() => history.push(`/assessment/${item.value}`)}
+            onClick={() => history.push(`/assessment/${item.uhid}`)}
           >
             <div style={styles.textContainer}>
               <Typography variant="h4" style={styles.title}>

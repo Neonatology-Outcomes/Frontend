@@ -20,7 +20,7 @@ function Routes() {
       <Route path="/todo" exact component={ToDoPage} />
       <Route path="/forgot-password" exact component={ForgotPassword} />
       <Route path="/nurse-dashboard" exact component={NurseDashboard} />
-      <Route path="/assessment/:id" exact component={Assessment} />
+      <Route path="/assessment/:uhid" exact component={Assessment} />
       <Route path="/compliance-dashboard" exact component={ComplianceDashboard} />
     </Router>
   );

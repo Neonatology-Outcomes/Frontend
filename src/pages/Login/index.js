@@ -24,6 +24,8 @@ function LoginPage() {
     };
   }, []);
 
+  const getUserRedirect = (role) => (role === 1 ? '/nurse-dashboard' : '/rules');
+
   const handleLogin = async () => {
     const data = {
       username,
@@ -33,12 +35,10 @@ function LoginPage() {
     const userResponse = await login(data);
 
     if (userResponse.ok) {
-      history.push('/rules');
+      history.push(getUserRedirect(userResponse.roleID));
     } else {
       setIncorrectCredentials(true);
     }
-
-    console.log('user login object', userResponse);
   };
 
   const handleChangeUsername = (event) => {
@@ -50,8 +50,6 @@ function LoginPage() {
   };
 
   const getWindowStyleSize = () => (windowSize[0] >= 680 ? '80px' : '10px');
-
-  // console.log(windowSize[0])
 
   return (
     <Container style={styles.container}>
@@ -98,7 +96,7 @@ function LoginPage() {
             </Grid>
           </Grid>
           <Box mt={2}>
-            <Link href="/forgotpassword" variant="body2" style={styles.forgotPassword}>
+            <Link href="/forgot-password" variant="body2" style={styles.forgotPassword}>
               Forgot password?
             </Link>
           </Box>
