@@ -6,6 +6,7 @@ import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
 // import { getToDos } from '../../services/api';
 import { toDos } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
+import { generateRandomInteger } from '../../utils';
 
 function ToDo() {
   const [toDoList, setToDoList] = useState([]);
@@ -67,7 +68,11 @@ function ToDo() {
             getOptionLabel={(option) => getTaskTitle(option.tasks)}
             isOptionEqualToValue={(option, value) => option.uhid === value.uhid}
             renderOption={(props, option) => (
-              <li {...props} key={option.uhid} style={styles.searchList(option.value)}>
+              <li
+                {...props}
+                key={generateRandomInteger(100, 100000)}
+                style={styles.searchList(option.value)}
+              >
                 <div>
                   <div style={styles.strong}>{getTaskTitle(option.tasks)}</div>
                   <div>{option.uhid}</div>
