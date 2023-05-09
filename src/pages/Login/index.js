@@ -24,7 +24,7 @@ function LoginPage() {
     };
   }, []);
 
-  const getUserRedirect = (role) => (role === 1 ? '/nurse-dashboard' : '/rules');
+  const getUserRedirect = (roleID) => (roleID === '1' ? '/nurse-dashboard' : '/rules');
 
   const handleLogin = async () => {
     const data = {
@@ -35,7 +35,7 @@ function LoginPage() {
     const userResponse = await login(data);
 
     if (userResponse.ok) {
-      history.push(getUserRedirect(userResponse.roleID));
+      history.push(getUserRedirect(userResponse.data.roleID));
     } else {
       setIncorrectCredentials(true);
     }
