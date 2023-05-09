@@ -3,7 +3,8 @@ import { isNil } from 'ramda';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
-import { getToDos } from '../../services/api';
+// import { getToDos } from '../../services/api';
+import { toDos } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
 
 function ToDo() {
@@ -12,17 +13,21 @@ function ToDo() {
   // const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
-    const fetchToDos = async () => {
-      const toDos = await getToDos();
-      if (toDos.ok) {
-        setToDoList(toDos.data);
-      } else {
-        console.error(toDos.error);
-      }
-    };
-
-    fetchToDos();
+    setToDoList(toDos);
   }, []);
+
+  // useEffect(() => {
+  //   const fetchToDos = async () => {
+  //     const toDos = await getToDos();
+  //     if (toDos.ok) {
+  //       setToDoList(toDos.data);
+  //     } else {
+  //       console.error(toDos.error);
+  //     }
+  //   };
+
+  //   fetchToDos();
+  // }, []);
 
   console.log('**** toDos from backend: ', toDoList);
 
