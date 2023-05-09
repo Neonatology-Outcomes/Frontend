@@ -9,34 +9,31 @@ import {
   // FormLabel,
   // Radio,
   // RadioGroup,
-  Grid,
+  // Grid,
   Checkbox,
   FormGroup,
 } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { styles } from './styles';
+import BundleSelector from '../../components/BundleSelector';
+import { getVariant, getVariantStyle } from '../../utils';
 
 function Assessment() {
   // Add your state and other logic here
-  const [activeState, setActiveState] = useState([false, false, false]);
-  const [dateTime, setDateTime] = useState(new Date().toLocaleString());
-  const [assessmentDate, setAssessmentDate] = useState(new Date());
-  const [assessmentDateTime, setAssessmentDateTime] = useState(new Date());
+  // const [activeState, setActiveState] = useState([false, false, false]);
+  // const [dateTime, setDateTime] = useState(new Date().toLocaleString());
+  const [assessmentDate] = useState(new Date());
+  // const [assessmentDateTime, setAssessmentDateTime] = useState(new Date());
   const [dayOfLife, setDayOfLife] = useState(1);
   const [actionDate, setActionDate] = useState(new Date().toISOString().slice(0, -8));
   const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
-  const [actionRadio, setActionRadio] = useState('');
+  const [selectedBundle, setSelectedBundle] = useState('At Admission');
+  // const [actionRadio, setActionRadio] = useState('');
   const [checkboxes, setCheckboxes] = useState({
     firstSkinToSkin: false,
     scheduleLactationConsultant: false,
     firstOralFeeding: false,
   });
-
-  const handleActiveClick = (index) => {
-    const newActiveState = [...activeState];
-    newActiveState[index] = !newActiveState[index];
-    setActiveState(newActiveState);
-  };
 
   const handleCheckboxChange = (event) => {
     setCheckboxes({
@@ -44,6 +41,14 @@ function Assessment() {
       [event.target.name]: event.target.checked,
     });
   };
+
+  const handleSetSelectedBundle = (bundle) => () => {
+    setSelectedBundle(bundle);
+  };
+
+  // const handleSetAssessmentDate = (event) => {
+  //   setAssessmentDate(event.target.value);
+  // };
 
   const updateDayOfLife = () => {
     const currentDate = new Date();
@@ -70,25 +75,12 @@ function Assessment() {
         Assessment
       </Typography> */}
 
-      <Box container spacing={2} style={styles.topSection}>
-        {['At Admission', 'In NICU', 'After Discharge'].map((box, index) => (
-          <Grid item xs={12} md={4} key={index}>
-            <Box
-              onClick={() => handleActiveClick(index)}
-              style={{
-                ...styles.box,
-                backgroundColor: activeState[index] ? 'green' : 'red',
-              }}
-            >
-              <Typography variant="h6">
-                {box}
-                <br />
-                <Typography>{activeState[index] ? 'Active' : 'Inactive'}</Typography>
-              </Typography>
-            </Box>
-          </Grid>
-        ))}
-      </Box>
+      <BundleSelector
+        getVariant={getVariant}
+        getVariantStyle={getVariantStyle}
+        handleSetSelectedBundle={handleSetSelectedBundle}
+        selectedBundle={selectedBundle}
+      />
       {/* 
       <Box component="div" display="flex" justifyContent="center" style={styles.midSection}>
         <Typography variant="h5" component="h2">
