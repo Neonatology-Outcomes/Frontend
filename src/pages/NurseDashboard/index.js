@@ -10,7 +10,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-// import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { toDos } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
@@ -18,7 +17,6 @@ import { styles } from './styles';
 function NurseDashboard() {
   const [toDoList, setToDoList] = useState([]);
   const [open, setOpen] = useState(false);
-  // const [notificationIndex, setNotificationIndex] = useState(null);
   const [selectedNotifications, setSelectedNotifications] = useState([]);
 
   const history = useHistory();
@@ -36,40 +34,6 @@ function NurseDashboard() {
     setToDoList(toDos);
   }, []);
 
-  // <IconButton style={styles.notificationButton} onClick={() => handleClickOpen(index)}>
-  //   <NotificationsIcon />
-  // </IconButton>;
-
-  //   <Dialog
-  //     open={open}
-  //     onClose={handleClose}
-  //     aria-labelledby="alert-dialog-title"
-  //     aria-describedby="alert-dialog-description"
-  //   >
-  //     <DialogTitle id="alert-dialog-title">Notifications</DialogTitle>
-  //     <DialogContent>
-  //       <DialogContentText id="alert-dialog-description">
-  //         {notificationIndex !== null && `Sample notification for square ${notificationIndex + 1}`}
-  //       </DialogContentText>
-  //     </DialogContent>
-  //     <DialogActions>
-  //       <Button onClick={handleClose} color="primary" autoFocus>
-  //         Close
-  //       </Button>
-  //     </DialogActions>
-  //   </Dialog>;
-
-  //   const data = [
-  //     ['P19997642', 'DoB 28.2.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2689g'],
-  //     ['P19997645', 'DoB 4.3.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2675g'],
-  //     ['P19997645', 'DoB 2.3.23', 'Weight 2675g'],
-  //   ];
   return (
     <Container
       maxWidth={false}
@@ -84,7 +48,7 @@ function NurseDashboard() {
           <Paper
             key={index}
             style={styles.square}
-            onClick={() => history.push(`/assessment/${item.uhid}`)}
+            onClick={() => history.push(`/assessment/${item.value}`)}
           >
             <div style={styles.textContainer}>
               <Typography variant="h4" style={styles.title}>
@@ -97,16 +61,19 @@ function NurseDashboard() {
                 Weight {item.birth_weight}
               </Typography>
             </div>
-            <IconButton
-              style={styles.notificationButton}
-              onClick={(event) => {
-                event.stopPropagation();
-                handleClickOpen(item.notifications);
-              }}
-            >
-              <Badge badgeContent={item.notifications.length} color="error" />
-              <NotificationsIcon />
-            </IconButton>
+            {item.notifications.length > 0 ? (
+              <IconButton
+                style={styles.notificationButton}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleClickOpen(item.notifications);
+                }}
+                size="1rem"
+              >
+                <Badge badgeContent={item.notifications.length} color="error" />
+                <NotificationsIcon />
+              </IconButton>
+            ) : null}
           </Paper>
         ))}
       </div>

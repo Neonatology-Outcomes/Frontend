@@ -48,32 +48,32 @@ function DrawerComponent() {
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="rules" component="a" underline="none" style={{ ...styles.link }}>
+            <Link href="/rules" component="a" underline="none" style={{ ...styles.link }}>
               <ListItemText primary="Rules" />
             </Link>
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="todo" component="a" underline="none" style={{ ...styles.link }}>
+            <Link href="/todo" component="a" underline="none" style={{ ...styles.link }}>
               <ListItemText primary="To Do" />
             </Link>
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="login" component="a" underline="none" style={{ ...styles.link }}>
+            <Link href="/login" component="a" underline="none" style={{ ...styles.link }}>
               <ListItemText primary="Login" />
             </Link>
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="signup" component="a" underline="none" style={{ ...styles.link }}>
+            <Link href="/signup" component="a" underline="none" style={{ ...styles.link }}>
               <ListItemText primary="Sign Up" />
             </Link>
           </ListItem>
           <Divider />
           <ListItem onClick={toggleDrawer(false)}>
-            <Link href="assessment" component="a" underline="none" style={{ ...styles.link }}>
-              <ListItemText primary="Assessment" />
+            <Link href="/nurse-dashboard" component="a" underline="none" style={{ ...styles.link }}>
+              <ListItemText primary="Nurse Dashboard" />
             </Link>
           </ListItem>
           <Divider />

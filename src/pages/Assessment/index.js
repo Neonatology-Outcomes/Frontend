@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
+import { find } from 'ramda';
 import {
   Box,
   Button,
@@ -15,13 +18,13 @@ import { differenceInDays } from 'date-fns';
 import { styles } from './styles';
 // import BundleSelector from '../../components/BundleSelector';
 import { getVariant, getVariantStyle } from '../../utils';
+import { toDos } from '../../constants/data/toDoMocks';
 
-function Assessment() {
-  // const [dateTime, setDateTime] = useState(new Date().toLocaleString());
-  // const [assessmentDate] = useState(new Date());
-  const [assessmentDateTime, setAssessmentDateTime] = useState(
-    new Date().toISOString().slice(0, -8),
-  );
+function Assessment({ match }) {
+  const { params } = match;
+
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [assessmentDateTime, setAssessmentDateTime] = useState('');
   const [dayOfLife, setDayOfLife] = useState(1);
   const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
   // const [actionDateTime, setActionDateTime] = useState(new Date().toISOString().slice(0, -8));
@@ -31,6 +34,19 @@ function Assessment() {
     scheduleLactationConsultant: false,
     firstOralFeeding: false,
   });
+
+  useEffect(() => {
+    const { id } = params;
+    if (id) {
+      console.log('id', id);
+      const task = find((t) => t.value === Number(id), toDos);
+      console.log('task', task);
+      setSelectedTask(task);
+      const dateTime = `${task.dateofbirth}T00:00`;
+      console.log('datetime', dateTime);
+      setAssessmentDateTime(dateTime);
+    }
+  }, []);
 
   console.log(checkboxes);
 
@@ -53,6 +69,7 @@ function Assessment() {
   const handleSetActionDateTime = (event) => {
     console.log(event.target.value);
     setActionDateTime(event.target.value);
+    console.log(selectedTask);
   };
 
   const updateDayOfLife = () => {
@@ -123,6 +140,7 @@ function Assessment() {
           style={{ marginBottom: '30px', width: '100%' }}
         >
           <TextField
+            disabled
             style={styles.textField}
             label="Date and Time of Assessment"
             type="datetime-local"
@@ -137,7 +155,7 @@ function Assessment() {
             style={styles.textField}
             label="Day of Life"
             type="number"
-            value={dayOfLife}
+            value={dayOfLife || ''}
             readOnly
           />
         </Box>
@@ -198,7 +216,7 @@ function Assessment() {
             />
           </FormGroup>
         </FormControl>
-        <Divider style={styles.divider} flexGrow={1} />
+        <Divider style={styles.divider} />
 
         <Box component="div" display="flex" justifyContent="center" paddingBottom="2rem">
           <Button variant="contained" color="primary">
@@ -210,4 +228,8 @@ function Assessment() {
   );
 }
 
-export default Assessment;
+Assessment.propTypes = {
+  match: PropTypes.object.isRequired,
+};
+
+export default withRouter(Assessment);

@@ -1,14 +1,12 @@
 export const styles = {
   container: {
-    paddingTop: '64px', // Adjust this value to the height of your top navigation bar
-    height: 'calc(100vh - 64px)', // Subtracting the top navigation bar height
-    width: '100%',
+    minHeight: 'calc(100vh - 68px)',
+    overflow: 'hidden',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 0,
-    margin: 0,
-    boxSizing: 'border-box', // Adding box-sizing to handle padding and border
+    width: '100%',
   },
   flexContainer: {
     display: 'flex',
