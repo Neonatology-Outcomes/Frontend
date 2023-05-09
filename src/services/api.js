@@ -48,3 +48,16 @@ export const getToDos = async () => {
 
   return toDos;
 };
+
+export const getDashboard = async () => {
+  const authToken = await getAuthToken();
+  api.setHeaders({
+    ...getAuthorizationHeader(authToken),
+  });
+  const toDos = await api.get(
+    endpoints.dashboard,
+    // headers and auth header for endpoints with authorization
+  );
+
+  return toDos;
+};

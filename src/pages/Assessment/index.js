@@ -5,6 +5,7 @@ import { find, isNil } from 'ramda';
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Divider,
   Typography,
@@ -18,7 +19,8 @@ import NumbersIcon from '@mui/icons-material/Numbers';
 import { differenceInDays } from 'date-fns';
 import { styles } from './styles';
 import { getVariant, getVariantStyle } from '../../utils';
-import { toDos } from '../../constants/data/toDoMocks';
+import { getDashboard } from '../../services/api';
+// import { toDos } from '../../constants/data/toDoMocks';
 function Assessment({ match }) {
   const { params } = match;
 
@@ -35,12 +37,18 @@ function Assessment({ match }) {
 
   useEffect(() => {
     const { uhid } = params;
-    if (uhid) {
-      const task = find((t) => t.uhid === uhid, toDos);
-      setSelectedTask(task);
-      const dateTime = `${task.dateofbirth}T00:00`;
-      setAssessmentDateTime(dateTime);
-    }
+    const fetchToDos = async () => {
+      const toDos = await getDashboard();
+      if (toDos.ok) {
+        // setToDoList(toDos.data);
+        const task = find((t) => t.uhid === uhid, toDos.data);
+        setSelectedTask(task);
+      } else {
+        console.error(toDos.error);
+      }
+    };
+
+    fetchToDos();
   }, []);
 
   // console.log(checkboxes);
@@ -238,7 +246,20 @@ function Assessment({ match }) {
         </Box>
       </Box>
     </Container>
-  ) : null;
+  ) : (
+    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh - 68px)',
+        }}
+      >
+        <CircularProgress size="8rem" />
+      </Box>
+    </Box>
+  );
 }
 
 Assessment.propTypes = {

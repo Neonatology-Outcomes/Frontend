@@ -13,7 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useHistory } from 'react-router-dom';
-import { getToDos } from '../../services/api';
+import { getDashboard } from '../../services/api';
 // import { toDos } from '../../constants/data/toDoMocks';
 import { styles } from './styles';
 
@@ -39,7 +39,7 @@ function NurseDashboard() {
 
   useEffect(() => {
     const fetchToDos = async () => {
-      const toDos = await getToDos();
+      const toDos = await getDashboard();
       if (toDos.ok) {
         setToDoList(toDos.data);
       } else {

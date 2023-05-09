@@ -6,4 +6,5 @@ export const endpoints = {
   signup: '/signup',
   forgotPassword: '/forget_password',
   todos: '/getNurseDailyTasks/',
+  dashboard: '/getDashboard/',
 };

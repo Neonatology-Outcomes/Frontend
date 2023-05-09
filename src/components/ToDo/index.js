@@ -81,7 +81,7 @@ function ToDo() {
                   <div style={styles.strong}>{getTaskTitle(option.tasks)}</div>
                   <div>{option.uhid}</div>
                   <div>{option.dateofbirth}</div>
-                  <div>Weight{option.birth_weight} g</div>
+                  <div>Weight {option.birth_weight} g</div>
                 </div>
               </li>
             )}

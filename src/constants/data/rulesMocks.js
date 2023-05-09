@@ -57,7 +57,7 @@ export const operators = [
   },
   {
     value: 3,
-    label: '>=',
+    label: 'Greater than',
   },
   {
     value: 4,
