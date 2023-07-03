@@ -103,7 +103,7 @@ export default function FormDialog({ open, setOpen }) {
 
   return (
     <Dialog open={isOpen} onClose={handleChangeOpen(false)} maxWidth="lg" fullWidth>
-      <DialogTitle>Create Role</DialogTitle>
+      <DialogTitle>Create Rule</DialogTitle>
 
       <BundleSelector
         getVariant={getVariant}

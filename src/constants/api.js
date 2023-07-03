@@ -1,5 +1,5 @@
-export const apiUrl = 'https://api.neonatologyoutcomes.com';
-// export const apiUrl = 'http://localhost:8080';
+// export const apiUrl = 'https://api.neonatologyoutcomes.com';
+export const apiUrl = 'http://localhost:8080';
 
 export const endpoints = {
   login: '/login',
